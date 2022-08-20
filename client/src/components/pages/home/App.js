@@ -1,9 +1,10 @@
 import '../../../styles/App.css';
 import React, { useEffect, useState } from 'react'
-import SignIn from '../login/Signin';
+import SignIn from '../login/Signin'
+import Navbar from './Navbar';
+import Dashboard from '../dashboard/Dashboard'
 import { Routes, Route } from 'react-router-dom'
 import { Container, styled } from '@mui/material'
-import Dashboard from '../dashboard/Dashboard';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
@@ -20,7 +21,7 @@ function App() {
   
   return (
     <AppContainer>
-
+      <Navbar onLogout={setCurrentUser} />
       <Routes>
         <Route path='/dashboard' element={ <Dashboard /> } />
 

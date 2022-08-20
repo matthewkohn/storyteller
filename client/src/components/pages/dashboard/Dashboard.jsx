@@ -1,11 +1,16 @@
+import { styled, Typography } from '@mui/material'
 import React from 'react'
 
 const Dashboard = () => {
   return (
     <>
-      <h1>Nice work!</h1>    
+      <Test variant='h1'>Nice work!</Test>    
     </>
   )
 }
 
 export default Dashboard
+
+const Test = styled(Typography)({
+  margin: '100px'
+})
