@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 
 function App() {
   useEffect(() => {
-    fetch('/users')
+    fetch('/me')
     .then(r => r.json())
     .then(console.log)
   }, [])
