@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
 import { styled } from '@mui/system'
 import React from 'react'
+import { errorBoxCss } from '../../../styles/login/loginCss'
 
 const LoginError = ({ children }) => {
   return (
@@ -13,11 +14,4 @@ const LoginError = ({ children }) => {
 
 export default LoginError
 
-const ErrorBox = styled(Box)(({ theme }) => `
-  color: red;
-  background: lightblue;
-  margin: 2px auto;
-  padding: 0 25px;
-  border-radius: 10px;
-  font-family: 'Kalam';
-`)
+const ErrorBox = styled(Box)(errorBoxCss)

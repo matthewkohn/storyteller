@@ -1,71 +1,53 @@
 import React, { useState } from 'react'
 import LoginForm from '../../forms/LoginForm'
-import { Box, Button, styled, Typography } from '@mui/material'
+import { Box, Button, Container, styled, Typography } from '@mui/material'
+import { backgroundContainerCss, signInContainerCss, taglineCss, titleCss, toggleBtnCss } from '../../../styles/login/loginCss'
 
 const SignIn = ({ setCurrentUser }) => {
   const [showSignUp, setShowSignUp] = useState(false)
 
   return (
-    <SignInContainer component='section'>
-      <Title variant='h3'>Storyteller</Title>
-      { showSignUp ? 
-        <Tagline variant='h5'>Sign Up for Free</Tagline>
-        :
-        <>
-          <Tagline variant='h5'>Tell Your Stories.</Tagline>
-          <Tagline variant='h6'>Login Here.</Tagline>
-        </>
-      }
-      <LoginForm onLogin={setCurrentUser} showSignUp={showSignUp} />
-      { showSignUp ?
-        <Typography variant='subtitle2'>
-          Already have an account? &nbsp;
-          <ToggleBtn onClick={ () => setShowSignUp(false) } >
-            Log In
-          </ToggleBtn>
-        </Typography>
-        :
-        <Typography variant='subtitle2'>
-          Don't have an account? &nbsp;
-          <ToggleBtn onClick={ () => setShowSignUp(true) } >
-            Sign Up
-          </ToggleBtn>
-        </Typography>
-      }    
-    </SignInContainer>
+    <BackgroundContainer maxWidth='xl' disableGutters>
+      <SignInContainer component='section'>
+        <Title variant='h3'>Storyteller</Title>
+        { showSignUp ? 
+          <Tagline variant='h5'>Sign Up for Free</Tagline>
+          :
+          <>
+            <Tagline variant='h5'>Tell Your Stories.</Tagline>
+            <Tagline variant='h6'>Login Here.</Tagline>
+          </>
+        }
+        <LoginForm onLogin={setCurrentUser} showSignUp={showSignUp} />
+        { showSignUp ?
+          <Typography variant='subtitle2'>
+            Already have an account? &nbsp;
+            <ToggleBtn onClick={ () => setShowSignUp(false) } >
+              Log In
+            </ToggleBtn>
+          </Typography>
+          :
+          <Typography variant='subtitle2'>
+            Don't have an account? &nbsp;
+            <ToggleBtn onClick={ () => setShowSignUp(true) } >
+              Sign Up
+            </ToggleBtn>
+          </Typography>
+        }    
+      </SignInContainer>
+    </BackgroundContainer>
   )
 }
 
 export default SignIn
 
 
-const SignInContainer = styled(Box)(({ theme }) => `
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 20px;
-  text-align: center;
-  width: 500px;
-  min-height: 585px;
-  border-radius: 20px;
-  margin: 100px auto;
-  background: ${theme.palette.primary.dark};
-  color: ${theme.palette.primary.light};
-`)
+const BackgroundContainer = styled(Container)(backgroundContainerCss)
 
-const Title = styled(Typography)({
-  margin: '20px auto',
-  fontWeight: 700,
-  letterSpacing: '2px'
-})
+const SignInContainer = styled(Box)(signInContainerCss)
 
-const Tagline = styled(Typography)({
-  margin: '20px 0 30px'
-})
+const Title = styled(Typography)(titleCss)
 
-const ToggleBtn = styled(Button)(({ theme }) => `
-  :hover {
-    background: ${theme.palette.secondary.light};
-    color: ${theme.palette.secondary.dark};
-  }
-`)
+const Tagline = styled(Typography)(taglineCss)
+
+const ToggleBtn = styled(Button)(toggleBtnCss)

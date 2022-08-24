@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import Dashboard from '../dashboard/Dashboard'
 import { Routes, Route } from 'react-router-dom'
 import { Container, styled } from '@mui/material'
+import { appContainerCss } from '../../../styles/main/appCss';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
@@ -39,8 +40,5 @@ function App() {
 
 export default App;
 
-const AppContainer = styled(Container)(({ theme }) => `
-  background: ${theme.palette.primary.light};
-  color: ${theme.palette.secondary.dark};
-  width: 100vw;
-`)
+
+const AppContainer = styled(Container)(appContainerCss)
