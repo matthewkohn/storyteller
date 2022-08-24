@@ -13,11 +13,11 @@ const LoginError = ({ children }) => {
 
 export default LoginError
 
-const ErrorBox = styled(Box)({
-  color: 'red',
-  backgroundColor: 'lightblue',
-  margin: '2px auto',
-  padding: '5px 15px',
-  borderRadius: '10px',
-  fontStyle: 'italic'
-})
+const ErrorBox = styled(Box)(({ theme }) => `
+  color: red;
+  background: lightblue;
+  margin: 2px auto;
+  padding: 0 25px;
+  border-radius: 10px;
+  font-family: 'Kalam';
+`)

@@ -102,19 +102,22 @@ const LoginBox = styled(Box)({
   flexDirection: 'column'
 })
 
-const Credential = styled(TextField)({
-  background: '#DDC',
-  borderRadius: '5px',
-  margin: '0 auto 15px'
-})
+const Credential = styled(TextField)(({ theme }) => `
+  background: ${theme.palette.primary.light};
+  border-radius: 5px;
+  margin: 0 auto 15px;
+  font-family: 'Kalam';
+  // ${theme.typography.fontFamily}: 'Kalam';
+`)
 
-const SubmitBtn = styled(Button)({
-  color: '#DDC',
-  margin: '23px auto',
-  padding: '20px',
-  border: '1px solid #666',
-  borderRadius: '15px',
-  '&:hover': {
-    backgroundColor: 'blue'
+const SubmitBtn = styled(Button)(({ theme }) => `
+  margin: 23px auto;
+  padding: 20px;
+  border: 1px solid #666;
+  border-radius: 25px;
+  color: ${theme.palette.primary.light};
+  :hover {
+    background: ${theme.palette.secondary.light};
+    color: ${theme.palette.secondary.dark};
   }
-})
+`)

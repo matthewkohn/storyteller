@@ -12,7 +12,7 @@ const Navbar = ({ onLogout }) => {
     .then(() => {
       onLogout(null)
     })
-    .then(navigate('/'))
+    .then(navigate('/login'))
   }
 
   return (
@@ -28,23 +28,25 @@ const Navbar = ({ onLogout }) => {
 export default Navbar
 
 
-const Banner = styled(AppBar)({
-  display: 'flex',
-  flexDirection: 'row',
-  background: '#21BA54',
-  color: '#DDC'
-})
+const Banner = styled(AppBar)(({ theme }) => `
+  color: ${theme.palette.primary.light};
+  background-color: ${theme.palette.primary.dark};
+  flex-direction: row;
+  min-height: 10vh;
+`)
 
 const Header = styled(Typography)({
   padding: '10px',
-  flexGrow: 1
+  flexGrow: 1,
+  letterSpacing: '2px',
 })
 
-const Btn = styled(IconButton)({
-  color: '#DDC',
-  margin: '10px',
-  '&:hover': {
-    opacity: [0.9, 0.8, 0.7],
-    color: '#F16500'
+const Btn = styled(IconButton)(({ theme }) => `
+  color: ${theme.palette.primary.light};
+  margin: 10px;
+  padding: 15px;
+  :hover {
+    color: ${theme.palette.secondary.light};
+    background-color: ${theme.palette.secondary.dark}
   }
-})
+`)

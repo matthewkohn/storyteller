@@ -1,29 +1,31 @@
 import React, { useState } from 'react'
 import LoginForm from '../../forms/LoginForm'
-
 import { Box, Button, styled, Typography } from '@mui/material'
 
 const SignIn = ({ setCurrentUser }) => {
   const [showSignUp, setShowSignUp] = useState(false)
 
   return (
-    <SignInContainer component='section' >
-      <Logo variant='h3'>Storyteller</Logo>
+    <SignInContainer component='section'>
+      <Title variant='h3'>Storyteller</Title>
       { showSignUp ? 
-        <Title variant='h5'>Sign Up for Free</Title>
+        <Tagline variant='h5'>Sign Up for Free</Tagline>
         :
-        <Title variant='h5'>Login to Order</Title>
+        <>
+          <Tagline variant='h5'>Tell Your Stories.</Tagline>
+          <Tagline variant='h6'>Login Here.</Tagline>
+        </>
       }
       <LoginForm onLogin={setCurrentUser} showSignUp={showSignUp} />
       { showSignUp ?
-        <Typography variant='caption'>
+        <Typography variant='subtitle2'>
           Already have an account? &nbsp;
           <ToggleBtn onClick={ () => setShowSignUp(false) } >
             Log In
           </ToggleBtn>
         </Typography>
         :
-        <Typography variant='caption'>
+        <Typography variant='subtitle2'>
           Don't have an account? &nbsp;
           <ToggleBtn onClick={ () => setShowSignUp(true) } >
             Sign Up
@@ -37,37 +39,33 @@ const SignIn = ({ setCurrentUser }) => {
 export default SignIn
 
 
-const SignInContainer = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  padding: '20px',
-  textAlign: 'center',
-  color: '#DDC',
-  width: 500,
-  minHeight: 585,
-  borderRadius: '20px',
-  margin: '100px auto',
-  backgroundColor: '#F26F63',
-  '&:hover': {
-    backgroundColor: '#049DD9',
-    opacity: [0.9, 0.8, 0.7]
-  }
-})
+const SignInContainer = styled(Box)(({ theme }) => `
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  text-align: center;
+  width: 500px;
+  min-height: 585px;
+  border-radius: 20px;
+  margin: 100px auto;
+  background: ${theme.palette.primary.dark};
+  color: ${theme.palette.primary.light};
+`)
 
-const Logo = styled(Typography)({
+const Title = styled(Typography)({
   margin: '20px auto',
-  fontStyle: 'italic',
+  fontWeight: 700,
   letterSpacing: '2px'
 })
 
-const Title = styled(Typography)({
+const Tagline = styled(Typography)({
   margin: '20px 0 30px'
 })
 
-const ToggleBtn = styled(Button)({
-  color: 'blue',
-  '&:hover': {
-    backgroundColor: 'lightblue'
+const ToggleBtn = styled(Button)(({ theme }) => `
+  :hover {
+    background: ${theme.palette.secondary.light};
+    color: ${theme.palette.secondary.dark};
   }
-})
+`)
