@@ -17,6 +17,7 @@ const Navbar = ({ onLogout }) => {
 
   return (
     <Banner>
+      <img src='../../../assets/images/storyteller-logo-no-bg.png' alt='Storyteller Logo' />
       <Header variant='h3' component='div'>Storyteller</Header>
       <Btn onClick={ () => handleLogout() } >
         <LogoutIcon />

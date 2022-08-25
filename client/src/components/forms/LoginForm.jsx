@@ -41,7 +41,7 @@ const LoginForm = ({ onLogin, showSignUp }) => {
       setIsLoading(false)
       if (res.ok) {
         res.json().then((newUser) => onLogin(newUser))
-        .then(navigate('/dashboard'))
+        .then(() => showSignUp ? navigate('/intro') : navigate('/dashboard'))
       } else {
         res.json().then((err) => setErrors(err.errors))
       }

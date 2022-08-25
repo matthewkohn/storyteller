@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import SignIn from '../login/Signin'
 import Navbar from './Navbar';
+import IntroPage from '../intro/IntroPage';
 import Dashboard from '../dashboard/Dashboard'
 import { Routes, Route } from 'react-router-dom'
 import { Container, styled } from '@mui/material'
@@ -30,6 +31,7 @@ function App() {
     <AppContainer>
       <Navbar onLogout={setCurrentUser} />
       <Routes>
+        <Route path='/intro' element={ <IntroPage /> } />
         <Route path='/dashboard' element={ <Dashboard /> } />
 
         <Route path='/login' element={ <SignIn setCurrentUser={setCurrentUser} /> } />
