@@ -1,41 +1,26 @@
 import React, { useContext, useState } from 'react';
-import AuthError from '../pages/landing/form-side/AuthError';
+import { Box, Button, FormControl, styled, TextField } from '@mui/material';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import { UserContext } from '../../context/UserContext';
 import { handleAPI } from '../../helpers/fetchRequests';
-import { Box, Button, FormControl, styled, TextField } from '@mui/material';
-import LoginIcon from '@mui/icons-material/Login';
-import { useNavigate } from 'react-router-dom';
 import { credentialCss, loginBoxCss, submitBtnCss } from '../../styles/login/loginCss';
+import AuthError from '../pages/landing/form-side/AuthError';
 
 
-const LoginForm = () => {
+const SignupForm = ({ onSignUp, onUserInput, userInfo }) => {
   const { setUser } = useContext(UserContext);
-  const [userInfo, setUserInfo] = useState({
-    username: '',
-    password: ''
-  });
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  const navigate = useNavigate();
-
-  const handleUserInput = (e) => {
-    const inputName = e.target.name
-    setUserInfo({
-      ...userInfo, 
-      [inputName]: e.target.value
-    })
-  }
   
-  const handleLogin = (e) => {
+  const handleSignup = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    handleAPI("/login", "POST", userInfo)
+    handleAPI("/signup", "POST", userInfo)
     .then((res) => {
       setIsLoading(false);
       if (res.ok) {
         res.json().then((newUser) => setUser(newUser))
-        .then(() => navigate('/dashboard'));
+        .then(() => onSignUp(true));
       } else {
         res.json().then((err) => setErrors(err.errors));
       }
@@ -51,37 +36,45 @@ const LoginForm = () => {
         name={ attr }
         type={ attr }
         value={ val }
-        onChange={ (e) => handleUserInput(e) } />
+        onChange={ (e) => onUserInput(e) } />
     )
   }
 
   return (
     <FormControl variant="standard" >
-      <LoginBox 
+      <SignupBox 
         component="form" 
-        onSubmit={ (e) => handleLogin(e) } 
-        id="login-form"
+        onSubmit={ (e) => handleSignup(e) } 
+        id="signup-form"
       >
         { input("username", true, userInfo.username) }
         { input("password", false, userInfo.password) }
+        <Credential 
+          required 
+          label="confirm password"
+          name="password_confirmation"
+          type="password"
+          value={ userInfo.password_confirmation }
+          onChange={ (e) => onUserInput(e) }
+        />
         <SubmitBtn 
           size="large" 
           variant="outline" 
           type="submit" 
-          form="login-form"
-          endIcon={ <LoginIcon /> }
+          form="signup-form"
+          endIcon={ <AppRegistrationIcon /> }
         >
-          { isLoading ? "LOADING..." : "Log in" }
+          { isLoading ? "LOADING..." : "Let's get started!" }
         </SubmitBtn>
-      </LoginBox>
+      </SignupBox>
       { errors.map((err) => <AuthError key={ err }>{ err }</AuthError>) }
     </FormControl>
   )
 }
 
-export default LoginForm
+export default SignupForm
 
 // Styled components
-const LoginBox = styled(Box)(loginBoxCss);
+const SignupBox = styled(Box)(loginBoxCss);
 const Credential = styled(TextField)(credentialCss);
 const SubmitBtn = styled(Button)(submitBtnCss);

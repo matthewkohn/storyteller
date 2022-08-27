@@ -1,40 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import SignIn from '../login/Signin'
-import Navbar from './Navbar';
-import IntroPage from '../intro/IntroPage';
-import Dashboard from '../dashboard/Dashboard'
-import { Routes, Route } from 'react-router-dom'
-import { Container, styled } from '@mui/material'
+import React, { useContext } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { Container, styled } from '@mui/material';
 import { appContainerCss } from '../../../styles/main/appCss';
+import { UserContext } from '../../../context/UserContext';
+import Landing from '../landing/Landing';
+import Navbar from './Navbar';
+import Dashboard from '../dashboard/Dashboard';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null)
-  const [error, setError] = useState("")
+  const { user } = useContext(UserContext);
 
-  useEffect(() => {
-    fetch('/me')
-    .then((res) => {
-      if (res.ok) {
-        res.json().then(setCurrentUser)
-      } else if (res.status === 401) {
-        setError(res.statusText)
-      }
-    })
-  }, [])
+  if (!user) return <Landing />
 
-  if (!currentUser) return <SignIn setCurrentUser={setCurrentUser} />
-
-  console.log("CurrentUser from fetch'/me': ", currentUser)
-  console.log("Error from APP: ", error)
+  console.log("CurrentUser from fetch'/me': ", user)
   
   return (
     <AppContainer>
-      <Navbar onLogout={setCurrentUser} />
+      <Navbar />
       <Routes>
-        <Route path='/intro' element={ <IntroPage /> } />
         <Route path='/dashboard' element={ <Dashboard /> } />
 
-        <Route path='/login' element={ <SignIn setCurrentUser={setCurrentUser} /> } />
+        <Route index element={ <Landing /> } />
       </Routes>
     </AppContainer>
   );
@@ -42,5 +28,5 @@ function App() {
 
 export default App;
 
-
-const AppContainer = styled(Container)(appContainerCss)
+// Styled components
+const AppContainer = styled(Container)(appContainerCss);

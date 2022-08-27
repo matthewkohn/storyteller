@@ -1,23 +1,26 @@
-import { handleDELETE } from '../../../helpers/fetchRequests'
-import { AppBar, IconButton, styled, Typography } from '@mui/material'
-import LogoutIcon from '@mui/icons-material/Logout'
-import { useNavigate } from 'react-router-dom'
+import React, { useContext } from 'react';
+import { UserContext } from '../../../context/UserContext';
+import { handleDELETE } from '../../../helpers/fetchRequests';
+import { AppBar, IconButton, styled, Typography } from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from 'react-router-dom';
 
 
-const Navbar = ({ onLogout }) => {
-  const navigate = useNavigate()
+const Navbar = () => {
+  const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     handleDELETE('/logout')
     .then(() => {
-      onLogout(null)
+      setUser(null);
     })
-    .then(navigate('/login'))
+    .then(navigate('/'));
   }
 
   return (
     <Banner>
-      <img src='../../../assets/images/storyteller-logo-no-bg.png' alt='Storyteller Logo' />
+      {/* <img src='../../../assets/images/storyteller-logo-no-bg.png' alt='Storyteller Logo' /> */}
       <Header variant='h3' component='div'>Storyteller</Header>
       <Btn onClick={ () => handleLogout() } >
         <LogoutIcon />
@@ -28,7 +31,7 @@ const Navbar = ({ onLogout }) => {
 
 export default Navbar
 
-
+// Styled components
 const Banner = styled(AppBar)(({ theme }) => `
   color: ${theme.palette.primary.light};
   background-color: ${theme.palette.primary.dark};

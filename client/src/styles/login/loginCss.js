@@ -31,7 +31,7 @@ const signInContainerCss = ({ theme }) => `
 padding: 20px;
 text-align: center;
 width: 450px;
-min-height: 585px;
+min-height: 60vh;
 border-radius: 20px;
 margin: 10vh auto;
 background: ${theme.palette.primary.dark};
