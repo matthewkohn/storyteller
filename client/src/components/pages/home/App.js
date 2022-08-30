@@ -12,8 +12,6 @@ function App() {
   const { user } = useContext(UserContext);
 
   if (!user) return <Landing />
-
-  console.log("CurrentUser from fetch'/me': ", user)
   
   return (
     <AppContainer>

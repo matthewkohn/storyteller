@@ -1,21 +1,23 @@
-// import React, { useState } from 'react'
-// import React, { useContext, useState } from 'react'
-// import AuthError from '../pages/landing/form-side/AuthError'
-// import { UserContext } from '../../../context/UserContext'
-// // import { handleAPI } from '../../helpers/fetchRequests'
-// import { Box, Button, FormControl, styled, TextField, Typography } from '@mui/material'
-// import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
-// import { credentialCss, loginBoxCss, submitBtnCss, taglineCss } from '../../styles/login/loginCss'
-import React from "react"
+import React, { useEffect, useState } from 'react';
+import { Box, Button, FormControl, Select, styled, TextField, Typography } from '@mui/material';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import { favInputCss, favoritesBoxCss, newUserBoxCss, primaryItemsCss, submitBtnCss } from '../../styles/start/newUserCss';
 
-const NewUserForm = () => {
-// const NewUserForm = ({ onGoBack, onUserInput, userInfo }) => {
-  // const { user, setUser } = useContext(UserContext);
-  // const [errors, setErrors] = useState([])
-  // const [isLoading, setIsLoading] = useState(false)
-  // const [authorName, setAuthorName] = useState('');
-  // const [genre, setGenre] = useState('');
+const NewUserForm = ({ onInputChange, inputs: { penName, favoriteAuthor, favoriteBook, favoriteAudiobook, favoritePodcast, genre }}) => {
+  const [genres, setGenres] = useState({});
 
+  useEffect(() => {
+    // fetch genres
+    setGenres({})
+    console.log("New User useEffect", genres)
+    // eslint-disable-next-line
+  }, [])
+
+
+  // handleSubmit
+  //    * POST create '/authors'
+  //    * PATCH update '/users/:id' (unless all blank)
+  //    * navigate client to new story based on genre/author names
 
   // const handleSubmit = (e) => {
   //   e.preventDefault()
@@ -26,68 +28,86 @@ const NewUserForm = () => {
   //   console.log(userInfo)
   // }
 
-  // const handleLogin = (e) => {
-  //   e.preventDefault()
-  //   setIsLoading(true)
-  //   let url = ""
-  //   showSignUp ? url = "/signup" : url = "/login"
-  //   handleAPI(url, "POST", userInfo)
-  //   .then((res) => {
-  //     setIsLoading(false)
-  //     if (res.ok) {
-  //       res.json().then((newUser) => setUser(newUser))
-  //       .then(() => showSignUp ? navigate('/intro') : navigate('/dashboard'))
-  //     } else {
-  //       res.json().then((err) => setErrors(err.errors))
-  //     }
-  //   })
-  // }
+  // const genresList = genres.map((genre) => (
+  //   <MenuItem 
+        // key={ genre.id } 
+        // name={ genre.name }
+        // value={ genre.name }
+        // >
+        // { genre.name }
+        // </MenuItem>
+  // ))
 
-  return ( <><h1>NewUserForm in progress...</h1></>)}
+  const favInputComponent = (name, value, label) => {
+    return (
+      <FavInput
+        name={ name }
+        value={ value }
+        label={ label }
+        size="small"
+        onChange={ (e) => onInputChange(e) }
+        variant="standard"
+      />
+    )
+  }
 
-//   return (
-  //<>
-  //  <Header variant="h3">Out story starts with you, { user.username }</Header>
-//     <FormControl variant="standard" >
-//       <SignupBox 
-//         component="form" 
-//         onSubmit={ (e) => handleSignup(e) } 
-//         id="new-user-form"
-//       >
-//         { input("username", true, userInfo.username) }
-//         { input("password", false, userInfo.password) }
-//         <Credential 
-//           required 
-//           label="confirm password"
-//           name="password_confirmation"
-//           type="password"
-//           value={ userInfo.password_confirmation }
-//           onChange={ (e) => onUserInput(e) }
-//         />
-//         <BackBtn onClick={() => onGoBack(false)}>Go Back</BackBtn>
-//         <SubmitBtn 
-//           size="large" 
-//           variant="outline" 
-//           type="submit" 
-//           form="new-user-form"
-//           endIcon={ <AppRegistrationIcon /> }
-//         >
-//           { isLoading ? "LOADING..." : "Let's get started!" }
-//         </SubmitBtn>
-//       </SignupBox>
-//       { errors.map((err) => <AuthError key={ err }>{ err }</AuthError>) }
-//     </FormControl>
-//   )
-// }
+
+  return ( 
+    <FormControl variant="standard" >
+      <NewUserBox
+        component="form" 
+        // onSubmit={ (e) => handleSubmit(e) } 
+        id="new-user-form"
+      >
+        <PrimaryItems>
+          <Typography variant="body1">Choose your first alias</Typography>
+          <TextField 
+            autoFocus
+            required
+            name="penName"
+            value={ penName }
+            onChange={ (e) => onInputChange(e) }
+            label="Pen Name" 
+            variant="standard" 
+          />
+        </PrimaryItems>
+        <PrimaryItems>
+          <Typography variant='body1'>Choose a Genre</Typography>
+          <Select 
+            required
+            label="Genres" 
+            value={ genre } 
+            onChange={ (e) => onInputChange(e) } 
+          >
+            {/* { genresList }    */}
+          </Select> 
+        </PrimaryItems>
+        <Typography variant="body1">Share your literary opinions (optional):</Typography>
+        <FavoritesBox>
+          { favInputComponent("favoriteAuthor", favoriteAuthor, "Favorite Author") }
+          { favInputComponent("favoriteBook", favoriteBook, "Favorite Book") }
+          { favInputComponent("favoriteAudiobook", favoriteAudiobook, "Favorite Audiobook") }
+          { favInputComponent("favoritePodcast", favoritePodcast, "Favorite Podcast") }
+        </FavoritesBox>
+      </NewUserBox>
+    
+      <SubmitBtn 
+        size="large"
+        variant="contained" 
+        form="new-user-form"
+        endIcon={ <LightbulbIcon /> }
+      >
+        Begin your first story
+      </SubmitBtn>
+    </FormControl>
+  )
+}
 
 export default NewUserForm
 
-// const SignupBox = styled(Box)(loginBoxCss)
-
-// const Header = styled(Typography)(taglineCss)
-
-// const Credential = styled(TextField)(credentialCss)
-
-// const SubmitBtn = styled(Button)(submitBtnCss)
-
-// const BackBtn = styled(Button)(submitBtnCss)
+// Styled components
+const NewUserBox = styled(Box)(newUserBoxCss);
+const SubmitBtn = styled(Button)(submitBtnCss);
+const FavoritesBox = styled(Box)(favoritesBoxCss);
+const FavInput = styled(TextField)(favInputCss);
+const PrimaryItems = styled(Box)(primaryItemsCss);
