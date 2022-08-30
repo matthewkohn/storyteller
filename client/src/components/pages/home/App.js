@@ -6,7 +6,7 @@ import { UserContext } from '../../../context/UserContext';
 import Landing from '../landing/Landing';
 import Navbar from './Navbar';
 import Dashboard from '../dashboard/Dashboard';
-import NewUser from '../landing/form-side/NewUser';
+import NewUser from '../start/NewUser';
 
 function App() {
   const { user } = useContext(UserContext);

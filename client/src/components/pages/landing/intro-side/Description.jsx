@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, styled, Typography } from '@mui/material';
+import { headerCss, introCardCss, sectionCss } from '../../../../styles/login/introCss';
 
 
 const Description = () => {
@@ -32,21 +33,8 @@ const Description = () => {
 export default Description
 
 // Styled components
-const IntroCard = styled(Card)(({ theme }) => `
-  background: ${theme.palette.primary.light};
-  color: ${theme.palette.primary.dark};
-  padding: 10px 25px;
-  border-radius: 20px;
-  height: 100%;
-`)
+const IntroCard = styled(Card)(introCardCss)
 
-const Header = styled(Typography)({
-  marginBottom: '20px',
-  fontWeight: '700',
-})
+const Header = styled(Typography)(headerCss)
 
-const Section = styled(Typography)({
-  fontSize: '1.2rem',
-  margin: '5px 40px 10px',
-
-})
+const Section = styled(Typography)(sectionCss)

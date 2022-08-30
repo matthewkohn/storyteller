@@ -1,15 +1,15 @@
 import React from 'react';
 import { Container, styled } from '@mui/material';
-import { backgroundContainerCss } from '../../../styles/login/loginCss';
+import { backgroundContainerCss, landingContainerCss } from '../../../styles/login/landingCss';
 import IntroBox from './intro-side/IntroBox';
-import FormBox from './form-side/FormBox';
+import LoginBox from './login-side/LoginBox';
 
 const Landing = () => {
   return (
     <BackgroundContainer maxWidth='xl' disableGutters>
       <LandingContainer>
         <IntroBox />
-        <FormBox />
+        <LoginBox />
 
       </LandingContainer>
     </BackgroundContainer>
@@ -21,8 +21,4 @@ export default Landing
 // Styled components
 const BackgroundContainer = styled(Container)(backgroundContainerCss);
 
-const LandingContainer = styled(Container)({
-  display: 'flex',
-  justifyContent: 'center',
-  height: '100%'
-})
+const LandingContainer = styled(Container)(landingContainerCss)

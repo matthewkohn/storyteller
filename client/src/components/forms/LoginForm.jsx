@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Button, FormControl, styled, TextField } from '@mui/material';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import LoginIcon from '@mui/icons-material/Login';
-import AuthError from '../pages/landing/form-side/AuthError';
+import AuthError from '../pages/landing/login-side/AuthError';
 import { handleAPI } from '../../helpers/fetchRequests';
 import { credentialCss, loginBoxCss, submitBtnCss } from '../../styles/login/loginCss';
 
@@ -14,19 +14,19 @@ const LoginForm = ({ isSignup, onUserInput, userInfo }) => {
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
-  let url = '';
+  let apiEndpoint = '';
   let navEndpoint = '';
   if (isSignup) {
-    url = '/signup';
-    navEndpoint = '/dashboard';
-  } else {
-    url = '/login';
+    apiEndpoint = '/signup';
     navEndpoint = '/start';
+  } else {
+    apiEndpoint = '/login';
+    navEndpoint = '/dashboard';
   }
   
   const handleLogin = (e) => {
     e.preventDefault();
-    handleAPI(url, "POST", userInfo)
+    handleAPI(apiEndpoint, "POST", userInfo)
     .then((res) => {
       if (res.ok) {
         res.json().then((newUser) => setUser(newUser))
