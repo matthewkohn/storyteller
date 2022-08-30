@@ -6,6 +6,7 @@ import { UserContext } from '../../../context/UserContext';
 import Landing from '../landing/Landing';
 import Navbar from './Navbar';
 import Dashboard from '../dashboard/Dashboard';
+import NewUser from '../landing/form-side/NewUser';
 
 function App() {
   const { user } = useContext(UserContext);
@@ -18,6 +19,7 @@ function App() {
     <AppContainer>
       <Navbar />
       <Routes>
+        <Route path='/start' element={ <NewUser /> } />
         <Route path='/dashboard' element={ <Dashboard /> } />
 
         <Route index element={ <Landing /> } />

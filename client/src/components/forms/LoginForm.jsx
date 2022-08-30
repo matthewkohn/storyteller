@@ -1,41 +1,36 @@
 import React, { useContext, useState } from 'react';
-import AuthError from '../pages/landing/form-side/AuthError';
 import { UserContext } from '../../context/UserContext';
-import { handleAPI } from '../../helpers/fetchRequests';
-import { Box, Button, FormControl, styled, TextField } from '@mui/material';
-import LoginIcon from '@mui/icons-material/Login';
 import { useNavigate } from 'react-router-dom';
+import { Box, Button, FormControl, styled, TextField } from '@mui/material';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import LoginIcon from '@mui/icons-material/Login';
+import AuthError from '../pages/landing/form-side/AuthError';
+import { handleAPI } from '../../helpers/fetchRequests';
 import { credentialCss, loginBoxCss, submitBtnCss } from '../../styles/login/loginCss';
 
 
-const LoginForm = () => {
+const LoginForm = ({ isSignup, onUserInput, userInfo }) => {
   const { setUser } = useContext(UserContext);
-  const [userInfo, setUserInfo] = useState({
-    username: '',
-    password: ''
-  });
   const [errors, setErrors] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
   const navigate = useNavigate();
 
-  const handleUserInput = (e) => {
-    const inputName = e.target.name
-    setUserInfo({
-      ...userInfo, 
-      [inputName]: e.target.value
-    })
+  let url = '';
+  let navEndpoint = '';
+  if (isSignup) {
+    url = '/signup';
+    navEndpoint = '/dashboard';
+  } else {
+    url = '/login';
+    navEndpoint = '/start';
   }
   
   const handleLogin = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    handleAPI("/login", "POST", userInfo)
+    handleAPI(url, "POST", userInfo)
     .then((res) => {
-      setIsLoading(false);
       if (res.ok) {
         res.json().then((newUser) => setUser(newUser))
-        .then(() => navigate('/dashboard'));
+        .then(() => navigate(navEndpoint));
       } else {
         res.json().then((err) => setErrors(err.errors));
       }
@@ -51,7 +46,7 @@ const LoginForm = () => {
         name={ attr }
         type={ attr }
         value={ val }
-        onChange={ (e) => handleUserInput(e) } />
+        onChange={ (e) => onUserInput(e) } />
     )
   }
 
@@ -64,14 +59,25 @@ const LoginForm = () => {
       >
         { input("username", true, userInfo.username) }
         { input("password", false, userInfo.password) }
+      { isSignup ?
+          <Credential 
+          required 
+          label="confirm password"
+          name="password_confirmation"
+          type="password"
+          value={ userInfo.password_confirmation }
+          onChange={ (e) => onUserInput(e) }
+        />
+        : null
+      }
         <SubmitBtn 
           size="large" 
           variant="outline" 
           type="submit" 
           form="login-form"
-          endIcon={ <LoginIcon /> }
+          endIcon={ isSignup ? <AppRegistrationIcon /> : <LoginIcon /> }
         >
-          { isLoading ? "LOADING..." : "Log in" }
+          { isSignup ? "Let's Begin" : "Log In" }
         </SubmitBtn>
       </LoginBox>
       { errors.map((err) => <AuthError key={ err }>{ err }</AuthError>) }

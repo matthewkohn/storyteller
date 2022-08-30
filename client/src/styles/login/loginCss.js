@@ -28,12 +28,15 @@ const backgroundContainerCss = {
 }
 
 const signInContainerCss = ({ theme }) => `
-padding: 20px;
-text-align: center;
-width: 450px;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
 min-height: 60vh;
-border-radius: 20px;
+width: 450px;
+padding: 20px;
 margin: 10vh auto;
+text-align: center;
+border-radius: 20px;
 background: ${theme.palette.primary.dark};
 color: ${theme.palette.primary.light};
 `
@@ -45,7 +48,8 @@ const taglineCss = {
 const titleCss = {
   margin: '20px auto',
   fontWeight: 700,
-  letterSpacing: '2px'
+  letterSpacing: '2px',
+
 }
 
 const toggleBtnCss = ({ theme }) => `
