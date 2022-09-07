@@ -1,32 +1,50 @@
-import React, { useEffect, useState } from 'react';
+// import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react'
 import { Box, Button, FormControl, Select, styled, TextField, Typography } from '@mui/material';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { favInputCss, favoritesBoxCss, newUserBoxCss, primaryItemsCss, submitBtnCss } from '../../styles/start/newUserCss';
+import { handleAPI } from '../../helpers/fetchRequests';
+import { UserContext } from '../../context/UserContext';
 
-const NewUserForm = ({ onInputChange, inputs: { penName, favoriteAuthor, favoriteBook, favoriteAudiobook, favoritePodcast, genre }}) => {
-  const [genres, setGenres] = useState({});
+const NewUserForm = ({ required, favorites, onInputChange }) => {
+  const { user } = useContext(UserContext);
+  // const [allGenres, setAllGenres] = useState({});
+  const { favoriteAuthor, favoriteBook, favoriteAudiobook, favoritePodcast } = favorites;
+  const { penName, genre } = required;
 
-  useEffect(() => {
-    // fetch genres
-    setGenres({})
-    console.log("New User useEffect", genres)
-    // eslint-disable-next-line
-  }, [])
+  // useEffect(() => {
+  //   // fetch genres
+  //   setAllGenres({})
+  //   console.log("New User useEffect", allGenres)
+  //   // eslint-disable-next-line
+  // }, [])
 
+  console.log("required from NewUserForm: ", required)
+  console.log("favorites from NewUserForm: ", favorites)
 
-  // handleSubmit
-  //    * POST create '/authors'
-  //    * PATCH update '/users/:id' (unless all blank)
-  //    * navigate client to new story based on genre/author names
+  const userFavoritesJson = {
+    user_id: user.id,
+    favorite_author: favoriteAuthor,
+    favorite_book: favoriteBook,
+    favorite_audiobook: favoriteAudiobook,
+    favorite_podcast: favoritePodcast
+  }
+  // console.log("userJson from NewUserForm: ", userFavoritesJson)
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    handleAPI(`/profiles`, "POST", userFavoritesJson)
+    .then((res) => {
+      if (res.ok) {
+        res.json().then(console.log)
+      } else {
+        console.log(res)
+      }
+    })
   //   // POST create author
   //   // pass genre to Story component, fetch new story from 'genres/:id/stories/new'
-  //   // PATCH user favorites
   //   // navigate client to '/stories/new'
-  //   console.log(userInfo)
-  // }
+  }
 
   // const genresList = genres.map((genre) => (
   //   <MenuItem 
@@ -56,7 +74,7 @@ const NewUserForm = ({ onInputChange, inputs: { penName, favoriteAuthor, favorit
     <FormControl variant="standard" >
       <NewUserBox
         component="form" 
-        // onSubmit={ (e) => handleSubmit(e) } 
+        onSubmit={ (e) => handleSubmit(e) } 
         id="new-user-form"
       >
         <PrimaryItems>
@@ -74,7 +92,7 @@ const NewUserForm = ({ onInputChange, inputs: { penName, favoriteAuthor, favorit
         <PrimaryItems>
           <Typography variant='body1'>Choose a Genre</Typography>
           <Select 
-            required
+            // required
             label="Genres" 
             value={ genre } 
             onChange={ (e) => onInputChange(e) } 
@@ -95,6 +113,7 @@ const NewUserForm = ({ onInputChange, inputs: { penName, favoriteAuthor, favorit
         size="large"
         variant="contained" 
         form="new-user-form"
+        type="submit"
         endIcon={ <LightbulbIcon /> }
       >
         Begin your first story

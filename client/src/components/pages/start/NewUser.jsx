@@ -7,23 +7,34 @@ import { ctaCss, newUserContainerCss, skipBtnCss } from '../../../styles/start/n
 
 const NewUser = () => {
   const { user } = useContext(UserContext);
-  const [userInput, setUserInput] = useState({
+  const [requiredUserInput, setRequiredUserInput] = useState({
     penName: user.username,
+    genre: ''
+  });
+  const [favoritesInput, setFavoritesInput] = useState({
     favoriteAuthor: '',
     favoriteBook: '',
     favoriteAudiobook: '',
-    favoritePodcast: '',
-    genre: '',
-  })
-  const navigate = useNavigate()
+    favoritePodcast: ''
+  });
+  const navigate = useNavigate();
 
   const handleUserInput = (e) => {
     const inputName = e.target.name;
-    setUserInput({
-      ...userInput, 
-      [inputName]: e.target.value
-    })
+    if (inputName === "penName" || inputName === "genre") {
+      setRequiredUserInput({
+        ...requiredUserInput, 
+        [inputName]: e.target.value
+      })
+    } else {
+      setFavoritesInput({
+        ...favoritesInput,
+        [inputName]: e.target.value
+      })
+    }
   }
+
+
 
   const handleSkip = () => {
     // POST to API => create new '/authors'
@@ -51,7 +62,8 @@ const NewUser = () => {
 
 
       <NewUserForm 
-        inputs={ userInput } 
+        required={ requiredUserInput }
+        favorites={ favoritesInput } 
         onInputChange={ handleUserInput } 
       />
       

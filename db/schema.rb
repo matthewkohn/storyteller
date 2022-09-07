@@ -10,19 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_19_154259) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_07_173106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "favorite_author"
+    t.string "favorite_book"
+    t.string "favorite_podcast"
+    t.string "favorite_audiobook"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
-    t.string "favorite_author"
-    t.string "favorite_book"
-    t.string "favorite_audiobook"
-    t.string "favorite_podcast"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "profiles", "users"
 end

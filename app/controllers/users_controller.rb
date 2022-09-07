@@ -18,11 +18,7 @@ class UsersController < ApplicationController
     params.permit(
       :username, 
       :password, 
-      :password_confirmation,
-      :favorite_author,
-      :favorite_book,
-      :favorite_audiobook,
-      :favorite_podcast
+      :password_confirmation
     )
   end
 

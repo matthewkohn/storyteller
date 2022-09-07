@@ -19,7 +19,7 @@ The client is stored under ```'./client'``` and runs locally on PORT:4000. Make 
 #### Ruby Gems
 ruby        v2.7.4
 rails       v7.0.3
-postgresql  v1.1
+postgresql  v14.5
 puma        v5.0
 bcrypt      v3.1.7
 rack-cors

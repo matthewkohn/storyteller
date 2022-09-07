@@ -7,6 +7,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :favorite_book
       t.string :favorite_audiobook
       t.string :favorite_podcast
+      t.belongs_to :user, null: false, foreign_key: true
 
       t.timestamps
     end

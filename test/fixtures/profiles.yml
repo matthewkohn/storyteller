@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  favorite_author: MyString
+  favorite_book: MyString
+  favorite_podcast: MyString
+  favorite_audiobook: MyString
+
+two:
+  favorite_author: MyString
+  favorite_book: MyString
+  favorite_podcast: MyString
+  favorite_audiobook: MyString
