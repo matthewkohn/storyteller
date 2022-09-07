@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Box, Button, Container, styled, Typography } from '@mui/material';
 import { UserContext } from '../../../context/UserContext';
 import NewUserForm from '../../forms/NewUserForm';
@@ -7,34 +7,7 @@ import { ctaCss, newUserContainerCss, skipBtnCss } from '../../../styles/start/n
 
 const NewUser = () => {
   const { user } = useContext(UserContext);
-  const [requiredUserInput, setRequiredUserInput] = useState({
-    penName: user.username,
-    genre: ''
-  });
-  const [favoritesInput, setFavoritesInput] = useState({
-    favoriteAuthor: '',
-    favoriteBook: '',
-    favoriteAudiobook: '',
-    favoritePodcast: ''
-  });
   const navigate = useNavigate();
-
-  const handleUserInput = (e) => {
-    const inputName = e.target.name;
-    if (inputName === "penName" || inputName === "genre") {
-      setRequiredUserInput({
-        ...requiredUserInput, 
-        [inputName]: e.target.value
-      })
-    } else {
-      setFavoritesInput({
-        ...favoritesInput,
-        [inputName]: e.target.value
-      })
-    }
-  }
-
-
 
   const handleSkip = () => {
     // POST to API => create new '/authors'
@@ -60,12 +33,7 @@ const NewUser = () => {
         </SkipBtn>
       </CTA>
 
-
-      <NewUserForm 
-        required={ requiredUserInput }
-        favorites={ favoritesInput } 
-        onInputChange={ handleUserInput } 
-      />
+      <NewUserForm />
       
     </NewUserContainer>
   )
@@ -75,7 +43,5 @@ export default NewUser
 
 // Styled components
 const NewUserContainer = styled(Container)(newUserContainerCss);
-
 const CTA = styled(Box)(ctaCss);
-
-const SkipBtn = styled(Button)(skipBtnCss)
+const SkipBtn = styled(Button)(skipBtnCss);
