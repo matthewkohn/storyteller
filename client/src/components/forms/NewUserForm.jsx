@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, FormControl, styled, Typography } from '@mui/material';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import { useNavigate } from 'react-router-dom';
 import { newUserBoxCss, submitBtnCss } from '../../styles/start/newUserCss';
 import { handleAPI, handleGET } from '../../helpers/fetchRequests';
 import { UserContext } from '../../context/UserContext';
@@ -10,7 +11,6 @@ import IntroForm from './IntroForm';
 const NewUserForm = () => {
   const { user } = useContext(UserContext);
   const [allGenres, setAllGenres] = useState({});
-
   const [requiredUserInput, setRequiredUserInput] = useState({
     penName: user.username,
     genre: ''
@@ -21,31 +21,33 @@ const NewUserForm = () => {
     favoriteAudiobook: '',
     favoritePodcast: ''
   });
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleUserInput = (e) => {
     const inputName = e.target.name;
-    if (inputName === "penName" || inputName === "genre") {
+    if (inputName === "penName") {
       setRequiredUserInput({
         ...requiredUserInput, 
         [inputName]: e.target.value
       })
-    } else {
+    } else if (inputName) {
       setFavorites({
         ...favorites,
         [inputName]: e.target.value
+      })
+    } else {
+      setRequiredUserInput({
+        ...requiredUserInput,
+        genre: e.target.value
       })
     }
   }
 
   useEffect(() => {
-    // fetch genres
     handleGET('/genres')
     .then((data) => setAllGenres(data))
-    
     // eslint-disable-next-line
   }, [])
-  console.log("New User useEffect", allGenres)
 
   const userFavoritesJson = {
     user_id: user.id,
@@ -54,7 +56,6 @@ const NewUserForm = () => {
     favorite_audiobook: favorites.favoriteAudiobook,
     favorite_podcast: favorites.favoritePodcast
   }
-  // console.log("userJson from NewUserForm: ", userFavoritesJson)
 
   const authorJson = {
     name: requiredUserInput.penName
@@ -69,32 +70,21 @@ const NewUserForm = () => {
     ])
     .then((responses) => Promise.all(responses.map((res) => res.json())))
     .then((data) => console.log(data))
+    .then(() => navigate('/first-story', { state: requiredUserInput }))
     .catch((error) => console.log(error));
-    
-  //   // POST create author
-  //   // pass genre to Story component, fetch new story from 'genres/:id/stories/new'
-  //   // navigate client to '/stories/new'
   }
 
-  // const genresList = genres.map((genre) => (
-  //   <MenuItem 
-        // key={ genre.id } 
-        // name={ genre.name }
-        // value={ genre.name }
-        // >
-        // { genre.name }
-        // </MenuItem>
-  // ))
 
 
   return ( 
-    <FormControl variant="standard" >
+    <FormControl fullWidth variant="standard" >
       <NewUserBox
         component="form" 
         onSubmit={ (e) => handleSubmit(e) } 
         id="new-user-form"
       >
         <IntroForm
+          allGenres={ allGenres }
           required={ requiredUserInput }
           onInputChange={ handleUserInput }
         />

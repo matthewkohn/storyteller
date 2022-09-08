@@ -7,6 +7,7 @@ import Landing from '../landing/Landing';
 import Navbar from './Navbar';
 import Dashboard from '../dashboard/Dashboard';
 import NewUser from '../start/NewUser';
+import Story from '../story/Story';
 
 function App() {
   const { user } = useContext(UserContext);
@@ -19,7 +20,7 @@ function App() {
       <Routes>
         <Route path='/start' element={ <NewUser /> } />
         <Route path='/dashboard' element={ <Dashboard /> } />
-
+        <Route path='/first-story' element={ <Story /> } />
         <Route index element={ <Landing /> } />
       </Routes>
     </AppContainer>
