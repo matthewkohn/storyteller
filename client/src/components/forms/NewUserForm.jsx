@@ -1,16 +1,15 @@
-// import React, { useContext, useEffect, useState } from 'react';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, FormControl, styled, Typography } from '@mui/material';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { newUserBoxCss, submitBtnCss } from '../../styles/start/newUserCss';
-import { handleAPI } from '../../helpers/fetchRequests';
+import { handleAPI, handleGET } from '../../helpers/fetchRequests';
 import { UserContext } from '../../context/UserContext';
 import FavoritesForm from './FavoritesForm';
 import IntroForm from './IntroForm';
 
 const NewUserForm = () => {
   const { user } = useContext(UserContext);
-  // const [allGenres, setAllGenres] = useState({});
+  const [allGenres, setAllGenres] = useState({});
 
   const [requiredUserInput, setRequiredUserInput] = useState({
     penName: user.username,
@@ -39,12 +38,14 @@ const NewUserForm = () => {
     }
   }
 
-  // useEffect(() => {
-  //   // fetch genres
-  //   setAllGenres({})
-  //   console.log("New User useEffect", allGenres)
-  //   // eslint-disable-next-line
-  // }, [])
+  useEffect(() => {
+    // fetch genres
+    handleGET('/genres')
+    .then((data) => setAllGenres(data))
+    
+    // eslint-disable-next-line
+  }, [])
+  console.log("New User useEffect", allGenres)
 
   const userFavoritesJson = {
     user_id: user.id,
