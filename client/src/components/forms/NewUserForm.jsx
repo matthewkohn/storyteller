@@ -1,5 +1,5 @@
 // import React, { useContext, useEffect, useState } from 'react';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState } from 'react';
 import { Box, Button, FormControl, styled, Typography } from '@mui/material';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { newUserBoxCss, submitBtnCss } from '../../styles/start/newUserCss';
@@ -55,16 +55,21 @@ const NewUserForm = () => {
   }
   // console.log("userJson from NewUserForm: ", userFavoritesJson)
 
+  const authorJson = {
+    name: requiredUserInput.penName
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    handleAPI(`/profiles`, "POST", userFavoritesJson)
-    .then((res) => {
-      if (res.ok) {
-        res.json().then(console.log)
-      } else {
-        console.log(res)
-      }
-    })
+    Promise.all([
+      handleAPI('/authors', "POST", authorJson),
+      handleAPI('/profiles', "POST", userFavoritesJson)
+      
+    ])
+    .then((responses) => Promise.all(responses.map((res) => res.json())))
+    .then((data) => console.log(data))
+    .catch((error) => console.log(error));
+    
   //   // POST create author
   //   // pass genre to Story component, fetch new story from 'genres/:id/stories/new'
   //   // navigate client to '/stories/new'
