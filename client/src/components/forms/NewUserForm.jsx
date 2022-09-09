@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Box, Button, FormControl, styled, Typography } from '@mui/material';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { useNavigate } from 'react-router-dom';
 import { newUserBoxCss, submitBtnCss } from '../../styles/start/newUserCss';
-import { handleAPI, handleGET } from '../../helpers/fetchRequests';
+import { handleAPI } from '../../helpers/fetchRequests';
 import { UserContext } from '../../context/UserContext';
 import FavoritesForm from './FavoritesForm';
 import IntroForm from './IntroForm';
@@ -12,7 +12,7 @@ const NewUserForm = () => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   // state
-  const [allGenres, setAllGenres] = useState([]);
+
   const [requiredUserInput, setRequiredUserInput] = useState({
     penName: user.username,
     genre: ''
@@ -34,12 +34,6 @@ const NewUserForm = () => {
   const authorJson = {
     name: requiredUserInput.penName
   }
-
-  useEffect(() => {
-    handleGET('/genres')
-    .then((data) => setAllGenres(data))
-    // eslint-disable-next-line
-  }, [])
 
   const handleUserInput = (e) => {
     const inputName = e.target.name;
@@ -81,7 +75,6 @@ const NewUserForm = () => {
         id="new-user-form"
       >
         <IntroForm
-          allGenres={ allGenres }
           required={ requiredUserInput }
           onInputChange={ handleUserInput }
         />

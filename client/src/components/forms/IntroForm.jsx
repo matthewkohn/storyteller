@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, FormControl, MenuItem, Select, styled, TextField, Typography } from '@mui/material';
 import { primaryItemsCss } from '../../styles/start/newUserCss';
 
+const IntroForm = ({ required, onInputChange }) => {
+  const [allGenres, setAllGenres] = useState([]);
+  
+  useEffect(() => {
+    fetch('/genres')
+    .then((res) => res.json())
+    .then((data) => setAllGenres(data))
+    // eslint-disable-next-line
+  }, [])
 
-const IntroForm = ({ allGenres, required, onInputChange }) => {
   const { penName, genre } = required;
-  console.log("allGenres from IntroForm: ", typeof allGenres, allGenres);
+  // console.log("allGenres from IntroForm: ", typeof allGenres, allGenres);
 
   const genresList = allGenres.map((gen) => (
     <MenuItem 
