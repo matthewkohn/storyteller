@@ -10,7 +10,9 @@ import IntroForm from './IntroForm';
 
 const NewUserForm = () => {
   const { user } = useContext(UserContext);
-  const [allGenres, setAllGenres] = useState({});
+  const navigate = useNavigate();
+  // state
+  const [allGenres, setAllGenres] = useState([]);
   const [requiredUserInput, setRequiredUserInput] = useState({
     penName: user.username,
     genre: ''
@@ -21,7 +23,23 @@ const NewUserForm = () => {
     favoriteAudiobook: '',
     favoritePodcast: ''
   });
-  const navigate = useNavigate();
+  // JSON
+  const userFavoritesJson = {
+    user_id: user.id,
+    favorite_author: favorites.favoriteAuthor,
+    favorite_book: favorites.favoriteBook,
+    favorite_audiobook: favorites.favoriteAudiobook,
+    favorite_podcast: favorites.favoritePodcast
+  }
+  const authorJson = {
+    name: requiredUserInput.penName
+  }
+
+  useEffect(() => {
+    handleGET('/genres')
+    .then((data) => setAllGenres(data))
+    // eslint-disable-next-line
+  }, [])
 
   const handleUserInput = (e) => {
     const inputName = e.target.name;
@@ -43,38 +61,17 @@ const NewUserForm = () => {
     }
   }
 
-  useEffect(() => {
-    handleGET('/genres')
-    .then((data) => setAllGenres(data))
-    // eslint-disable-next-line
-  }, [])
-
-  const userFavoritesJson = {
-    user_id: user.id,
-    favorite_author: favorites.favoriteAuthor,
-    favorite_book: favorites.favoriteBook,
-    favorite_audiobook: favorites.favoriteAudiobook,
-    favorite_podcast: favorites.favoritePodcast
-  }
-
-  const authorJson = {
-    name: requiredUserInput.penName
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault()
     Promise.all([
       handleAPI('/authors', "POST", authorJson),
       handleAPI('/profiles', "POST", userFavoritesJson)
-      
     ])
     .then((responses) => Promise.all(responses.map((res) => res.json())))
     .then((data) => console.log(data))
     .then(() => navigate('/first-story', { state: requiredUserInput }))
     .catch((error) => console.log(error));
   }
-
-
 
   return ( 
     <FormControl fullWidth variant="standard" >

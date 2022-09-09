@@ -5,6 +5,7 @@ import { primaryItemsCss } from '../../styles/start/newUserCss';
 
 const IntroForm = ({ allGenres, required, onInputChange }) => {
   const { penName, genre } = required;
+  // console.log("allGenres from IntroForm: ", allGenres);
 
   const genresList = Array.from(allGenres).map((gen) => (
     <MenuItem 
