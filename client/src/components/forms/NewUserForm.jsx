@@ -42,17 +42,21 @@ const NewUserForm = () => {
         ...requiredUserInput, 
         [inputName]: e.target.value
       })
-    } else if (inputName) {
+    } else {
       setFavorites({
         ...favorites,
         [inputName]: e.target.value
       })
-    } else {
-      setRequiredUserInput({
-        ...requiredUserInput,
-        genre: e.target.value
-      })
-    }
+    } 
+  }
+
+
+  const handleGenreSelection = (e) => {
+    console.log("e.target.value: ", e.target.value)
+    setRequiredUserInput({
+      ...requiredUserInput,
+      genre: e.target.value
+    })
   }
 
   const handleSubmit = (e) => {
@@ -77,6 +81,7 @@ const NewUserForm = () => {
         <IntroForm
           required={ requiredUserInput }
           onInputChange={ handleUserInput }
+          onGenreSelect={ handleGenreSelection }
         />
         <Typography variant="body1">
           Share your literary opinions (optional):

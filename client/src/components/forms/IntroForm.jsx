@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, FormControl, MenuItem, Select, styled, TextField, Typography } from '@mui/material';
 import { primaryItemsCss } from '../../styles/start/newUserCss';
 
-const IntroForm = ({ required, onInputChange }) => {
+const IntroForm = ({ required, onGenreSelect, onInputChange }) => {
   const [allGenres, setAllGenres] = useState([]);
   
   useEffect(() => {
@@ -48,7 +48,7 @@ const IntroForm = ({ required, onInputChange }) => {
             // label="Genres" 
             value={ genre } 
             variant="outlined"
-            onChange={ (e) => onInputChange(e) } 
+            onChange={ (e) => onGenreSelect(e) } 
           >
             { genresList }   
           </GenreDropdown> 
