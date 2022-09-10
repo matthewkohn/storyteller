@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, FormControl, styled, Typography } from '@mui/material';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { useNavigate } from 'react-router-dom';
@@ -23,6 +23,23 @@ const NewUserForm = () => {
     favoriteAudiobook: '',
     favoritePodcast: ''
   });
+  const [allGenres, setAllGenres] = useState([]);
+  
+  useEffect(() => {
+    fetch('/genres', {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin" : "*", 
+        "Access-Control-Allow-Credentials" : true
+      },
+    })
+    .then((res) => res.json())
+    .then((data) => setAllGenres(data))
+    // eslint-disable-next-line
+  }, [])
+
+
   // JSON
   const userFavoritesJson = {
     user_id: user.id,
@@ -79,6 +96,7 @@ const NewUserForm = () => {
         id="new-user-form"
       >
         <IntroForm
+          allGenres={ allGenres }
           required={ requiredUserInput }
           onInputChange={ handleUserInput }
           onGenreSelect={ handleGenreSelection }
