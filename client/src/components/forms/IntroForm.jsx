@@ -6,14 +6,21 @@ const IntroForm = ({ required, onGenreSelect, onInputChange }) => {
   const [allGenres, setAllGenres] = useState([]);
   
   useEffect(() => {
-    fetch('/genres')
+    fetch('/genres', {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin" : "*", 
+        "Access-Control-Allow-Credentials" : true
+      },
+    })
     .then((res) => res.json())
     .then((data) => setAllGenres(data))
     // eslint-disable-next-line
   }, [])
 
   const { penName, genre } = required;
-  // console.log("allGenres from IntroForm: ", typeof allGenres, allGenres);
+  console.log("allGenres from IntroForm: ", typeof allGenres, allGenres);
 
   const genresList = allGenres.map((gen) => (
     <MenuItem 
