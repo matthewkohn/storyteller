@@ -34,8 +34,17 @@ const NewUserForm = () => {
         "Access-Control-Allow-Credentials" : true
       },
     })
-    .then((res) => res.json())
-    .then((data) => setAllGenres(data))
+    .then((res) => {
+      if (res.ok) {
+        res.json().then((data) => {
+          console.log(data)
+          setAllGenres(data)
+        })
+      } else {
+        res.json().then(console.log)
+        .then(() => console.log("Something wrong with the response received. Keep trying."))
+      }
+    })
     // eslint-disable-next-line
   }, [])
 
