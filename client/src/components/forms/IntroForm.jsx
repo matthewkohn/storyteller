@@ -2,12 +2,11 @@ import React from 'react';
 import { Box, FormControl, MenuItem, Select, styled, TextField, Typography } from '@mui/material';
 import { primaryItemsCss } from '../../styles/start/newUserCss';
 
-const IntroForm = ({ allGenres, required, onGenreSelect, onInputChange }) => {
 
+const IntroForm = ({ allGenres, required, onInputChange }) => {
   const { penName, genre } = required;
-  console.log("allGenres from IntroForm: ", typeof allGenres, allGenres);
 
-  const genresList = allGenres.map((gen) => (
+  const genresList = Array.from(allGenres).map((gen) => (
     <MenuItem 
       key={ gen.id } 
       name={ gen.name }
@@ -15,7 +14,7 @@ const IntroForm = ({ allGenres, required, onGenreSelect, onInputChange }) => {
     >
       { gen.name }
     </MenuItem>
-  ));
+  ))
 
   return (
     <>
@@ -40,7 +39,7 @@ const IntroForm = ({ allGenres, required, onGenreSelect, onInputChange }) => {
             // label="Genres" 
             value={ genre } 
             variant="outlined"
-            onChange={ (e) => onGenreSelect(e) } 
+            onChange={ (e) => onInputChange(e) } 
           >
             { genresList }   
           </GenreDropdown> 

@@ -3,16 +3,14 @@ import { Box, Button, FormControl, styled, Typography } from '@mui/material';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { useNavigate } from 'react-router-dom';
 import { newUserBoxCss, submitBtnCss } from '../../styles/start/newUserCss';
-import { handleAPI } from '../../helpers/fetchRequests';
+import { handleAPI, handleGET } from '../../helpers/fetchRequests';
 import { UserContext } from '../../context/UserContext';
 import FavoritesForm from './FavoritesForm';
 import IntroForm from './IntroForm';
 
 const NewUserForm = () => {
   const { user } = useContext(UserContext);
-  const navigate = useNavigate();
-  // state
-
+  const [allGenres, setAllGenres] = useState({});
   const [requiredUserInput, setRequiredUserInput] = useState({
     penName: user.username,
     genre: ''
@@ -23,43 +21,7 @@ const NewUserForm = () => {
     favoriteAudiobook: '',
     favoritePodcast: ''
   });
-  const [allGenres, setAllGenres] = useState([]);
-  
-  useEffect(() => {
-    fetch('/genres', {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin" : "*", 
-        "Access-Control-Allow-Credentials" : true
-      },
-    })
-    .then((res) => {
-      if (res.ok) {
-        res.json().then((data) => {
-          console.log(data)
-          setAllGenres(data)
-        })
-      } else {
-        res.json().then(console.log)
-        .then(() => console.log("Something wrong with the response received. Keep trying."))
-      }
-    })
-    // eslint-disable-next-line
-  }, [])
-
-
-  // JSON
-  const userFavoritesJson = {
-    user_id: user.id,
-    favorite_author: favorites.favoriteAuthor,
-    favorite_book: favorites.favoriteBook,
-    favorite_audiobook: favorites.favoriteAudiobook,
-    favorite_podcast: favorites.favoritePodcast
-  }
-  const authorJson = {
-    name: requiredUserInput.penName
-  }
+  const navigate = useNavigate();
 
   const handleUserInput = (e) => {
     const inputName = e.target.name;
@@ -68,21 +30,35 @@ const NewUserForm = () => {
         ...requiredUserInput, 
         [inputName]: e.target.value
       })
-    } else {
+    } else if (inputName) {
       setFavorites({
         ...favorites,
         [inputName]: e.target.value
       })
-    } 
+    } else {
+      setRequiredUserInput({
+        ...requiredUserInput,
+        genre: e.target.value
+      })
+    }
   }
 
+  useEffect(() => {
+    handleGET('/genres')
+    .then((data) => setAllGenres(data))
+    // eslint-disable-next-line
+  }, [])
 
-  const handleGenreSelection = (e) => {
-    console.log("e.target.value: ", e.target.value)
-    setRequiredUserInput({
-      ...requiredUserInput,
-      genre: e.target.value
-    })
+  const userFavoritesJson = {
+    user_id: user.id,
+    favorite_author: favorites.favoriteAuthor,
+    favorite_book: favorites.favoriteBook,
+    favorite_audiobook: favorites.favoriteAudiobook,
+    favorite_podcast: favorites.favoritePodcast
+  }
+
+  const authorJson = {
+    name: requiredUserInput.penName
   }
 
   const handleSubmit = (e) => {
@@ -90,12 +66,15 @@ const NewUserForm = () => {
     Promise.all([
       handleAPI('/authors', "POST", authorJson),
       handleAPI('/profiles', "POST", userFavoritesJson)
+      
     ])
     .then((responses) => Promise.all(responses.map((res) => res.json())))
     .then((data) => console.log(data))
     .then(() => navigate('/first-story', { state: requiredUserInput }))
     .catch((error) => console.log(error));
   }
+
+
 
   return ( 
     <FormControl fullWidth variant="standard" >
@@ -108,7 +87,6 @@ const NewUserForm = () => {
           allGenres={ allGenres }
           required={ requiredUserInput }
           onInputChange={ handleUserInput }
-          onGenreSelect={ handleGenreSelection }
         />
         <Typography variant="body1">
           Share your literary opinions (optional):

@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   
-  resources :genres, only: [:index, :create]
   resources :profiles, only: [:create]
   resources :authors, only: [:create]
+  resources :genres, only: [:index, :create]
   
   post "/signup", to: "users#create"
   get "/me", to: "users#show"
