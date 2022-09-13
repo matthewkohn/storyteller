@@ -3,8 +3,12 @@
 #
 puts "Seeding..."
 
-User.create(username: "test")
-
+# User.create(username: "test")
+Genre.create(name: "Sci-Fi")
+Genre.create(name: "Suspense")
+Genre.create(name: "Action Adventure")
+Genre.create(name: "Fantasy")
+Genre.create(name: "Paranormal")
 
 
 puts "Seeding complete! :)"
