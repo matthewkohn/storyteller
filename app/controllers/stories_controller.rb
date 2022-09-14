@@ -1,13 +1,16 @@
 class StoriesController < ApplicationController
 
+  def index
+    stories = @current_genre.stories.all
+    render json: stories, status: :ok
+  end
+
   def show
-    story = Story.find_by(id: params[:id])
-    render json: story, status: :ok
+    current_story = Story.find_by(id: params[:id])
+    render json: current_story, status: :ok
   end
 
   def create
-    @current_genre = Genre.find_by(id: params[:genre_id])
-    # byebug
     story = @current_genre.stories.build(story_params)
     if story.save
       render json: story, status: :created
@@ -16,12 +19,15 @@ class StoriesController < ApplicationController
     end
   end
 
-
+  
   private
 
   def story_params
     params.permit(:id, :genre_id, :title)
   end
-
+  
+  def set_current_genre
+    @current_genre = Genre.find_by(id: params[:genre_id])
+  end
 
 end

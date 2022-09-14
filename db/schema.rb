@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_13_200602) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_14_155921) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -27,6 +27,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_200602) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "paragraphs", force: :cascade do |t|
+    t.bigint "story_id", null: false
+    t.bigint "author_id", null: false
+    t.text "rich_text_str"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_paragraphs_on_author_id"
+    t.index ["story_id"], name: "index_paragraphs_on_story_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -56,6 +66,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_200602) do
   end
 
   add_foreign_key "authors", "users"
+  add_foreign_key "paragraphs", "authors"
+  add_foreign_key "paragraphs", "stories"
   add_foreign_key "profiles", "users"
   add_foreign_key "stories", "genres"
 end

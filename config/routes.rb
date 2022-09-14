@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   resources :profiles, only: [:create]
   resources :authors, only: [:create]
   resources :genres, only: [:index, :create]
-  resources :stories, only: [:show, :create]
+  resources :stories, only: [:index, :show, :create] do
+    resources :paragraphs, only: [:index, :create]
+  end
   
   post "/signup", to: "users#create"
   get "/me", to: "users#show"
