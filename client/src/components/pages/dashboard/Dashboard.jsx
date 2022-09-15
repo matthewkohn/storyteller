@@ -1,10 +1,14 @@
 import { styled, Typography } from '@mui/material'
 import React from 'react'
+import ActiveStories from './ActiveStories'
+import Authors from './Authors'
 
 const Dashboard = () => {
   return (
     <>
-      <Test variant='h1'>Nice work!</Test>    
+      <Test variant='h1'>Nice work!</Test>
+      <Authors />
+      <ActiveStories /> 
     </>
   )
 }

@@ -7,7 +7,10 @@ import Landing from '../landing/Landing';
 import Navbar from './Navbar';
 import Dashboard from '../dashboard/Dashboard';
 import NewUser from '../start/NewUser';
-import Story from '../story/Story';
+import Stories from '../storiesboard/Stories';
+import StoryContainer from '../story/StoryContainer';
+import Story from '../story/view-story/Story';
+import WriterContainer from '../story/edit-story/WriterContainer';
 
 function App() {
   const { user } = useContext(UserContext);
@@ -18,10 +21,17 @@ function App() {
     <AppContainer>
       <Navbar />
       <Routes>
-        <Route path='/start' element={ <NewUser /> } />
-        <Route path='/dashboard' element={ <Dashboard /> } />
-        <Route path='/first-story' element={ <Story /> } />
         <Route index element={ <Landing /> } />
+        <Route path='start' element={ <NewUser /> } />
+        <Route path='dashboard' element={ <Dashboard /> } />
+        <Route path='stories' element={ <Stories /> } />
+        <Route path='story/:storyId' element={ <StoryContainer /> } >
+          <Route index element={ <Story /> } />
+          <Route path='new' element={ <WriterContainer /> } />
+          <Route path='first-story' element={ <WriterContainer /> } />
+          <Route path='contribution' element={ <WriterContainer /> } />
+          <Route path='edit' element={ <WriterContainer /> } />
+        </Route>
       </Routes>
     </AppContainer>
   );
