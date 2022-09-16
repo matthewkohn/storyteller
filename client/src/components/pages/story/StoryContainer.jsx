@@ -15,6 +15,10 @@ const StoryContainer = () => {
   //  '/edit'         Edit their most recent passage
   //  '/new'          Create a new story
   //  
+
+  // Story title
+  // Genre name
+  // Current author name
   
   return (
     <>
