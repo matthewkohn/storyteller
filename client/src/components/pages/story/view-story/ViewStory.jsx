@@ -1,7 +1,8 @@
 import React from 'react'
+import Preview from '../edit-story/Preview'
 import StoryStats from './StoryStats'
 
-const Story = () => {
+const ViewStory = () => {
 
   // Displays jsx returned from ParagraphsController from API
   // StoryStats is an accordion next to the story text
@@ -9,10 +10,11 @@ const Story = () => {
   
   return (
     <>
-      <div>Story</div>
+      <div>ViewStory</div>
+      <Preview />
       <StoryStats />
     </>
   )
 }
 
-export default Story
+export default ViewStory

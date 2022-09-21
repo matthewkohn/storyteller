@@ -8,7 +8,7 @@ class RichTextEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {editorState: EditorState.createEmpty()};
-console.log("Props: ", props)
+// console.log("Props: ", props)
     this.focus = () => this.refs.editor.focus();
     this.onChange = (editorState) => this.setState({editorState});
 
@@ -75,7 +75,7 @@ console.log("Props: ", props)
     
     let newHtml = stateToHTML(contentState);
     setTimeout(() => this.props.handleHtml(newHtml), 0)
-    console.log("html from RichTextEditor: ", newHtml)
+    // console.log("html from RichTextEditor: ", newHtml)
     
     return (
       <div className="RichEditor-root">

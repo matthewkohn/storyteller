@@ -1,20 +1,24 @@
-import { styled, Typography } from '@mui/material'
 import React from 'react'
-import ActiveStories from './ActiveStories'
+import { Box, Button, styled } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 import Authors from './Authors'
+import Stories from './Stories'
 
 const Dashboard = () => {
+  const navigate = useNavigate()
+
   return (
-    <>
-      <Test variant='h1'>Nice work!</Test>
+    <DashboardContainer>
+      <Button onClick={ () => navigate('/story/new') } >New Story</Button>
+      <Button onClick={ () => navigate('/story/1/edit') } >Contribute</Button>
       <Authors />
-      <ActiveStories /> 
-    </>
+      <Stories />
+    </DashboardContainer>
   )
 }
 
 export default Dashboard
 
-const Test = styled(Typography)({
-  margin: '100px'
+const DashboardContainer = styled(Box)({
+  paddingTop: '100px',
 })

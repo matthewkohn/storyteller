@@ -70,7 +70,7 @@ const NewUserForm = () => {
     ])
     .then((responses) => Promise.all(responses.map((res) => res.json())))
     .then((data) => console.log(data))
-    .then(() => navigate('/first-story', { state: requiredUserInput }))
+    .then(() => navigate('/story/1/first-story', { state: requiredUserInput }))
     .catch((error) => console.log(error));
   }
 
