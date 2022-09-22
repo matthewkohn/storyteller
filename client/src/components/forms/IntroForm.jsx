@@ -1,20 +1,21 @@
 import React from 'react';
-import { Box, FormControl, MenuItem, Select, styled, TextField, Typography } from '@mui/material';
+import { Box, FormControl, styled, TextField, Typography } from '@mui/material';
 import { primaryItemsCss } from '../../styles/start/newUserCss';
+import GenresDropdown from './GenresDropdown';
 
 
-const IntroForm = ({ allGenres, required, onInputChange }) => {
-  const { penName, genre } = required;
+const IntroForm = ({ penName, onInputChange }) => {
+  // const { penName } = required;
 
-  const genresList = Array.from(allGenres).map((gen) => (
-    <MenuItem 
-      key={ gen.id } 
-      name={ gen.name }
-      value={ gen.name }
-    >
-      { gen.name }
-    </MenuItem>
-  ))
+  // const genresList = Array.from(allGenres).map((gen) => (
+  //   <MenuItem 
+  //     key={ gen.id } 
+  //     name={ gen.name }
+  //     value={ gen.name }
+  //   >
+  //     { gen.name }
+  //   </MenuItem>
+  // ))
 
   return (
     <>
@@ -33,7 +34,8 @@ const IntroForm = ({ allGenres, required, onInputChange }) => {
         </PrimaryItems>
         <PrimaryItems>
           <Typography variant='body1'>Choose a fictional genre to start with:</Typography>
-          <GenreDropdown 
+          <GenresDropdown />
+          {/* <GenreDropdown 
             required
             autoWidth
             // label="Genres" 
@@ -42,7 +44,7 @@ const IntroForm = ({ allGenres, required, onInputChange }) => {
             onChange={ (e) => onInputChange(e) } 
           >
             { genresList }   
-          </GenreDropdown> 
+          </GenreDropdown>  */}
         </PrimaryItems>
       </FormControl>
     </>
@@ -52,11 +54,11 @@ const IntroForm = ({ allGenres, required, onInputChange }) => {
 export default IntroForm
 
 const PrimaryItems = styled(Box)(primaryItemsCss);
-const GenreDropdown = styled(Select)({
-  width: '100%',
-  maxWidth: '270px',
-  margin: '5px',
-  height: '50px',
-  display: 'inherit',
+// const GenreDropdown = styled(Select)({
+//   width: '100%',
+//   maxWidth: '270px',
+//   margin: '5px',
+//   height: '50px',
+//   display: 'inherit',
 
-})
+// })

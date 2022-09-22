@@ -1,3 +1,4 @@
+import { Box, styled } from '@mui/material'
 import React from 'react'
 
 const Authors = () => {
@@ -8,11 +9,19 @@ const Authors = () => {
   //   * filter active stories based on selected pen name
 
   return (
-    <>
+    <AuthorsBox>
       <div>Authors</div>
       
-    </>
+    </AuthorsBox>
   )
 }
 
 export default Authors
+
+const AuthorsBox = styled(Box)({
+  border: '1px solid orange',
+  padding: '20px',
+  borderRadius: '15px',
+  margin: '10px',
+  width: '25vw',
+})

@@ -10,7 +10,7 @@ const WriteStory = () => {
   const [htmlStr, setHtmlStr] = useState("<p>TEST</p>")
   console.log("htmlStr from APP: ", htmlStr)
   const navigate = useNavigate();
-  
+
 
   // const location = useLocation()
   // console.log("location from WriteStory: ", location.state, location)
@@ -22,9 +22,7 @@ const WriteStory = () => {
 
   return (
     <WriteStoryContainer>
-      
       <RichTextEditor handleHtml={ setHtmlStr } />
-      {/* <Preview jsx={ htmlStr } /> */}
       <Preview jsx={ htmlStr } />
       <Button onClick={() => navigate('/dashboard')} >Back to Dashboard</Button>
     </WriteStoryContainer>

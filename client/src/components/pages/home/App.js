@@ -7,7 +7,6 @@ import Landing from '../landing/Landing';
 import Navbar from './Navbar';
 import Dashboard from '../dashboard/Dashboard';
 import NewUser from '../start/NewUser';
-// import Stories from '../storiesboard/Stories';
 import Story from '../story/Story';
 import ViewStory from '../story/view-story/ViewStory';
 import WriteStory from '../story/edit-story/WriteStory';
@@ -25,7 +24,6 @@ function App() {
         <Route index element={ <Landing /> } />
         <Route path='start' element={ <NewUser /> } />
         <Route path='dashboard' element={ <Dashboard /> } />
-        {/* <Route path='stories' element={ <Stories /> } /> */}
         <Route path='story' element={ <Story /> } >
           <Route path='new' element={ <NewStory /> } />
           <Route path=':storyId' element={ <ViewStory /> } />

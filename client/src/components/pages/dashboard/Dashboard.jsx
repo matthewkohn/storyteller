@@ -11,8 +11,10 @@ const Dashboard = () => {
     <DashboardContainer>
       <Button onClick={ () => navigate('/story/new') } >New Story</Button>
       <Button onClick={ () => navigate('/story/1/edit') } >Contribute</Button>
-      <Authors />
-      <Stories />
+      <DashboardBox>
+        <Authors />
+        <Stories />
+      </DashboardBox>
     </DashboardContainer>
   )
 }
@@ -21,4 +23,10 @@ export default Dashboard
 
 const DashboardContainer = styled(Box)({
   paddingTop: '100px',
+})
+
+const DashboardBox = styled(Box)({
+  display: 'flex',
+  width: '100%',
+  height: '100%',
 })

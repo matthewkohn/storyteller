@@ -1,20 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Box, Button, FormControl, styled, Typography } from '@mui/material';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { useNavigate } from 'react-router-dom';
 import { newUserBoxCss, submitBtnCss } from '../../styles/start/newUserCss';
-import { handleAPI, handleGET } from '../../helpers/fetchRequests';
+import { handleAPI } from '../../helpers/fetchRequests';
 import { UserContext } from '../../context/UserContext';
 import FavoritesForm from './FavoritesForm';
 import IntroForm from './IntroForm';
 
 const NewUserForm = () => {
   const { user } = useContext(UserContext);
-  const [allGenres, setAllGenres] = useState({});
-  const [requiredUserInput, setRequiredUserInput] = useState({
-    penName: user.username,
-    genre: ''
-  });
+
+  const [penName, setPenName] = useState(user.username);
   const [favorites, setFavorites] = useState({
     favoriteAuthor: '',
     favoriteBook: '',
@@ -26,28 +23,11 @@ const NewUserForm = () => {
   const handleUserInput = (e) => {
     const inputName = e.target.name;
     if (inputName === "penName") {
-      setRequiredUserInput({
-        ...requiredUserInput, 
-        [inputName]: e.target.value
-      })
-    } else if (inputName) {
-      setFavorites({
-        ...favorites,
-        [inputName]: e.target.value
-      })
+      setPenName(e.target.value)
     } else {
-      setRequiredUserInput({
-        ...requiredUserInput,
-        genre: e.target.value
-      })
+      setFavorites({ ...favorites, [inputName]: e.target.value })
     }
   }
-
-  useEffect(() => {
-    handleGET('/genres')
-    .then((data) => setAllGenres(data))
-    // eslint-disable-next-line
-  }, [])
 
   const userFavoritesJson = {
     user_id: user.id,
@@ -58,7 +38,7 @@ const NewUserForm = () => {
   }
 
   const authorJson = {
-    name: requiredUserInput.penName
+    name: penName
   }
 
   const handleSubmit = (e) => {
@@ -70,7 +50,9 @@ const NewUserForm = () => {
     ])
     .then((responses) => Promise.all(responses.map((res) => res.json())))
     .then((data) => console.log(data))
-    .then(() => navigate('/story/1/first-story', { state: requiredUserInput }))
+    // need to navigate to '/story/:storyId/write' based on chosenGenre & reset GenreContext state to ('')
+    // .then(() => navigate('/story/1/first-story', { state: [penName, chosenGenre] }))
+    .then(() => navigate('/dashboard'))
     .catch((error) => console.log(error));
   }
 
@@ -84,8 +66,7 @@ const NewUserForm = () => {
         id="new-user-form"
       >
         <IntroForm
-          allGenres={ allGenres }
-          required={ requiredUserInput }
+          penName={ penName }
           onInputChange={ handleUserInput }
         />
         <Typography variant="body1">
