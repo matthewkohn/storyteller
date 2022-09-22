@@ -23,7 +23,7 @@ function App() {
       <Routes>
         <Route index element={ <Landing /> } />
         <Route path='start' element={ <NewUser /> } />
-        <Route path='dashboard' element={ <Dashboard /> } />
+        <Route path='home' element={ <Dashboard /> } />
         <Route path='story' element={ <Story /> } >
           <Route path='new' element={ <NewStory /> } />
           <Route path=':storyId' element={ <ViewStory /> } />

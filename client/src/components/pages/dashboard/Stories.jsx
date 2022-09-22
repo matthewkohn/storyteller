@@ -1,18 +1,48 @@
-import { Box, styled, Typography } from '@mui/material'
-import React from 'react'
-import GenresDropdown from '../../forms/GenresDropdown'
-import StoryCard from './StoryCard'
+import { Box, FormControl, FormControlLabel, Radio, RadioGroup, styled, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import GenresDropdown from '../../forms/GenresDropdown';
+import StoryCard from './StoryCard';
 
 const Stories = () => {
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [radioValue, setRadioValue] = useState('all');
+
+  const handleChange = (e) => {
+    setRadioValue(e.target.value);
+    radioValue === 'all' ? setIsDisabled(false) : setIsDisabled(true)
+  }
 
   // genre dropdown that displays filtered stories for that genre
   // maps all stories of a genre as a StoryCard (story title only)
-  // Nav Link to Dashboard, logout
 
   return (
     <StoriesBox>
-      <Typography variant="h4">Stories</Typography>
-      <GenresDropdown />
+      <StoriesHeader>
+        <Typography variant="h4">Stories</Typography>
+        <RadioFormControl>
+          <RadioLabel variant="h6">View: </RadioLabel>
+          <RadioGroup 
+            row
+            defafultvalue="all"
+            value={ radioValue }
+            onChange={ handleChange }
+          >
+            <FormControlLabel 
+              value="all" 
+              control={ <Radio /> } 
+              label="All" 
+            />
+            <FormControlLabel 
+              value="by-genre" 
+              control={ <Radio /> } 
+              label="By Genre" 
+            />
+          </RadioGroup>
+          <GenresDropdown isDisabled={ isDisabled }/>
+        </RadioFormControl>
+      </StoriesHeader>
+{/* story cards go here */}
+
       <StoryCard />
     </StoriesBox>
   )
@@ -27,4 +57,20 @@ const StoriesBox = styled(Box)({
   margin: '10px',
   width: '75vw',
   height: '65vh',
+})
+
+const StoriesHeader = styled(Box)({
+  display: 'flex',
+  justifyContent: 'space-between',
+})
+
+const RadioFormControl = styled(FormControl)({
+  display: 'inherit',
+  flexDirection: 'row',
+})
+
+const RadioLabel = styled(Typography)({
+  display: 'inherit',
+  alignItems: 'center',
+  padding: '10px',
 })

@@ -5,17 +5,6 @@ import GenresDropdown from './GenresDropdown';
 
 
 const IntroForm = ({ penName, onInputChange }) => {
-  // const { penName } = required;
-
-  // const genresList = Array.from(allGenres).map((gen) => (
-  //   <MenuItem 
-  //     key={ gen.id } 
-  //     name={ gen.name }
-  //     value={ gen.name }
-  //   >
-  //     { gen.name }
-  //   </MenuItem>
-  // ))
 
   return (
     <>
@@ -34,17 +23,7 @@ const IntroForm = ({ penName, onInputChange }) => {
         </PrimaryItems>
         <PrimaryItems>
           <Typography variant='body1'>Choose a fictional genre to start with:</Typography>
-          <GenresDropdown />
-          {/* <GenreDropdown 
-            required
-            autoWidth
-            // label="Genres" 
-            value={ genre } 
-            variant="outlined"
-            onChange={ (e) => onInputChange(e) } 
-          >
-            { genresList }   
-          </GenreDropdown>  */}
+          <GenresDropdown isDisabled={ false }/>
         </PrimaryItems>
       </FormControl>
     </>
@@ -54,11 +33,3 @@ const IntroForm = ({ penName, onInputChange }) => {
 export default IntroForm
 
 const PrimaryItems = styled(Box)(primaryItemsCss);
-// const GenreDropdown = styled(Select)({
-//   width: '100%',
-//   maxWidth: '270px',
-//   margin: '5px',
-//   height: '50px',
-//   display: 'inherit',
-
-// })
