@@ -21,7 +21,7 @@ const LoginForm = ({ isSignup, onUserInput, userInfo }) => {
     navEndpoint = '/start';
   } else {
     apiEndpoint = '/login';
-    navEndpoint = '/dashboard';
+    navEndpoint = '/home';
   }
   
   const handleLogin = (e) => {
