@@ -1,6 +1,7 @@
 import React from 'react';
 import { styled, TextField } from '@mui/material';
 import { favInputCss } from '../../styles/start/newUserCss';
+// DELETE THIS
 
 const FavInput = ({ name, label, onInputChange, value }) => {
   return (

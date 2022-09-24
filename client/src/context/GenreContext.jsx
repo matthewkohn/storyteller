@@ -27,7 +27,7 @@ function GenreProvider({ children }) {
     </MenuItem>
   ))
 
-  const value = { chosenGenre, genresList,handleGenreSelection };
+  const value = { chosenGenre, genresList, handleGenreSelection };
 
   return (
     <GenreContext.Provider value={ value }>

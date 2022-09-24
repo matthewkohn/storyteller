@@ -1,7 +1,9 @@
 import React from 'react';
-import { Box, FormControl, styled, TextField, Typography } from '@mui/material';
+import { Box, FormControl, styled, TextField } from '@mui/material';
 import { primaryItemsCss } from '../../styles/start/newUserCss';
 import GenresDropdown from './GenresDropdown';
+
+// DELETE ME
 
 
 const IntroForm = ({ penName, onInputChange }) => {
@@ -10,7 +12,7 @@ const IntroForm = ({ penName, onInputChange }) => {
     <>
       <FormControl fullWidth>
         <PrimaryItems>
-          <Typography variant="body1">Your author name:</Typography>
+
           <TextField 
             autoFocus
             required
@@ -22,7 +24,7 @@ const IntroForm = ({ penName, onInputChange }) => {
           />
         </PrimaryItems>
         <PrimaryItems>
-          <Typography variant='body1'>Choose a fictional genre to start with:</Typography>
+
           <GenresDropdown isDisabled={ false }/>
         </PrimaryItems>
       </FormControl>

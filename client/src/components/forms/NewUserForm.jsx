@@ -1,63 +1,34 @@
 import React, { useContext, useState } from 'react';
-import { Box, Button, FormControl, styled, Typography } from '@mui/material';
-import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { useNavigate } from 'react-router-dom';
-import { newUserBoxCss, submitBtnCss } from '../../styles/start/newUserCss';
-import { handleAPI } from '../../helpers/fetchRequests';
+import { Box, Button, FormControl, styled, TextField } from '@mui/material';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { UserContext } from '../../context/UserContext';
-import FavoritesForm from './FavoritesForm';
-import IntroForm from './IntroForm';
+import { newUserBoxCss, primaryItemsCss, submitBtnCss } from '../../styles/start/newUserCss';
+import { handleAPI } from '../../helpers/fetchRequests';
+import GenresDropdown from './GenresDropdown';
+import { GenreContext } from '../../context/GenreContext';
 
 const NewUserForm = () => {
   const { user } = useContext(UserContext);
-
+  const { currentGenre } = useContext(GenreContext);
   const [penName, setPenName] = useState(user.username);
-  const [favorites, setFavorites] = useState({
-    favoriteAuthor: '',
-    favoriteBook: '',
-    favoriteAudiobook: '',
-    favoritePodcast: ''
-  });
   const navigate = useNavigate();
 
   const handleUserInput = (e) => {
-    const inputName = e.target.name;
-    if (inputName === "penName") {
-      setPenName(e.target.value)
-    } else {
-      setFavorites({ ...favorites, [inputName]: e.target.value })
-    }
-  }
-
-  const userFavoritesJson = {
-    user_id: user.id,
-    favorite_author: favorites.favoriteAuthor,
-    favorite_book: favorites.favoriteBook,
-    favorite_audiobook: favorites.favoriteAudiobook,
-    favorite_podcast: favorites.favoritePodcast
-  }
-
-  const authorJson = {
-    name: penName
+    setPenName(e.target.value)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    Promise.all([
-      handleAPI('/authors', "POST", authorJson),
-      handleAPI('/profiles', "POST", userFavoritesJson)
-      
-    ])
-    .then((responses) => Promise.all(responses.map((res) => res.json())))
+    handleAPI('/authors', "POST", { name: penName }).then((res) => res.json())
     .then((data) => console.log(data))
     // need to navigate to '/story/:storyId/write' based on chosenGenre & reset GenreContext state to ('')
     // .then(() => navigate('/story/1/first-story', { state: [penName, chosenGenre] }))
-    .then(() => navigate('/dashboard'))
+    .then(() => navigate('/home'))
     .catch((error) => console.log(error));
   }
 
-
-
+  console.log(currentGenre)
   return ( 
     <FormControl fullWidth variant="standard" >
       <NewUserBox
@@ -65,17 +36,20 @@ const NewUserForm = () => {
         onSubmit={ (e) => handleSubmit(e) } 
         id="new-user-form"
       >
-        <IntroForm
-          penName={ penName }
-          onInputChange={ handleUserInput }
-        />
-        <Typography variant="body1">
-          Share your literary opinions (optional):
-        </Typography>
-        <FavoritesForm
-          favorites={ favorites }
-          onInputChange={ handleUserInput }
-        />
+        <PrimaryItems>
+          <TextField 
+            autoFocus
+            required
+            name="penName"
+            value={ penName }
+            onChange={ (e) => handleUserInput(e) }
+            label="Pen Name" 
+            variant="standard" 
+          />
+        </PrimaryItems>
+        <PrimaryItems>
+          <GenresDropdown isDisabled={ false }/>
+        </PrimaryItems>
       </NewUserBox>
     
       <SubmitBtn 
@@ -95,4 +69,5 @@ export default NewUserForm
 
 // Styled components
 const NewUserBox = styled(Box)(newUserBoxCss);
+const PrimaryItems = styled(Box)(primaryItemsCss);
 const SubmitBtn = styled(Button)(submitBtnCss);

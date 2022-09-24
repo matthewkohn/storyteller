@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Button, Container, styled, Typography } from '@mui/material';
 import { UserContext } from '../../../context/UserContext';
-import NewUserForm from '../../forms/NewUserForm';
-import { useNavigate } from 'react-router-dom';
 import { ctaCss, newUserContainerCss, skipBtnCss } from '../../../styles/start/newUserCss';
+import { handleAPI } from '../../../helpers/fetchRequests';
+import NewUserForm from '../../forms/NewUserForm';
 
 const NewUser = () => {
   const { user } = useContext(UserContext);
@@ -11,9 +12,9 @@ const NewUser = () => {
 
   const handleSkip = () => {
     // POST to API => create new '/authors'
-    // navigate client to '/dashboard
+    handleAPI('/authors', "POST", { name: user.username })
     console.log("SKIPPING....")
-    navigate('/dashboard');
+    navigate('/home');
   }
 
   return (

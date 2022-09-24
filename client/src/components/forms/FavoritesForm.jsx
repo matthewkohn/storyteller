@@ -2,6 +2,8 @@ import React from 'react';
 import { Box, styled } from '@mui/material';
 import { favoritesBoxCss } from '../../styles/start/newUserCss';
 import FavInput from './FavInput';
+// DELETE THIS
+
 
 const FavoritesForm = ({ favorites, onInputChange }) => {
   const { favoriteAuthor, favoriteBook, favoriteAudiobook, favoritePodcast } = favorites;
