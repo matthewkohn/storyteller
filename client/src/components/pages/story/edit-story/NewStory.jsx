@@ -1,12 +1,57 @@
-import { Container, styled } from '@mui/material'
-import React from 'react'
-import NewStoryForm from '../../../forms/NewStoryForm'
+import React, { useContext, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { Container, styled, Typography } from '@mui/material';
+import { GenreContext } from '../../../../context/GenreContext';
+import NewStoryForm from '../../../forms/NewStoryForm';
 
 const NewStory = () => {
+  const [title, setTitle] = useState("");
+  const [htmlStr, setHtmlStr] = useState("");
+  const { chosenGenre } = useContext(GenreContext);
+  const location = useLocation();
+  // console.log(location.state)
+
+  const storiesJson = {
+    genre_id: chosenGenre.id,
+    title: title
+  }
+  const paragraphJson = {
+    author_id: location.state.id,
+    rich_text_str: htmlStr
+  }
+  console.log("Stories JSON: ", storiesJson)
+  console.log("Paragraph JSON: ", paragraphJson)
+  
+  /*
+  >>>>>  '/stories'
+{
+    "genre_id": 1,                  chosenGenre.id
+    "title": "postman test2"
+}
+
+  >>>>>  '/stories/:storyId/paragraphs'
+{
+    "author_id":4,                  location.state.id
+    "rich_text_str": "<h1>My name is a secret. Shhhh.</h1>"
+}
+
+  */
+
+
   return (
     <NewStoryContainer>
+      <Typography variant="h4">This is a new story, authored by {location.state.name}.</Typography>
       <div>NewStory</div>
-      <NewStoryForm />
+      
+      <NewStoryForm 
+        story={ htmlStr }
+        updateStory={ setHtmlStr }
+        title={ title }
+        updateTitle={ setTitle }
+        genre={ chosenGenre.name }
+        // onChangeStory={ handleChangeStory }
+      />
+
     </NewStoryContainer>
   )
 }

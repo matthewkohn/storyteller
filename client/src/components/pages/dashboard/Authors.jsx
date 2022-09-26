@@ -1,41 +1,35 @@
-import { Box, Button, Container, FormControl, styled, TextField, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { Box, Button, Card, Container, FormControl, styled, TextField, Typography } from '@mui/material'
 import { handleAPI, handleGET } from '../../../helpers/fetchRequests';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
-const Authors = () => {
+const Authors = ({ currentAuthor, onSelectAuthor }) => {
   const [authors, setAuthors] = useState([]);
-  const [currentAuthor, setCurrentAuthor] = useState("");
   const [isAdding, setIsAdding] = useState(false);
   const [newAuthor, setNewAuthor] = useState("");
-  const [errors, setErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
 
   useEffect(() => {
     handleGET('/authors')
     .then((data) => {
       setAuthors(data)
-      setCurrentAuthor(data[0].name)
+      onSelectAuthor({ name: data[0].name, id: data[0].id })
     })
+    // eslint-disable-next-line
   }, [])
 
-  console.log("Authors from Authors: ", newAuthor)
-  console.log("Errors: ", errors)
+  console.log("Authors from Authors: ", currentAuthor)
+  // console.log("Errors: ", errors)
 
   const authorsList = authors.map((author) => (
-    <>
       <AuthorBtn 
         key={author.id}
-        variant={ currentAuthor === author.name ? "contained" : "outlined"} 
-        onClick={ () => setCurrentAuthor(author.name) } 
+        variant={ currentAuthor.name === author.name ? "contained" : "outlined"} 
+        onClick={ () => onSelectAuthor({ name: author.name, id: author.id }) } 
       >
-        <Typography  variant="body2">{author.name}</Typography>
+        <Typography variant="body2">{author.name}</Typography>
       </AuthorBtn>
-    </>
   ))
-  // Authors container in Dashboard, lets the user:
-  //   * view their Pen Names 
-  //   * create new pen name to write stories under => AuthorForm
-  //   * filter active stories based on selected pen name
 
   const handleToggleForm = () => {
     setIsAdding(true)
@@ -52,14 +46,15 @@ const Authors = () => {
       .then((res) => {
         if (res.ok) {
           res.json().then((data) => {
+            console.log(data)
             setAuthors([ ...authors, data ])
             setIsAdding(false)
-            setCurrentAuthor(data.name)
+            onSelectAuthor({ name: data.name, id: data.id })
             setNewAuthor("")
           })
         } else {
           res.json().then((err) => {
-            setErrors(err.errors)
+            // setErrors(err.errors)
             setNewAuthor("")
             setIsAdding(false)
           })
@@ -104,7 +99,7 @@ const Authors = () => {
               </AddBox>
             </FormControl>
           :
-          "+"
+          "Add New Pen Name"
         }  
       </AddAuthorCard> 
     </AuthorsBox>
@@ -138,17 +133,23 @@ const AuthorBtn = styled(Button)(({ theme }) => `
   overflow: hidden;
 `)
 
-const AddAuthorCard = styled(Button)(({ theme }) => `
-  color: ${theme.palette.secondary.light};
+const AddAuthorCard = styled(Card)(({ theme }) => `
+  color: ${theme.palette.secondary.dark};
+  background: ${theme.palette.secondary.main};
   font-size: 20px;
   margin-top: 15px;
+  height: 60px;
+  &:hover {
+    background: ${theme.palette.secondary.dark};
+    color: ${theme.palette.secondary.light};
+  }
 `)
 
 const SubmitBtn = styled(Button)(({ theme }) => `
-  color: ${theme.palette.secondary.light};
+  color: ${theme.palette.secondary.dark};
 `)
 
-const AddBox = styled(Box)({
-  display: 'inherit',
-
-})
+const AddBox = styled(Box)(({ theme }) => `
+  background: ${theme.palette.secondary.light}
+  color: ${theme.palette.secondary.dark};
+`)

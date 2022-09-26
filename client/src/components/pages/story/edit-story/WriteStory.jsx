@@ -24,7 +24,7 @@ const WriteStory = () => {
     <WriteStoryContainer>
       <RichTextEditor handleHtml={ setHtmlStr } />
       <Preview jsx={ htmlStr } />
-      <Button onClick={() => navigate('/dashboard')} >Back to Dashboard</Button>
+      <Button onClick={() => navigate('/home')} >Back to Dashboard</Button>
     </WriteStoryContainer>
   )
 }

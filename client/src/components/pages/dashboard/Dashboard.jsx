@@ -1,18 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Button, styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import Authors from './Authors'
 import Stories from './Stories'
 
 const Dashboard = () => {
-  const navigate = useNavigate()
+  const [currentAuthor, setCurrentAuthor] = useState({
+    name: "",
+    id: null
+  });
+  const navigate = useNavigate();
 
   return (
     <DashboardContainer>
-      <Button onClick={ () => navigate('/story/new') } >New Story</Button>
-      <Button onClick={ () => navigate('/story/1/edit') } >Contribute</Button>
+      <Button 
+        onClick={ () => navigate('/story/new', { state: currentAuthor }) } 
+      >
+        Create a New Story
+      </Button>
+      {/* <Button onClick={ () => navigate('/story/1/edit') } >Contribute</Button> */}
       <DashboardBox>
-        <Authors />
+        <Authors 
+          currentAuthor={ currentAuthor } 
+          onSelectAuthor={ setCurrentAuthor } 
+        />
         <Stories />
       </DashboardBox>
     </DashboardContainer>

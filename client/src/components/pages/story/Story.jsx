@@ -1,11 +1,10 @@
-// import { styled, Typography } from '@mui/material';
 import React from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
+// import { Button } from '@mui/material';
+
 
 
 const Story = () => {
-  const location = useLocation();
-  console.log("Location from Story: ", location)
 
   // Responsible for displaying a story with Nav links to Dashboard & Stories
   // From here, the user can choose to delete or edit the last Paragraph if they were the Author
@@ -16,15 +15,11 @@ const Story = () => {
   //  '/edit'         Edit their most recent passage
   //  '/new'          Create a new story
   //  
-
-  // Story title
-  // Genre name
-  // Current author name
   
   return (
     <>
-      {/* <Title variant="h3">Author: {location.state.penName}</Title> */}
       {/* <Typography variant="h3">Genre: {location.state.genre}</Typography> */}
+      {/* <Button onClick={ () => navigate('/story/1/edit') } >Contribute</Button> */}
       <Outlet />
     </>
   )

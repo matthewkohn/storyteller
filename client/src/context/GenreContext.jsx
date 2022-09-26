@@ -6,7 +6,10 @@ const GenreContext = React.createContext()
 
 function GenreProvider({ children }) {
   const [allGenres, setAllGenres] = useState({});
-  const [chosenGenre, setChosenGenre] = useState("")
+  const [chosenGenre, setChosenGenre] = useState({
+    name: "",
+    id: null
+  })
 
   useEffect(() => {
     handleGET('/genres').then((data) => setAllGenres(data))
@@ -14,7 +17,8 @@ function GenreProvider({ children }) {
   }, [])
 
   const handleGenreSelection = (e) => {
-    setChosenGenre(e.target.value)
+    const choice = allGenres.find((g) => g.name === e.target.value)
+    setChosenGenre(choice)
   }
 
   const genresList = Array.from(allGenres).map((gen) => (
@@ -22,6 +26,7 @@ function GenreProvider({ children }) {
       key={ gen.id } 
       name={ gen.name }
       value={ gen.name }
+      divider
     >
       { gen.name }
     </MenuItem>

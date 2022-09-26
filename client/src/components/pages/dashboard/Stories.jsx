@@ -1,11 +1,13 @@
-import { Box, FormControl, FormControlLabel, Radio, RadioGroup, styled, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Box, Button, FormControl, FormControlLabel, Radio, RadioGroup, styled, Typography } from '@mui/material';
 import GenresDropdown from '../../forms/GenresDropdown';
 import StoryCard from './StoryCard';
 
 const Stories = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [radioValue, setRadioValue] = useState('all');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setRadioValue(e.target.value);
@@ -44,6 +46,7 @@ const Stories = () => {
 {/* story cards go here */}
 
       <StoryCard />
+      <Button onClick={ () => navigate('/story/1/edit') } >Contribute</Button>
     </StoriesBox>
   )
 }

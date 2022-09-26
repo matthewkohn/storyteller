@@ -5,7 +5,7 @@ import { GenreContext } from '../../context/GenreContext';
 const GenresDropdown = ({ isDisabled }) => {
   const { chosenGenre, genresList, handleGenreSelection } = useContext(GenreContext);
 
-  console.log("chosenGenre from GenresDropdown: ", chosenGenre)
+  console.log("chosenGenre from GenresDropdown: ", chosenGenre.name)
 
   return (
     <>
@@ -14,7 +14,7 @@ const GenresDropdown = ({ isDisabled }) => {
         autoWidth
         disabled={ isDisabled }
         displayEmpty
-        value={ chosenGenre } 
+        value={ chosenGenre.name } 
         variant="outlined"
         onChange={ (e) => handleGenreSelection(e) } 
       >
