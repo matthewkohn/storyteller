@@ -37,21 +37,24 @@ const NewStory = () => {
 
   */
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("CLICK!")
+
+  }
+
 
   return (
     <NewStoryContainer>
-      <Typography variant="h4">This is a new story, authored by {location.state.name}.</Typography>
-      <div>NewStory</div>
+      <NewStoryIntro variant="h4">This is a new story, authored by {location.state.name}.</NewStoryIntro>
       
       <NewStoryForm 
-        story={ htmlStr }
         updateStory={ setHtmlStr }
         title={ title }
         updateTitle={ setTitle }
         genre={ chosenGenre.name }
-        // onChangeStory={ handleChangeStory }
+        onPublish={ handleSubmit }
       />
-
     </NewStoryContainer>
   )
 }
@@ -62,7 +65,12 @@ const NewStoryContainer = styled(Container)({
   paddingTop: '100px',
   maxHeight: '100vh',
   width: '100%',
-  border: '1px solid purple',
-  // display: 'flex',
-  // justifyContent: 'center',
+  display: 'flex',
+  flexDirection: 'column',
+
+})
+
+const NewStoryIntro = styled(Typography)({
+  textAlign: 'center',
+  padding: '10px',
 })
