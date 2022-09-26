@@ -2,7 +2,8 @@ const bannerCss = ({ theme }) => `
 color: ${theme.palette.primary.light};
 background-color: ${theme.palette.primary.dark};
 flex-direction: row;
-min-height: 10vh;
+justify-content: space-between;
+height: 60px;
 `
 
 const navBtnCss = ({ theme }) => `
@@ -18,7 +19,6 @@ padding: 15px;
 const navHeaderCss = {
   padding: '10px',
   flexGrow: 1,
-  letterSpacing: '2px',
 }
 
 export { bannerCss, navBtnCss, navHeaderCss }
