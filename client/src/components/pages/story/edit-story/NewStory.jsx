@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Container, styled, Typography } from '@mui/material';
 import { GenreContext } from '../../../../context/GenreContext';
 import NewStoryForm from '../../../forms/NewStoryForm';
+import { handleAPI } from '../../../../helpers/fetchRequests';
 
 const NewStory = () => {
   const [title, setTitle] = useState("");
@@ -40,7 +41,21 @@ const NewStory = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("CLICK!")
-
+    // let storyId;
+    handleAPI('/stories', "POST", storiesJson)
+    .then((res) => res.json())
+      // if (res.ok) {
+      //   res.json().then((story) => {
+      //     let storyId = story.id;
+      //     console.log("Story: ", story)
+      //     handleAPI(`/stories/${storyId}/paragraphs`, "POST", paragraphJson)
+      //     .then(res => res.json()).then(console.log)
+      //   })
+      .then((data) => console.log(data))
+      // } else {
+      //   res.json().then(console.log)
+      // }
+    
   }
 
 
