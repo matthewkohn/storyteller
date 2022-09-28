@@ -1,11 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { MenuItem, Select, styled } from '@mui/material';
+import { handleGET } from "../../helpers/fetchRequests";
 import { GenreContext } from '../../context/GenreContext';
 
 const GenresDropdown = ({ isDisabled }) => {
-  const { chosenGenre, genresList, handleGenreSelection } = useContext(GenreContext);
+  const { chosenGenre, genresList, handleGenreSelection, setAllGenres } = useContext(GenreContext);
 
   console.log("chosenGenre from GenresDropdown: ", chosenGenre.name)
+
+  useEffect(() => {
+    handleGET('/genres').then((data) => setAllGenres(data))
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <>

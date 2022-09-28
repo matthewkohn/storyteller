@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Container, styled } from '@mui/material';
-import { appContainerCss } from '../../../styles/main/appCss';
-import { UserContext } from '../../../context/UserContext';
-import Landing from '../landing/Landing';
-import Navbar from './Navbar';
-import Dashboard from '../dashboard/Dashboard';
-import NewUser from '../start/NewUser';
-import Story from '../story/Story';
-import ViewStory from '../story/view-story/ViewStory';
-import WriteStory from '../story/edit-story/WriteStory';
-import NewStory from '../story/edit-story/NewStory';
+import { appContainerCss } from './styles/main/appCss';
+import { UserContext } from './context/UserContext';
+import Landing from './components/pages/landing/Landing';
+import Navbar from './components/pages/home/Navbar';
+import Dashboard from './components/pages/dashboard/Dashboard';
+import NewUser from './components/pages/start/NewUser';
+import Story from './components/pages/story/Story';
+import ViewStory from './components/pages/story/view-story/ViewStory';
+import WriteStory from './components/pages/story/edit-story/WriteStory';
+import NewStory from './components/pages/story/edit-story/NewStory';
 
 function App() {
   const { user } = useContext(UserContext);

@@ -6,7 +6,7 @@ import './styles/main/index.css';
 import { storytellerTheme } from './styles/main/theme';
 import { UserProvider } from './context/UserContext';
 import { GenreProvider } from './context/GenreContext';
-import App from './components/pages/home/App';
+import App from './App';
 
 const theme = createTheme(storytellerTheme);
 

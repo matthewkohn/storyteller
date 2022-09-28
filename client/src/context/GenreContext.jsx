@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { MenuItem } from '@mui/material'
-import { handleGET } from "../helpers/fetchRequests";
 
 const GenreContext = React.createContext()
 
@@ -11,15 +10,11 @@ function GenreProvider({ children }) {
     id: null
   })
 
-  useEffect(() => {
-    handleGET('/genres').then((data) => setAllGenres(data))
-    // eslint-disable-next-line
-  }, [])
-
   const handleGenreSelection = (e) => {
     const choice = allGenres.find((g) => g.name === e.target.value)
     setChosenGenre(choice)
   }
+  console.log(allGenres)
 
   const genresList = Array.from(allGenres).map((gen) => (
     <MenuItem 
@@ -32,7 +27,7 @@ function GenreProvider({ children }) {
     </MenuItem>
   ))
 
-  const value = { chosenGenre, genresList, handleGenreSelection };
+  const value = { chosenGenre, genresList, handleGenreSelection, setAllGenres };
 
   return (
     <GenreContext.Provider value={ value }>
