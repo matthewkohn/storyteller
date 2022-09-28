@@ -1,4 +1,5 @@
 class StoriesController < ApplicationController
+  before_action :set_current_genre, only: [:index, :create]
 
   def index
     stories = @current_genre.stories.all

@@ -14,7 +14,7 @@ function GenreProvider({ children }) {
     const choice = allGenres.find((g) => g.name === e.target.value)
     setChosenGenre(choice)
   }
-  console.log(allGenres)
+  // console.log(allGenres)
 
   const genresList = Array.from(allGenres).map((gen) => (
     <MenuItem 

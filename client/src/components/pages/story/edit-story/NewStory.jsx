@@ -1,16 +1,16 @@
 import React, { useContext, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Container, styled, Typography } from '@mui/material';
 import { GenreContext } from '../../../../context/GenreContext';
-import NewStoryForm from '../../../forms/NewStoryForm';
 import { handleAPI } from '../../../../helpers/fetchRequests';
+import NewStoryForm from '../../../forms/NewStoryForm';
 
 const NewStory = () => {
   const [title, setTitle] = useState("");
   const [htmlStr, setHtmlStr] = useState("");
   const { chosenGenre } = useContext(GenreContext);
   const location = useLocation();
-  // console.log(location.state)
+  const navigate = useNavigate();
 
   const storiesJson = {
     genre_id: chosenGenre.id,
@@ -20,8 +20,6 @@ const NewStory = () => {
     author_id: location.state.id,
     rich_text_str: htmlStr
   }
-  console.log("Stories JSON: ", storiesJson)
-  console.log("Paragraph JSON: ", paragraphJson)
   
   /*
   >>>>>  '/stories'
@@ -38,24 +36,18 @@ const NewStory = () => {
 
   */
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("CLICK!")
-    // let storyId;
-    handleAPI('/stories', "POST", storiesJson)
-    .then((res) => res.json())
-      // if (res.ok) {
-      //   res.json().then((story) => {
-      //     let storyId = story.id;
-      //     console.log("Story: ", story)
-      //     handleAPI(`/stories/${storyId}/paragraphs`, "POST", paragraphJson)
-      //     .then(res => res.json()).then(console.log)
-      //   })
-      .then((data) => console.log(data))
-      // } else {
-      //   res.json().then(console.log)
-      // }
-    
+    const newStory = await handleAPI('/stories', "POST", storiesJson).then((res) => res.json());
+    const newParagraphURL = `/stories/${newStory.id}/paragraphs`;
+    handleAPI(newParagraphURL, "POST", paragraphJson)
+    .then((res) => {
+      if (res.ok) {
+        res.json().then(console.log).then(navigate('/home'))
+      } else {
+        res.json().then(console.log)
+      }
+    });
   }
 
 
