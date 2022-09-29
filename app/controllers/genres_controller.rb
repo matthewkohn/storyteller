@@ -7,7 +7,8 @@ class GenresController < ApplicationController
 
   def show
     genre = Genre.find_by(id: params[:id])
-    render json: genre, status: :ok, serializer: GenreStoriesSerializer
+    genre_stories = genre.stories
+    render json: genre_stories, status: :ok
   end
 
   def create

@@ -1,19 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Preview from './Preview';
 import RichTextEditor from './RichTextEditor';
 import { Button, Container, styled } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { handleGET } from '../../../../helpers/fetchRequests';
 
-// import { useLocation } from 'react-router-dom';
 
 const WriteStory = () => {
   const [htmlStr, setHtmlStr] = useState("")
   console.log("htmlStr from APP: ", htmlStr)
+  const [story, setStory] = useState({})
+  console.log("STORY: ", story)
+
   const navigate = useNavigate();
+  const location = useLocation()
+  const url = `/stories/${location.state}`
 
-
-  // const location = useLocation()
-  // console.log("location from WriteStory: ", location.state, location)
+  useEffect(() => {
+    handleGET(url).then((s) => setStory(s))
+  }, [url])
 
   // const fixBreakLine = () => {
 

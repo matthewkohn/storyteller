@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Button, styled } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { Box, styled } from '@mui/material'
 import Authors from './Authors'
 import Stories from './Stories'
 
@@ -9,22 +8,17 @@ const Dashboard = () => {
     name: "",
     id: null
   });
-  const navigate = useNavigate();
 
   return (
     <DashboardContainer>
-      <Button 
-        onClick={ () => navigate('/story/new', { state: currentAuthor }) } 
-      >
-        Create a New Story
-      </Button>
-      {/* <Button onClick={ () => navigate('/story/1/edit') } >Contribute</Button> */}
       <DashboardBox>
         <Authors 
           currentAuthor={ currentAuthor } 
           onSelectAuthor={ setCurrentAuthor } 
         />
-        <Stories />
+        <Stories 
+          authorName={ currentAuthor.name }
+        />
       </DashboardBox>
     </DashboardContainer>
   )
@@ -33,7 +27,7 @@ const Dashboard = () => {
 export default Dashboard
 
 const DashboardContainer = styled(Box)({
-  paddingTop: '100px',
+  paddingTop: '40px',
 })
 
 const DashboardBox = styled(Box)({

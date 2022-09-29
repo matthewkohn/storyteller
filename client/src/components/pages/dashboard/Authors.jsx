@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Card, Container, FormControl, styled, TextField, Typography } from '@mui/material'
-import { handleAPI, handleGET } from '../../../helpers/fetchRequests';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import { useNavigate } from 'react-router-dom';
+import { handleAPI, handleGET } from '../../../helpers/fetchRequests';
 
 const Authors = ({ currentAuthor, onSelectAuthor }) => {
   const [authors, setAuthors] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
   const [newAuthor, setNewAuthor] = useState("");
   // const [errors, setErrors] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     handleGET('/authors')
@@ -73,6 +75,12 @@ const Authors = ({ currentAuthor, onSelectAuthor }) => {
         { authorsList }
 
       </BtnList>
+      <NewStoryBtn 
+        variant="contained"
+        onClick={ () => navigate('/story/new', { state: currentAuthor }) } 
+      >
+        Create a New Story as {currentAuthor.name} 
+      </NewStoryBtn>
       <AddAuthorCard variant="contained" onClick={() => handleToggleForm() }>
         {
           isAdding ?
@@ -109,12 +117,13 @@ const Authors = ({ currentAuthor, onSelectAuthor }) => {
 export default Authors
 
 const AuthorsBox = styled(Box)({
-  border: '1px solid orange',
+  // border: '1px solid orange',
   padding: '20px',
   borderRadius: '15px',
   margin: '10px',
   width: 'auto',
   maxWidth: '240px',
+  height: '80vh',
   display: 'inherit',
   flexDirection: 'column',
   justifyContent: 'space-between',
@@ -137,12 +146,18 @@ const AddAuthorCard = styled(Card)(({ theme }) => `
   color: ${theme.palette.secondary.dark};
   background: ${theme.palette.secondary.main};
   font-size: 20px;
+  text-align: center;
+  padding: 10px;
   margin-top: 15px;
   height: 60px;
   &:hover {
     background: ${theme.palette.secondary.dark};
     color: ${theme.palette.secondary.light};
   }
+`)
+
+const NewStoryBtn = styled(Button)(({ theme }) => `
+  color: ${theme.palette.secondary.dark};
 `)
 
 const SubmitBtn = styled(Button)(({ theme }) => `
