@@ -1,48 +1,47 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, FormControl, FormControlLabel, Radio, RadioGroup, styled, Typography } from '@mui/material';
-import GenresDropdown from '../../forms/GenresDropdown';
+import { Box, Button, styled, Typography } from '@mui/material';
+import { handleGET } from '../../../helpers/fetchRequests'
 import StoryCard from './StoryCard';
+import StoriesHeader from './StoriesHeader';
+import { GenreContext } from '../../../context/GenreContext';
+
 
 const Stories = () => {
+  const navigate = useNavigate();
   const [isDisabled, setIsDisabled] = useState(true);
   const [radioValue, setRadioValue] = useState('all');
-  const navigate = useNavigate();
+  const [allStories, setAllStories] = useState([]);
+  const { chosenGenre } = useContext(GenreContext)
+  console.log("Chosen genre id: ", chosenGenre.id)
 
   const handleChange = (e) => {
     setRadioValue(e.target.value);
     radioValue === 'all' ? setIsDisabled(false) : setIsDisabled(true)
   }
+// GET STORIES from API ('all' and filtered by Genre) TO MAKE STORYCARDS SHOWING STORY TITLE & MOST RECENT AUTHOR
+// make GET url state and setState('all' || 'by_genre')
+// figure out endpoints for sorting stories by genre
 
+  useEffect(() => {
+    handleGET('/stories').then((stories) => {
+      setAllStories(stories);
+      // run stories through isLastAuthor(stories) function 
+      // const paragraphs = stories.map((story) => story)
+    })
+  }, [])
   // genre dropdown that displays filtered stories for that genre
   // maps all stories of a genre as a StoryCard (story title only)
+  console.log(allStories)
 
   return (
     <StoriesBox>
-      <StoriesHeader>
-        <Typography variant="h4">Stories</Typography>
-        <RadioFormControl>
-          <RadioLabel variant="h6">View: </RadioLabel>
-          <RadioGroup 
-            row
-            defafultvalue="all"
-            value={ radioValue }
-            onChange={ handleChange }
-          >
-            <FormControlLabel 
-              value="all" 
-              control={ <Radio /> } 
-              label="All" 
-            />
-            <FormControlLabel 
-              value="by-genre" 
-              control={ <Radio /> } 
-              label="By Genre" 
-            />
-          </RadioGroup>
-          <GenresDropdown isDisabled={ isDisabled }/>
-        </RadioFormControl>
-      </StoriesHeader>
+      <Typography variant="h4">Stories</Typography>
+      <StoriesHeader
+        isDisabled={ isDisabled }
+        onRadioChange={ handleChange }
+        radioValue={ radioValue }
+      />
 {/* story cards go here */}
 
       <StoryCard />
@@ -60,20 +59,4 @@ const StoriesBox = styled(Box)({
   margin: '10px',
   width: '75vw',
   height: '65vh',
-})
-
-const StoriesHeader = styled(Box)({
-  display: 'flex',
-  justifyContent: 'space-between',
-})
-
-const RadioFormControl = styled(FormControl)({
-  display: 'inherit',
-  flexDirection: 'row',
-})
-
-const RadioLabel = styled(Typography)({
-  display: 'inherit',
-  alignItems: 'center',
-  padding: '10px',
 })

@@ -3,8 +3,7 @@ Rails.application.routes.draw do
   
   resources :profiles, only: [:create]
   resources :authors, only: [:index, :create]
-  resources :genres, only: [:index, :create]
-  # resources :stories, only: [:create]
+  resources :genres, only: [:index, :show, :create]
   resources :stories, only: [:index, :show, :create] do
     resources :paragraphs, only: [:index, :create]
   end

@@ -1,14 +1,14 @@
 class StoriesController < ApplicationController
-  before_action :set_current_genre, only: [:index, :create]
+  before_action :set_current_genre, only: [:create]
 
   def index
-    stories = @current_genre.stories.all
+    stories = Story.all
     render json: stories, status: :ok
   end
 
   def show
     current_story = Story.find_by(id: params[:id])
-    render json: current_story, status: :ok
+    render json: current_story, status: :ok, serializer: StoryContentsSerializer
   end
 
   def create
@@ -26,8 +26,9 @@ class StoriesController < ApplicationController
   def story_params
     params.permit(:id, :genre_id, :title)
   end
-  
+
   def set_current_genre
+    # byebug
     @current_genre = Genre.find_by(id: params[:genre_id])
   end
 
