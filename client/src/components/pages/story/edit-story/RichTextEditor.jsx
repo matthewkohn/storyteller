@@ -3,6 +3,7 @@ import { Editor, EditorState, getDefaultKeyBinding, RichUtils } from 'draft-js'
 import '../../../../../node_modules/draft-js/dist/Draft.css'
 import '../../../../styles/story/richText.css'
 import {stateToHTML} from 'draft-js-export-html';
+import fixBreakLine from '../../../../helpers/fixBreakLine';
 
 class RichTextEditor extends React.Component {
   constructor(props) {
@@ -74,7 +75,8 @@ class RichTextEditor extends React.Component {
     }
     
     let newHtml = stateToHTML(contentState);
-    setTimeout(() => this.props.handleHtml(newHtml), 0)
+    let updatedHtml = fixBreakLine(newHtml);
+    setTimeout(() => this.props.handleHtml(updatedHtml), 0)
     // console.log("html from RichTextEditor: ", newHtml)
     
     return (
@@ -92,6 +94,7 @@ class RichTextEditor extends React.Component {
             blockStyleFn={getBlockStyle}
             customStyleMap={styleMap}
             editorState={editorState}
+            
             handleKeyCommand={this.handleKeyCommand}
             keyBindingFn={this.mapKeyToEditorCommand}
             onChange={this.onChange}
