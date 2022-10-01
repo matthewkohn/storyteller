@@ -8,7 +8,7 @@ const StoriesHeader = ({ isDisabled, onRadioChange, radioValue }) => {
     <>
       <HeaderBox>
         <RadioFormControl>
-          <RadioLabel variant="h6">View: </RadioLabel>
+          <RadioLabel variant="h6">Sort By: </RadioLabel>
           <RadioGroup 
             row
             defafultvalue="all"
@@ -18,12 +18,14 @@ const StoriesHeader = ({ isDisabled, onRadioChange, radioValue }) => {
             <FormControlLabel 
               value="all" 
               control={ <Radio /> } 
-              label="All" 
+              label="All"
+              labelPlacement='start' 
             />
             <FormControlLabel 
               value="by-genre" 
               control={ <Radio /> } 
-              label="By Genre" 
+              label="Genre" 
+              labelPlacement='start'
             />
           </RadioGroup>
           <GenresDropdown isDisabled={ isDisabled }/>
@@ -50,4 +52,5 @@ const RadioLabel = styled(Typography)({
   display: 'inherit',
   alignItems: 'center',
   padding: '10px',
+  marginRight: '40px',
 })

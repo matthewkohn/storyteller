@@ -2,15 +2,17 @@ import { Box, styled } from '@mui/material'
 import React from 'react'
 import JsxParser from 'react-jsx-parser'
 
-const Preview = ({ jsx }) => {
+const Preview = ({ newJsxStr, paragraphs }) => {
   return (
+    // console.log(paragraphs)
 
     // Displays text-only preview of the first.../...last paragraphs
     // Scrollable box that will be used in Dashboard (Add '+' button if not disabled)
     // and in WriterContainer (no button, view only)
 
     <PreviewBox>
-      <JsxParser jsx={ jsx } />
+      { paragraphs }
+      <JsxParser jsx={ newJsxStr } />
     </PreviewBox>
   )
 }

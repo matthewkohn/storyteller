@@ -2,16 +2,18 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Box, Container, styled, Typography } from '@mui/material';
 import { handleGET } from '../../../helpers/fetchRequests';
 import { GenreContext } from '../../../context/GenreContext';
+import { AuthorContext } from '../../../context/AuthorContext';
 import StoriesHeader from './StoriesHeader';
 import StoryCard from './StoryCard';
 
 
-const Stories = ({ authorName }) => {
+const Stories = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [radioValue, setRadioValue] = useState('all');
   const [allStories, setAllStories] = useState([]);
   const [url, setUrl] = useState('/stories');
   const { chosenGenre } = useContext(GenreContext);
+  const [currentAuthor] = useContext(AuthorContext);
   
   const handleChange = (e) => {
     const value = e.target.value;
@@ -33,13 +35,13 @@ const Stories = ({ authorName }) => {
 
   return (
     <StoriesBox>
-      <Typography variant="h4">Stories</Typography>
+      <Typography variant="h4">Book Shelf</Typography>
       <StoriesHeader
         isDisabled={ isDisabled }
         onRadioChange={ handleChange }
         radioValue={ radioValue }
       />
-      <Typography variant="body1">Click on a story title to contribute as "{ authorName }"</Typography>
+      <Typography variant="body1">Click on a story title to contribute as "{ currentAuthor.name }"</Typography>
       <StoryCardContainer>
         { storyCardsList }
       </StoryCardContainer>

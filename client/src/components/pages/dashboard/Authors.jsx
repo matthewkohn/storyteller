@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, Card, Container, FormControl, styled, TextField, Typography } from '@mui/material'
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { useNavigate } from 'react-router-dom';
 import { handleAPI, handleGET } from '../../../helpers/fetchRequests';
+import { AuthorContext } from '../../../context/AuthorContext';
 
-const Authors = ({ currentAuthor, onSelectAuthor }) => {
+const Authors = () => {
+  const [currentAuthor, setCurrentAuthor] = useContext(AuthorContext)
   const [authors, setAuthors] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
   const [newAuthor, setNewAuthor] = useState("");
@@ -15,24 +17,29 @@ const Authors = ({ currentAuthor, onSelectAuthor }) => {
     handleGET('/authors')
     .then((data) => {
       setAuthors(data)
-      onSelectAuthor({ name: data[0].name, id: data[0].id })
+      setCurrentAuthor({ name: data[0].name, id: data[0].id })
     })
     // eslint-disable-next-line
   }, [])
-
-  console.log("Authors from Authors: ", currentAuthor)
+  
+  
+  // console.log("Authors from Authors: ", currentAuthor)
   // console.log("Errors: ", errors)
 
   const authorsList = authors.map((author) => (
       <AuthorBtn 
         key={author.id}
-        variant={ currentAuthor.name === author.name ? "contained" : "outlined"} 
-        onClick={ () => onSelectAuthor({ name: author.name, id: author.id }) } 
-      >
+        variant={ currentAuthor.name === author.name ? "contained" : "outlined" } 
+        onClick={ () => onChooseCurrentAuthor(author) } 
+        >
         <Typography variant="body2">{author.name}</Typography>
       </AuthorBtn>
   ))
-
+  
+  const onChooseCurrentAuthor = (author) => {
+    setCurrentAuthor({ name: author.name, id: author.id })
+  }
+  
   const handleToggleForm = () => {
     setIsAdding(true)
   }
@@ -51,7 +58,7 @@ const Authors = ({ currentAuthor, onSelectAuthor }) => {
             console.log(data)
             setAuthors([ ...authors, data ])
             setIsAdding(false)
-            onSelectAuthor({ name: data.name, id: data.id })
+            setCurrentAuthor({ name: data.name, id: data.id })
             setNewAuthor("")
           })
         } else {
