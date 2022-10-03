@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :authors, only: [:index, :create]
   resources :genres, only: [:index, :show, :create]
   resources :stories, only: [:index, :show, :create] do
-    resources :paragraphs, only: [:index, :create]
+    resources :paragraphs, only: [:index, :create, :update, :destroy]
   end
   
   post "/signup", to: "users#create"

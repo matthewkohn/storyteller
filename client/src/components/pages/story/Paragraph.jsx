@@ -1,37 +1,39 @@
-import { Card, IconButton, styled, Typography } from '@mui/material';
+import { Card, Container, IconButton, styled, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import JsxParser from 'react-jsx-parser'
+import AlertDialogSlide from './edit-story/AlertDialogSlide';
 
-const Paragraph = ({ isAuthor, paragraphData, updateUserHtml }) => {
+const Paragraph = ({ isAuthor, onDelete, paragraphData, updateUserHtml }) => {
   const richText = paragraphData.rich_text_str
   const createdAt = new Date(paragraphData.created_at).toDateString();
 
+  // console.log("chosenId? : ", chosenId)
+
   return (
-    <ParaCard>
+    <ParaCard >
       <JsxParser jsx={ richText } />
+      {
+        isAuthor ?
+        <ButtonGroup>
+          <IconButton 
+            onClick={ () => updateUserHtml(richText, paragraphData.id) }
+          >
+            <EditIcon />
+          </IconButton>
+          <AlertDialogSlide 
+            id={ paragraphData.id }
+            onDelete={ onDelete }
+          />
+        </ButtonGroup>
+        :
+        <></>
+      }
       <Caption 
         variant="caption"
         sx={isAuthor ? {color: 'lightgreen', background: 'darkgreen'} : {color: 'red' }}        
       >
         written {createdAt} by {paragraphData.author}
       </Caption>
-      {
-        isAuthor ?
-        <>
-          <IconButton 
-            onClick={ () => updateUserHtml(richText, paragraphData.id) }
-          >
-            <EditIcon />
-          </IconButton>
-          <IconButton onClick={() => console.log("DESTROY ME!!!")}>
-            <DeleteForeverIcon />
-          </IconButton>
-        </>
-        :
-        null
-      }
-
     </ParaCard>
     
   )
@@ -43,10 +45,17 @@ const ParaCard = styled(Card)({
   margin: '3px',
   textAlign: 'left',
   padding: '5px',
-  width: '100%',
+  // width: '100%',
 })
 
 const Caption = styled(Typography)(({ theme }) => `
   padding: 1px 5px;
   border-radius: 5px;
+  display: flex;
+  justify-content: flex-end;
 `)
+
+const ButtonGroup = styled(Container)({
+  display: 'flex',
+  justifyContent: 'flex-end',
+})

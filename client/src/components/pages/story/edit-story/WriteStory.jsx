@@ -1,74 +1,80 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Container, styled, Typography } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { handleGET, handleAPI } from '../../../../helpers/fetchRequests';
+import { handleGET, handleAPI, handleDELETE } from '../../../../helpers/fetchRequests';
 import { AuthorContext } from '../../../../context/AuthorContext';
 import Preview from './Preview';
-// import RichTextEditor from './RichTextEditor';
 import Paragraph from '../Paragraph';
 import TextEditor from './TextEditor';
 
 
 const WriteStory = () => {
   const [userHtmlStr, setUserHtmlStr] = useState("");
-  console.log("userHtmlStr from APP: ", userHtmlStr)
   const [storyObj, setStoryObj] = useState({});
   const [paragraphs, setParagraphs] = useState([]);
   const [paragraphId, setParagraphId] = useState(null);
   const [editValue, setEditValue] = useState('');
-  
   const [currentAuthor] = useContext(AuthorContext);
-
-  // console.log("STORY: ", storyObj)
-  // console.log("Paragraphs: ", paragraphs)
-  // console.log("current author object from WriteStory: ", currentAuthor)
-  console.log("Edit Value", editValue)
-  console.log("paragraphId: ", paragraphId)
-
   const navigate = useNavigate();
   const location = useLocation()
-  const url = `/stories/${location.state}`
-
-  useEffect(() => {
-    handleGET(url).then((story) => {
-      setStoryObj(story)
-      setParagraphs(story.paragraphs)
-    })
-  }, [url])
-
-  const handleEditBtn = (str, id) => {
-    setEditValue(str);
-    setParagraphId(id);
-  }
-
-  const paragraphsList = paragraphs.map((para) => (
-    <Paragraph 
-      key={ para.id } 
-      paragraphData={ para } 
-      isAuthor={ 
-        currentAuthor.name === para.author ? true : false 
-      }
-      updateUserHtml={ handleEditBtn }
-      />
-  ))
+  const baseUrl = `/stories/${location.state}`;
+  const paragraphUrl = `/paragraphs/${paragraphId}`
 
   const paragraphJson = {
     author_id: currentAuthor.id,
     rich_text_str: userHtmlStr
   }
-  // console.log(paragraphJson)
 
+  useEffect(() => {
+    handleGET(baseUrl).then((story) => {
+      setStoryObj(story)
+      setParagraphs(story.paragraphs)
+    })
+  }, [baseUrl])
   
+  const handleCancel = () => {
+    setEditValue('');
+    setParagraphId(null);
+  }
+
+  const handleEditBtn = (str, id) => {
+    setEditValue(str);
+    setParagraphId(id);
+  }
+  
+  const handleDelete = (id) => {
+    setParagraphId(id);
+    handleDELETE(baseUrl + `/paragraphs/${id}`)
+    .then((res) => res.json())
+    .then((deletedParagraph) => {
+      const updatedParagraphs = paragraphs.filter((p) => p.id !== deletedParagraph.id)
+      setParagraphs(updatedParagraphs);
+      setEditValue('');
+      setParagraphId(null);
+    })
+  }
+
   const handleUpdate = (e) => {
     e.preventDefault();
-    const updateParagraphUrl = `/stories/${storyObj}/paragraphs/${paragraphId}`
-    handleAPI(updateParagraphUrl, "PATCH", )
-
-
+    const updateParagraphUrl = baseUrl + paragraphUrl;
+    handleAPI(updateParagraphUrl, "PATCH", paragraphJson)
+    .then((res) => {
+      if (res.ok) {
+        res.json().then((newParagraph) => {
+          const updatedParagraphs = paragraphs.map((p) => p.id === paragraphId ? newParagraph : p )
+          setParagraphs(updatedParagraphs);
+          setEditValue('');
+          setParagraphId(null);
+        })
+      } else {
+        res.json().then(console.log)
+      }
+    })
   }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newParagraphURL = `/stories/${storyObj.id}/paragraphs`;
+    const newParagraphURL = baseUrl + `/paragraphs`;
     handleAPI(newParagraphURL, "POST", paragraphJson)
     .then((res) => {
       if (res.ok) {
@@ -80,12 +86,18 @@ const WriteStory = () => {
     });
   }
 
-
-  // onEditParagraph => populate RTE with paragraph's contents, and make that paragraph view in its original card as the user types
-  //    * change SubmitBtn to UpdateBtn that doesn't navigate away & sends fetch PATCH to /stories/:id/paragraphs/:id
-
   // onDeleteParagraph => popup "You sure?", confirm then update state & send fetch DELETE to stories/:id/paragraphs/:id
 
+  const paragraphsList = paragraphs.map((para) => (
+    <Paragraph 
+      key={ para.id } 
+      // chosenId={ paragraphId }
+      isAuthor={ currentAuthor.name === para.author ? true : false }
+      onDelete={ handleDelete }
+      paragraphData={ para } 
+      updateUserHtml={ handleEditBtn }
+      />
+  ))
 
   return (
     <WriteStoryContainer>
@@ -101,44 +113,40 @@ const WriteStory = () => {
         <Preview 
           paragraphs={ paragraphsList } 
           newJsxStr={ userHtmlStr } 
+          isEditing={ editValue ? true : false }
+          authorName={ currentAuthor.name }
         />
         <RightView>
           <TextEditor 
             handleHtml={ setUserHtmlStr }
             editValue={ editValue }
           />
-
-          {/* <RichTextEditor 
-            markupEditObj={ editValue }
-            handleHtml={ setUserHtmlStr } 
-          /> */}
-          {
-            editValue ?
-            <>
-              <CancelEditBtn
-                variant="contained"
-              >
-                Cancelllll
-              </CancelEditBtn>
-              <SubmitBtn 
-                variant="contained"
-                onClick={(e) => handleUpdate(e)}
-              >
-                Update
-              </SubmitBtn>
-            </>
-            :
-              <SubmitBtn 
-                variant="contained"
-                onClick={(e) => handleSubmit(e)}
-              >
-                Submit
-              </SubmitBtn>
-          }
-       
+        {
+          editValue ?
+          <>
+            <SubmitBtn 
+              variant="contained"
+              onClick={ (e) => handleUpdate(e) }
+            >
+              Update
+            </SubmitBtn>
+            <CancelEditBtn
+              variant="contained"
+              onClick={ () => handleCancel() }
+            >
+              Cancel and continiue
+            </CancelEditBtn>
+          </>
+          :
+            <SubmitBtn 
+              variant="contained"
+              onClick={ (e) => handleSubmit(e) }
+            >
+              Submit
+            </SubmitBtn>
+        }
         </RightView>
       </ViewContainer>
-      
     </WriteStoryContainer>
   )
 }
@@ -179,13 +187,14 @@ const GenreAuthorNames = styled(Container)({
 const ViewContainer = styled(Container)({
   display: 'inherit',
   height: '70vh',
-  border: '1px solid black'
+  // border: '1px solid black'
 })
 
 // turn into formControl
-const RightView = styled(Container)({
-  height: '500px',
-})
+const RightView = styled(Container)(({ theme }) => `
+  height: 300px;
+  background: ${theme.palette.secondary.light};
+`)
 
 const SubmitBtn = styled(Button)({
   width: '100%',

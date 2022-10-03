@@ -1,5 +1,5 @@
 class ParagraphsController < ApplicationController
-  before_action :set_current_story, only: [:index, :create]
+  before_action :set_current_story, only: [:index, :create, :update, :destroy]
 
   def index
     paragraphs = @current_story.paragraphs
@@ -16,6 +16,27 @@ class ParagraphsController < ApplicationController
     end
   end
 
+  def update
+    paragraph = @current_story.paragraphs.find_by(id: params[:id])
+    if paragraph
+      paragraph.update(paragraph_params)
+      render json: paragraph
+    else
+      render json: { error: "Paragraph not found" }, status: :not_found
+    end
+  end
+
+  def destroy
+    paragraph = @current_story.paragraphs.find_by(id: params[:id])
+    if paragraph
+      paragraph.destroy
+      render json: paragraph, status: :ok
+    else
+      render json: { error: "Paragraph not found" }, status: :not_found
+    end
+
+  end
+  
 
   private
 
