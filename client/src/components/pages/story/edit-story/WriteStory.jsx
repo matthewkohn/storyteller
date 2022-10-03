@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Container, styled, Typography } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { handleGET, handleAPI } from '../../../../helpers/fetchRequests';
-import Preview from './Preview';
-import RichTextEditor from './RichTextEditor';
-import Paragraph from '../Paragraph';
-import { useContext } from 'react';
 import { AuthorContext } from '../../../../context/AuthorContext';
+import Preview from './Preview';
+// import RichTextEditor from './RichTextEditor';
+import Paragraph from '../Paragraph';
+import TextEditor from './TextEditor';
 
 
 const WriteStory = () => {
@@ -14,11 +14,16 @@ const WriteStory = () => {
   console.log("userHtmlStr from APP: ", userHtmlStr)
   const [storyObj, setStoryObj] = useState({});
   const [paragraphs, setParagraphs] = useState([]);
+  const [paragraphId, setParagraphId] = useState(null);
+  const [editValue, setEditValue] = useState('');
+  
   const [currentAuthor] = useContext(AuthorContext);
 
-  console.log("STORY: ", storyObj)
-  console.log("Paragraphs: ", paragraphs)
-  console.log("current author object from WriteStory: ", currentAuthor)
+  // console.log("STORY: ", storyObj)
+  // console.log("Paragraphs: ", paragraphs)
+  // console.log("current author object from WriteStory: ", currentAuthor)
+  console.log("Edit Value", editValue)
+  console.log("paragraphId: ", paragraphId)
 
   const navigate = useNavigate();
   const location = useLocation()
@@ -31,6 +36,11 @@ const WriteStory = () => {
     })
   }, [url])
 
+  const handleEditBtn = (str, id) => {
+    setEditValue(str);
+    setParagraphId(id);
+  }
+
   const paragraphsList = paragraphs.map((para) => (
     <Paragraph 
       key={ para.id } 
@@ -38,7 +48,7 @@ const WriteStory = () => {
       isAuthor={ 
         currentAuthor.name === para.author ? true : false 
       }
-      updateUserHtml={ setUserHtmlStr }
+      updateUserHtml={ handleEditBtn }
       />
   ))
 
@@ -48,6 +58,14 @@ const WriteStory = () => {
   }
   // console.log(paragraphJson)
 
+  
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    const updateParagraphUrl = `/stories/${storyObj}/paragraphs/${paragraphId}`
+    handleAPI(updateParagraphUrl, "PATCH", )
+
+
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     const newParagraphURL = `/stories/${storyObj.id}/paragraphs`;
@@ -77,7 +95,7 @@ const WriteStory = () => {
           <Typography variant="h6">Genre: {storyObj.genre}</Typography>
           <Typography variant="h6">Your current Pen Name: {currentAuthor.name}</Typography>
         </GenreAuthorNames>
-          <Button onClick={() => navigate('/home')} >Back to Dashboard</Button>
+        <Button onClick={() => navigate('/home')} >Back to Dashboard</Button>
       </StoryStats>
       <ViewContainer>
         <Preview 
@@ -85,15 +103,39 @@ const WriteStory = () => {
           newJsxStr={ userHtmlStr } 
         />
         <RightView>
-          <RichTextEditor 
-            handleHtml={ setUserHtmlStr } 
+          <TextEditor 
+            handleHtml={ setUserHtmlStr }
+            editValue={ editValue }
           />
-          <SubmitBtn 
-            variant="contained"
-            onClick={(e) => handleSubmit(e)}
-          >
-            Submit
-          </SubmitBtn>
+
+          {/* <RichTextEditor 
+            markupEditObj={ editValue }
+            handleHtml={ setUserHtmlStr } 
+          /> */}
+          {
+            editValue ?
+            <>
+              <CancelEditBtn
+                variant="contained"
+              >
+                Cancelllll
+              </CancelEditBtn>
+              <SubmitBtn 
+                variant="contained"
+                onClick={(e) => handleUpdate(e)}
+              >
+                Update
+              </SubmitBtn>
+            </>
+            :
+              <SubmitBtn 
+                variant="contained"
+                onClick={(e) => handleSubmit(e)}
+              >
+                Submit
+              </SubmitBtn>
+          }
+       
         </RightView>
       </ViewContainer>
       
@@ -142,10 +184,15 @@ const ViewContainer = styled(Container)({
 
 // turn into formControl
 const RightView = styled(Container)({
-  
+  height: '500px',
 })
 
 const SubmitBtn = styled(Button)({
+  width: '100%',
+  height: '60px',
+})
+
+const CancelEditBtn = styled(Button)({
   width: '100%',
   height: '60px',
 })

@@ -73,11 +73,26 @@ class RichTextEditor extends React.Component {
         className += ' RichEditor-hidePlaceholder';
       }
     }
+
+    // if (this.props.markupEditObj !== {}) {
+      
+    //   console.log("PROPS FOR NEW OBJ: ", this.props.markupEditObj)
+    //   // // this.setState({editorState})
+    //   const newObj = this.props.markupEditObj;
+    //   // const newState = ContentState.createFromBlockArray(
+    //   //     newObj.contentBlocks,
+    //   //     newObj.entityMap,
+    //   //   )
+
+    //     this.state = {
+    //       editorState: EditorState.createWithContent(newObj),
+    //     };
+    // }
     
     let newHtml = stateToHTML(contentState);
     let updatedHtml = fixBreakLine(newHtml);
     setTimeout(() => this.props.handleHtml(updatedHtml), 0)
-    console.log("contentState from RichTextEditor: ", contentState.size)
+    // console.log("contentState from RichTextEditor: ", contentState.size)
     
     return (
       <div className="RichEditor-root">

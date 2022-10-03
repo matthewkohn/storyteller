@@ -1,15 +1,10 @@
-// import React, { useEffect, useState } from 'react';
 import { Card, IconButton, styled, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import JsxParser from 'react-jsx-parser'
 
 const Paragraph = ({ isAuthor, paragraphData, updateUserHtml }) => {
-  console.log("Paragraph data: ",paragraphData)
-
   const richText = paragraphData.rich_text_str
-  console.log("Rich text: ", richText)
-
   const createdAt = new Date(paragraphData.created_at).toDateString();
 
   return (
@@ -25,7 +20,7 @@ const Paragraph = ({ isAuthor, paragraphData, updateUserHtml }) => {
         isAuthor ?
         <>
           <IconButton 
-            onClick={ () => updateUserHtml(richText) }
+            onClick={ () => updateUserHtml(richText, paragraphData.id) }
           >
             <EditIcon />
           </IconButton>
