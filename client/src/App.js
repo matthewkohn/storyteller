@@ -4,9 +4,8 @@ import { Container, styled } from '@mui/material';
 import { appContainerCss } from './styles/main/appCss';
 import { UserContext } from './context/UserContext';
 import Landing from './components/pages/landing/Landing';
-import Navbar from './components/pages/home/Navbar';
+import Navbar from './components/pages/navigation/Navbar';
 import Dashboard from './components/pages/dashboard/Dashboard';
-import NewUser from './components/pages/start/NewUser';
 import Story from './components/pages/story/Story';
 import ViewStory from './components/pages/story/view-story/ViewStory';
 import WriteStory from './components/pages/story/edit-story/WriteStory';
@@ -22,7 +21,6 @@ function App() {
       <Navbar />
       <Routes>
         <Route index element={ <Landing /> } />
-        <Route path='start' element={ <NewUser /> } />
         <Route path='home' element={ <Dashboard /> } />
         <Route path='story' element={ <Story /> } >
           <Route path='new' element={ <NewStory /> } />

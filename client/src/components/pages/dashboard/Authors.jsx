@@ -1,22 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Box, Button, Card, Container, FormControl, styled, TextField, Typography } from '@mui/material'
-import AddBoxIcon from '@mui/icons-material/AddBox';
+import { Box, Button, Card, Container, styled, Typography } from '@mui/material'
+// import AddBoxIcon from '@mui/icons-material/AddBox';
 import { useNavigate } from 'react-router-dom';
 import { handleAPI, handleGET } from '../../../helpers/fetchRequests';
 import { AuthorContext } from '../../../context/AuthorContext';
+import AuthError from '../landing/login-side/AuthError';
+import NewAuthorForm from '../../forms/NewAuthorForm';
 
 const Authors = () => {
   const [currentAuthor, setCurrentAuthor] = useContext(AuthorContext)
   const [authors, setAuthors] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
   const [newAuthor, setNewAuthor] = useState("");
-  // const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     handleGET('/authors')
     .then((data) => {
       setAuthors(data)
+      console.log("Data from Authors: ", data)
       setCurrentAuthor({ name: data[0].name, id: data[0].id })
     })
     // eslint-disable-next-line
@@ -24,7 +27,7 @@ const Authors = () => {
   
   
   // console.log("Authors from Authors: ", currentAuthor)
-  // console.log("Errors: ", errors)
+  console.log("Errors: ", errors)
 
   const authorsList = authors.map((author) => (
       <AuthorBtn 
@@ -63,25 +66,32 @@ const Authors = () => {
           })
         } else {
           res.json().then((err) => {
-            // setErrors(err.errors)
-            setNewAuthor("")
-            setIsAdding(false)
+            setErrors(err.errors);
+            const timer = setTimeout(() => {
+              setErrors([]);
+            }, 5000);
+            clearTimeout(timer);
+            setNewAuthor("");
+            setIsAdding(false);
           })
         }
       })
     } else {
       setIsAdding(false)
+      setErrors(["Sorry, you already have 6 Pen Names"])
     }
   }
 
 
   return (
     <AuthorsBox>
-      <Typography variant="h5">Pen Names</Typography>
+      <Title variant="h2">Pen Names</Title>
+      <SubTitle variant="subtitle">(Up to 6)</SubTitle>
       <BtnList>
         { authorsList }
-
       </BtnList>
+      { errors.map((err) => <AuthError key={ err } clearMessage={ setErrors }>{ err }</AuthError>) }
+
       <NewStoryBtn 
         variant="contained"
         onClick={ () => navigate('/story/new', { state: currentAuthor }) } 
@@ -91,28 +101,11 @@ const Authors = () => {
       <AddAuthorCard variant="contained" onClick={() => handleToggleForm() }>
         {
           isAdding ?
-            <FormControl>
-              <AddBox
-                component="form"
-                onSubmit={ (e) => handleSubmit(e) }
-                id="add-author-form"
-              >  
-                <TextField 
-                  variant="filled"
-                  size="small"
-                  required
-                  autoFocus
-                  value={ newAuthor }
-                  onChange={ (e) => handleAddInput(e) }
-                />
-                <SubmitBtn 
-                  size="small" 
-                  form="add-author-form" 
-                  type="submit"
-                  endIcon={ <AddBoxIcon /> }
-                />
-              </AddBox>
-            </FormControl>
+          <NewAuthorForm
+            onSubmit={ handleSubmit }
+            author={ newAuthor }
+            onAddInput={ handleAddInput }
+          />
           :
           "Add New Pen Name"
         }  
@@ -134,6 +127,16 @@ const AuthorsBox = styled(Box)({
   display: 'inherit',
   flexDirection: 'column',
   justifyContent: 'space-between',
+  textAlign: 'center',
+})
+
+const Title = styled(Typography)({
+  fontSize: '36px',
+  fontStyle: 'italic'
+})
+
+const SubTitle = styled(Typography)({
+  marginBottom: '20px',
 })
 
 const BtnList = styled(Container)(({ theme }) => `
@@ -157,6 +160,7 @@ const AddAuthorCard = styled(Card)(({ theme }) => `
   padding: 10px;
   margin-top: 15px;
   height: 60px;
+  width: 100%;
   &:hover {
     background: ${theme.palette.secondary.dark};
     color: ${theme.palette.secondary.light};
@@ -164,14 +168,5 @@ const AddAuthorCard = styled(Card)(({ theme }) => `
 `)
 
 const NewStoryBtn = styled(Button)(({ theme }) => `
-  color: ${theme.palette.secondary.dark};
-`)
-
-const SubmitBtn = styled(Button)(({ theme }) => `
-  color: ${theme.palette.secondary.dark};
-`)
-
-const AddBox = styled(Box)(({ theme }) => `
-  background: ${theme.palette.secondary.light}
   color: ${theme.palette.secondary.dark};
 `)

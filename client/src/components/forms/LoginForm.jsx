@@ -14,27 +14,21 @@ const LoginForm = ({ isSignup, onUserInput, userInfo }) => {
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
-  let apiEndpoint = '';
-  let navEndpoint = '';
-  if (isSignup) {
-    apiEndpoint = '/signup';
-    navEndpoint = '/start';
-  } else {
-    apiEndpoint = '/login';
-    navEndpoint = '/home';
-  }
+  let apiEndpoint = isSignup ? '/signup' : '/login';
   
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    handleAPI(apiEndpoint, "POST", userInfo)
+    await handleAPI(apiEndpoint, "POST", userInfo)
     .then((res) => {
       if (res.ok) {
         res.json().then((newUser) => setUser(newUser))
-        .then(() => navigate(navEndpoint));
+        .then(() => navigate('/home'));
       } else {
         res.json().then((err) => setErrors(err.errors));
       }
     });
+    await handleAPI('/authors', "POST", { name: userInfo.username }).then((res) => res.json())
+    .then((data) => console.log(data))
   }
 
   const input = (attr, autoFocus, val) => {
@@ -60,7 +54,7 @@ const LoginForm = ({ isSignup, onUserInput, userInfo }) => {
         { input("username", true, userInfo.username) }
         { input("password", false, userInfo.password) }
       { isSignup ?
-          <Credential 
+        <Credential 
           required 
           label="confirm password"
           name="password_confirmation"

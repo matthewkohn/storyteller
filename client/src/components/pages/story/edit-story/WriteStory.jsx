@@ -5,54 +5,57 @@ import { handleGET, handleAPI, handleDELETE } from '../../../../helpers/fetchReq
 import { AuthorContext } from '../../../../context/AuthorContext';
 import Preview from './Preview';
 import Paragraph from '../Paragraph';
-import TextEditor from './TextEditor';
+import TextEditor from '../../../forms/text-editor/TextEditor';
 
 
 const WriteStory = () => {
-  const [userHtmlStr, setUserHtmlStr] = useState("");
+  const [userHtmlStr, setUserHtmlStr] = useState('');
   const [storyObj, setStoryObj] = useState({});
   const [paragraphs, setParagraphs] = useState([]);
   const [paragraphId, setParagraphId] = useState(null);
   const [editValue, setEditValue] = useState('');
   const [currentAuthor] = useContext(AuthorContext);
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
   const baseUrl = `/stories/${location.state}`;
-  const paragraphUrl = `/paragraphs/${paragraphId}`
+  const paragraphUrl = `/paragraphs/${paragraphId}`;
 
   const paragraphJson = {
     author_id: currentAuthor.id,
     rich_text_str: userHtmlStr
-  }
-
+  };
+console.log("PARAGRAPHS: ", paragraphs)
   useEffect(() => {
     handleGET(baseUrl).then((story) => {
       setStoryObj(story)
       setParagraphs(story.paragraphs)
     })
-  }, [baseUrl])
+  }, [baseUrl]);
   
   const handleCancel = () => {
     setEditValue('');
     setParagraphId(null);
-  }
+  };
 
   const handleEditBtn = (str, id) => {
     setEditValue(str);
     setParagraphId(id);
-  }
+  };
   
   const handleDelete = (id) => {
     setParagraphId(id);
+    if (!userHtmlStr) {
+      
+    }
     handleDELETE(baseUrl + `/paragraphs/${id}`)
     .then((res) => res.json())
     .then((deletedParagraph) => {
-      const updatedParagraphs = paragraphs.filter((p) => p.id !== deletedParagraph.id)
+      const updatedParagraphs = paragraphs.filter((p) => p.id !== deletedParagraph.id);
       setParagraphs(updatedParagraphs);
       setEditValue('');
       setParagraphId(null);
-    })
-  }
+    });
+  };
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -61,16 +64,16 @@ const WriteStory = () => {
     .then((res) => {
       if (res.ok) {
         res.json().then((newParagraph) => {
-          const updatedParagraphs = paragraphs.map((p) => p.id === paragraphId ? newParagraph : p )
+          const updatedParagraphs = paragraphs.map((p) => p.id === paragraphId ? newParagraph : p );
           setParagraphs(updatedParagraphs);
           setEditValue('');
           setParagraphId(null);
         })
       } else {
-        res.json().then(console.log)
+        res.json().then(console.log);
       }
-    })
-  }
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -79,14 +82,12 @@ const WriteStory = () => {
     .then((res) => {
       if (res.ok) {
         res.json().then(console.log)
-        // .then(navigate('/home'))
+        .then(navigate('/home'));
       } else {
-        res.json().then(console.log)
+        res.json().then(console.log);
       }
     });
   }
-
-  // onDeleteParagraph => popup "You sure?", confirm then update state & send fetch DELETE to stories/:id/paragraphs/:id
 
   const paragraphsList = paragraphs.map((para) => (
     <Paragraph 

@@ -40,7 +40,7 @@ const NewStory = () => {
     e.preventDefault();
     const newStory = await handleAPI('/stories', "POST", storiesJson).then((res) => res.json());
     const newParagraphURL = `/stories/${newStory.id}/paragraphs`;
-    handleAPI(newParagraphURL, "POST", paragraphJson)
+    await handleAPI(newParagraphURL, "POST", paragraphJson)
     .then((res) => {
       if (res.ok) {
         res.json().then(console.log).then(navigate('/home'))

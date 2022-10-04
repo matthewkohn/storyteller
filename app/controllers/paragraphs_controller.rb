@@ -2,7 +2,7 @@ class ParagraphsController < ApplicationController
   before_action :set_current_story, only: [:index, :create, :update, :destroy]
 
   def index
-    paragraphs = @current_story.paragraphs
+    paragraphs = @current_story.paragraphs.order(created_at: :desc)
     render json: paragraphs, status: :ok
   end
 

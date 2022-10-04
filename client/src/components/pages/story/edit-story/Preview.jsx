@@ -4,14 +4,7 @@ import JsxParser from 'react-jsx-parser'
 
 const Preview = ({ authorName, isEditing, newJsxStr, paragraphs }) => {
   return (
-    // console.log(paragraphs)
-
-    // Displays text-only preview of the first.../...last paragraphs
-    // Scrollable box that will be used in Dashboard (Add '+' button if not disabled)
-    // and in WriterContainer (no button, view only)
-
     <PreviewBox>
-      {/* { paragraphs } */}
       { !isEditing ? paragraphs : <></> }
       <NewParagraphCard
         raised

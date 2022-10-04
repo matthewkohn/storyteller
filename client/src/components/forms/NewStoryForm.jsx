@@ -2,8 +2,10 @@ import React from 'react';
 import { Box, Button, FormControl, FormControlLabel, Paper, styled, TextField } from '@mui/material';
 import PublishIcon from '@mui/icons-material/Publish';
 import GenresDropdown from './GenresDropdown';
-import RichTextEditor from '../pages/story/edit-story/RichTextEditor';
+import TextEditor from './text-editor/TextEditor';
 import { Container } from '@mui/system';
+import '../../../../node_modules/draft-js/dist/Draft.css'
+import '../../styles/story/richText.css'
 
 const NewStoryForm = ({ 
   updateStory, 
@@ -45,10 +47,13 @@ const NewStoryForm = ({
         </TitleGenreWrapper>
 
         <EditorWrapper >
-          <RichTextEditor 
+          {/* <RichTextEditor 
             handleHtml={ updateStory }
-            />
-
+            /> */}
+          <TextEditor 
+            handleHtml={ updateStory }
+            editValue='' 
+          />
         </EditorWrapper>
      
         <SubmitBtn 

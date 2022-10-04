@@ -1,6 +1,5 @@
 import React from 'react'
 import Preview from '../edit-story/Preview'
-import StoryStats from './StoryStats'
 
 const ViewStory = () => {
 
@@ -12,7 +11,6 @@ const ViewStory = () => {
     <>
       <div>ViewStory</div>
       <Preview />
-      <StoryStats />
     </>
   )
 }
