@@ -105,6 +105,7 @@ const Authors = () => {
             onSubmit={ handleSubmit }
             author={ newAuthor }
             onAddInput={ handleAddInput }
+            // onBlur={ setIsAdding }
           />
           :
           "Add New Pen Name"

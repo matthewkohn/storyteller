@@ -18,7 +18,7 @@ const InlineStyleControls = ({ editorState, onToggle }) => {
           key={type.label}
           active={currentStyle.has(type.style)}
           label={type.label}
-          onToggle={() => onToggle(type.style)}
+          onToggle={onToggle}
           style={type.style}
         />
       )}

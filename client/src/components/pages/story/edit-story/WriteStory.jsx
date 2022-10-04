@@ -6,6 +6,7 @@ import { AuthorContext } from '../../../../context/AuthorContext';
 import Preview from './Preview';
 import Paragraph from '../Paragraph';
 import TextEditor from '../../../forms/text-editor/TextEditor';
+import AuthError from '../../landing/login-side/AuthError';
 
 
 const WriteStory = () => {
@@ -14,17 +15,17 @@ const WriteStory = () => {
   const [paragraphs, setParagraphs] = useState([]);
   const [paragraphId, setParagraphId] = useState(null);
   const [editValue, setEditValue] = useState('');
+  const [errors, setErrors] = useState([]);
   const [currentAuthor] = useContext(AuthorContext);
   const navigate = useNavigate();
   const location = useLocation();
   const baseUrl = `/stories/${location.state}`;
   const paragraphUrl = `/paragraphs/${paragraphId}`;
-
   const paragraphJson = {
     author_id: currentAuthor.id,
     rich_text_str: userHtmlStr
   };
-console.log("PARAGRAPHS: ", paragraphs)
+
   useEffect(() => {
     handleGET(baseUrl).then((story) => {
       setStoryObj(story)
@@ -44,9 +45,6 @@ console.log("PARAGRAPHS: ", paragraphs)
   
   const handleDelete = (id) => {
     setParagraphId(id);
-    if (!userHtmlStr) {
-      
-    }
     handleDELETE(baseUrl + `/paragraphs/${id}`)
     .then((res) => res.json())
     .then((deletedParagraph) => {
@@ -68,7 +66,7 @@ console.log("PARAGRAPHS: ", paragraphs)
           setParagraphs(updatedParagraphs);
           setEditValue('');
           setParagraphId(null);
-        })
+        });
       } else {
         res.json().then(console.log);
       }
@@ -77,16 +75,20 @@ console.log("PARAGRAPHS: ", paragraphs)
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newParagraphURL = baseUrl + `/paragraphs`;
-    handleAPI(newParagraphURL, "POST", paragraphJson)
-    .then((res) => {
-      if (res.ok) {
-        res.json().then(console.log)
-        .then(navigate('/home'));
-      } else {
-        res.json().then(console.log);
-      }
-    });
+    if (userHtmlStr === '<p><br/></p>') {
+      setErrors(["Please type your contribution in the Text Editor."]);
+    } else {
+      const newParagraphURL = baseUrl + `/paragraphs`;
+      handleAPI(newParagraphURL, "POST", paragraphJson)
+      .then((res) => {
+        if (res.ok) {
+          res.json().then(console.log)
+          .then(navigate('/home'));
+        } else {
+          res.json().then(console.log);
+        }
+      });
+    }
   }
 
   const paragraphsList = paragraphs.map((para) => (
@@ -146,6 +148,7 @@ console.log("PARAGRAPHS: ", paragraphs)
               Submit
             </SubmitBtn>
         }
+        { errors.map((err) => <AuthError key={ err } clearMessage={ setErrors }>{ err }</AuthError>) }
         </RightView>
       </ViewContainer>
     </WriteStoryContainer>
@@ -200,6 +203,7 @@ const RightView = styled(Container)(({ theme }) => `
 const SubmitBtn = styled(Button)({
   width: '100%',
   height: '60px',
+  marginBottom: '7px',
 })
 
 const CancelEditBtn = styled(Button)({

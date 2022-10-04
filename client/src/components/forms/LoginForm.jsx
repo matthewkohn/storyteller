@@ -1,13 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, FormControl, styled, TextField } from '@mui/material';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import LoginIcon from '@mui/icons-material/Login';
-import AuthError from '../pages/landing/login-side/AuthError';
+import { UserContext } from '../../context/UserContext';
 import { handleAPI } from '../../helpers/fetchRequests';
 import { credentialCss, loginBoxCss, submitBtnCss } from '../../styles/login/loginCss';
-
+import LoginIcon from '@mui/icons-material/Login';
+import AuthError from '../pages/landing/login-side/AuthError';
 
 const LoginForm = ({ isSignup, onUserInput, userInfo }) => {
   const { setUser } = useContext(UserContext);
@@ -27,8 +26,10 @@ const LoginForm = ({ isSignup, onUserInput, userInfo }) => {
         res.json().then((err) => setErrors(err.errors));
       }
     });
-    await handleAPI('/authors', "POST", { name: userInfo.username }).then((res) => res.json())
-    .then((data) => console.log(data))
+    if (isSignup) {
+      await handleAPI('/authors', "POST", { name: userInfo.username }).then((res) => res.json())
+      .then((data) => console.log(data))
+    }
   }
 
   const input = (attr, autoFocus, val) => {

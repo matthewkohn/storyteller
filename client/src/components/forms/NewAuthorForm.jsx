@@ -18,7 +18,7 @@ const NewAuthorForm = ({ author, onAddInput, onSubmit }) => {
             autoFocus
             value={ author }
             onChange={ (e) => onAddInput(e) }
-          />
+            />
           <SubmitBtn 
             size="small" 
             form="add-author-form" 

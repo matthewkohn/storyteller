@@ -1,13 +1,25 @@
-import React from "react"
-import { Editor, RichUtils } from "draft-js"
+import React, { useRef } from "react"
+import { Editor, getDefaultKeyBinding, RichUtils } from "draft-js"
 import {stateToHTML} from 'draft-js-export-html';
 import fixBreakLine from '../../../helpers/fixBreakLine';
 import { useConvertEditorState } from '../../../hooks/useConvertEditorState'
 import BlockStyleControls from "./BlockStyleControls";
 import InlineStyleControls from './InlineStyleControls'
+import { useEffect } from "react";
 
 const TextEditor = ({ handleHtml, editValue }) => {
   const [editorState, setEditorState] = useConvertEditorState(editValue);
+  const ref = useRef(null)
+
+  const focus = () => {
+    if (ref) {
+      ref.current.focus();
+    }
+  }
+
+  useEffect(() => {
+    ref.current.focus();
+  }, [])
 
   const handleKeyCommand = ((command, editorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command)
@@ -18,19 +30,18 @@ const TextEditor = ({ handleHtml, editValue }) => {
     return "not-handled"
   })
 
-  const handleToggleBlock = (style) => {
+  const keyBindingFunction = (e) => {
+    return getDefaultKeyBinding(e);
+  }
+
+  const handleToggleBlock = (e, style) => {
+    e.preventDefault();
     const newBlockType = RichUtils.toggleBlockType(editorState, style);
     setEditorState(newBlockType);
   }
-
-  function getBlockStyle(block) {
-    switch (block.getType()) {
-      case 'blockquote': return 'RichEditor-blockquote';
-      default: return null;
-    }
-  }
   
-  const handleToggleInline = (style) => {
+  const handleToggleInline = (e, style) => {
+    e.preventDefault();
     const newInlineType = RichUtils.toggleInlineStyle(editorState, style);
     setEditorState(newInlineType);
   }
@@ -48,23 +59,25 @@ const TextEditor = ({ handleHtml, editValue }) => {
   setTimeout(() => handleHtml(updatedHtml), 0)
 
   return (
-    <div className="RichEditor-root" focus="true">
+    <div className="RichEditor-root" onClick={ () => ref.current.focus() }>
       <BlockStyleControls
         editorState={ editorState }
         onToggle={ handleToggleBlock }
       />
       <InlineStyleControls
-        editorState={editorState}
+        editorState={ editorState }
         onToggle={ handleToggleInline }
       />
-      <div className={className} >
+      <div className={ className } >
         <Editor 
-          editorState={editorState} 
-          handleKeyCommand={handleKeyCommand} 
-          onChange={setEditorState} 
+          editorState={ editorState } 
+          handleKeyCommand={ handleKeyCommand } 
+          keyBindingFn={ keyBindingFunction }
+          onChange={ setEditorState } 
           placeholder="Tell a story..."
-          spellCheck={true}
-          blockStyleFn={getBlockStyle}
+          spellCheck={ true }
+          ref={ref}
+          focus={focus}
         />
       </div>
     </div>
