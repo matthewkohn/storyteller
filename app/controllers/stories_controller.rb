@@ -1,5 +1,6 @@
 class StoriesController < ApplicationController
-  before_action :set_current_genre, only: [:create]
+  before_action :set_current_genre, only: [:create, :stories_by_genre]
+  before_action :set_current_author, only: [:stories_by_author]
 
   def index
     stories = Story.all
@@ -20,16 +21,29 @@ class StoriesController < ApplicationController
     end
   end
 
+  def stories_by_author
+    stories = Story.joins(paragraphs: :author).where(authors: {id: @current_author.id}).distinct
+    render json: stories, status: :ok
+  end
+
+  def stories_by_genre
+    stories = @current_genre.stories
+    render json: stories, status: :ok
+  end
+
   
   private
 
   def story_params
-    params.permit(:id, :genre_id, :title)
+    params.permit(:id, :genre_id, :author_id, :title)
   end
 
   def set_current_genre
-    # byebug
     @current_genre = Genre.find_by(id: params[:genre_id])
+  end
+
+  def set_current_author
+    @current_author = Author.find_by(id: params[:author_id])
   end
 
 end

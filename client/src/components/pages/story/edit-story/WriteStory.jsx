@@ -28,8 +28,8 @@ const WriteStory = () => {
 
   useEffect(() => {
     handleGET(baseUrl).then((story) => {
-      setStoryObj(story)
-      setParagraphs(story.paragraphs)
+      setStoryObj(story);
+      setParagraphs(story.paragraphs);
     })
   }, [baseUrl]);
   

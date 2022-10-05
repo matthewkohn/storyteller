@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_14_155921) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_05_032629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "authors", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name"
-    t.boolean "anonymous", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_authors_on_user_id"
@@ -39,17 +38,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_14_155921) do
     t.index ["story_id"], name: "index_paragraphs_on_story_id"
   end
 
-  create_table "profiles", force: :cascade do |t|
-    t.string "favorite_author"
-    t.string "favorite_book"
-    t.string "favorite_podcast"
-    t.string "favorite_audiobook"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_profiles_on_user_id"
-  end
-
   create_table "stories", force: :cascade do |t|
     t.bigint "genre_id", null: false
     t.string "title"
@@ -68,6 +56,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_14_155921) do
   add_foreign_key "authors", "users"
   add_foreign_key "paragraphs", "authors"
   add_foreign_key "paragraphs", "stories"
-  add_foreign_key "profiles", "users"
   add_foreign_key "stories", "genres"
 end

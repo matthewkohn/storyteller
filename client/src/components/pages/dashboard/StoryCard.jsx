@@ -1,19 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, styled, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 
-const StoryCard = ({ story }) => {
+const StoryCard = ({ story, mode }) => {
   const { id, title } = story;
   const navigate = useNavigate();
+  const [navEndpoint, setNavEndpoint] = useState('');
 
-  // console.log("Story inside Story Card: ", title)
-
-  // Displays story title, onClick navigates to '/story/:storyId'
-  //<Button onClick={ () => navigate('/story/1/edit') } >Contribute</Button>
+  useEffect(() => {
+    if (mode === 'edit') {
+      setNavEndpoint(`/story/${id}/edit`)
+    } else {
+      setNavEndpoint(`/story/${id}`)
+    }
+  }, [mode, id])
 
   return (
     <CardContainer 
-      onClick={ () => navigate(`/story/${id}/edit`, { state: id })}
+      onClick={ () => navigate(navEndpoint, { state: id })}
     >
       <Typography variant="body1">{ title }</Typography>
     </CardContainer>
@@ -31,4 +35,6 @@ const CardContainer = styled(Card)({
   justifyContent: 'center',
   alignItems: 'center',
   borderRadius: '5px',
+  borderTop: '5px solid brown',
+  borderBottom: '5px solid brown',
 })

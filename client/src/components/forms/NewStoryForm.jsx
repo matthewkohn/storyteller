@@ -47,9 +47,6 @@ const NewStoryForm = ({
         </TitleGenreWrapper>
 
         <EditorWrapper >
-          {/* <RichTextEditor 
-            handleHtml={ updateStory }
-            /> */}
           <TextEditor 
             handleHtml={ updateStory }
             editValue='' 

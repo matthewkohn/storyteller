@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   
   resources :profiles, only: [:create]
   resources :authors, only: [:index, :create]
-  resources :genres, only: [:index, :show, :create]
+  resources :genres, only: [:index, :create]
   resources :stories, only: [:index, :show, :create] do
     resources :paragraphs, only: [:index, :create, :update, :destroy]
   end
@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get "/me", to: "users#show"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
+
+  get "/stories-by-author/:author_id", to: "stories#stories_by_author"
+  get "/stories-by-genre/:genre_id", to: "stories#stories_by_genre"
 
 
 

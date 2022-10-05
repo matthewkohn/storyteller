@@ -6,10 +6,8 @@ import { GenreContext } from '../../context/GenreContext';
 const GenresDropdown = ({ isDisabled }) => {
   const { chosenGenre, genresList, handleGenreSelection, setAllGenres } = useContext(GenreContext);
 
-  // console.log("chosenGenre from GenresDropdown: ", chosenGenre.name)
-
   useEffect(() => {
-    handleGET('/genres').then((data) => setAllGenres(data))
+    handleGET('/genres').then((data) => setAllGenres(data));
     // eslint-disable-next-line
   }, [])
 

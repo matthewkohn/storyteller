@@ -19,7 +19,7 @@ const Authors = () => {
     handleGET('/authors')
     .then((data) => {
       setAuthors(data)
-      console.log("Data from Authors: ", data)
+      // console.log("Data from Authors: ", data)
       setCurrentAuthor({ name: data[0].name, id: data[0].id })
     })
     // eslint-disable-next-line
@@ -27,7 +27,7 @@ const Authors = () => {
   
   
   // console.log("Authors from Authors: ", currentAuthor)
-  console.log("Errors: ", errors)
+  // console.log("Errors: ", errors)
 
   const authorsList = authors.map((author) => (
       <AuthorBtn 
