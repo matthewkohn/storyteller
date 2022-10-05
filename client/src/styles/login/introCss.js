@@ -6,14 +6,13 @@ const headerCss = {
 const introCardCss = ({ theme }) => `
 background: ${theme.palette.primary.light};
 color: ${theme.palette.primary.dark};
-padding: 10px 25px;
+padding: 20px 45px;
 border-radius: 20px;
 height: 100%;
 
 `
 
 const introContainerCss = {
-  border: '1px solid red',
   margin: '10vh auto 10vh',
   minHeight: '80vh',
   maxWidth: '50vw',
@@ -23,6 +22,7 @@ const introContainerCss = {
   flexDirection: 'column',
   justifyContent: 'space-between',
   justifyItems: 'center',
+  alignItems: 'center',
   // padding: '30px',
 }
 

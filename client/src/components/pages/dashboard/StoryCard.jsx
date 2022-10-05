@@ -26,15 +26,19 @@ const StoryCard = ({ story, mode }) => {
 
 export default StoryCard
 
-const CardContainer = styled(Card)({
-  margin: '5px 0',
-  padding: '2px',
-  height: '100px',
-  display: 'flex',
-  textAlign: 'center',
-  justifyContent: 'center',
-  alignItems: 'center',
-  borderRadius: '5px',
-  borderTop: '5px solid brown',
-  borderBottom: '5px solid brown',
-})
+const CardContainer = styled(Card)(({ theme }) => `
+  margin: 5px 0;
+  padding: 2px;
+  height: 100px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  border-top: 5px solid brown;
+  border-bottom: 5px solid brown;
+  :hover {
+    background: ${theme.palette.primary.dark};
+    color: ${theme.palette.primary.light};
+  }
+`)

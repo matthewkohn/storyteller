@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, Card, Container, styled, Typography } from '@mui/material'
-// import AddBoxIcon from '@mui/icons-material/AddBox';
 import { useNavigate } from 'react-router-dom';
 import { handleAPI, handleGET } from '../../../helpers/fetchRequests';
 import { AuthorContext } from '../../../context/AuthorContext';
@@ -19,15 +18,10 @@ const Authors = () => {
     handleGET('/authors')
     .then((data) => {
       setAuthors(data)
-      // console.log("Data from Authors: ", data)
       setCurrentAuthor({ name: data[0].name, id: data[0].id })
     })
     // eslint-disable-next-line
   }, [])
-  
-  
-  // console.log("Authors from Authors: ", currentAuthor)
-  // console.log("Errors: ", errors)
 
   const authorsList = authors.map((author) => (
       <AuthorBtn 
@@ -58,7 +52,6 @@ const Authors = () => {
       .then((res) => {
         if (res.ok) {
           res.json().then((data) => {
-            console.log(data)
             setAuthors([ ...authors, data ])
             setIsAdding(false)
             setCurrentAuthor({ name: data.name, id: data.id })
@@ -105,7 +98,6 @@ const Authors = () => {
             onSubmit={ handleSubmit }
             author={ newAuthor }
             onAddInput={ handleAddInput }
-            // onBlur={ setIsAdding }
           />
           :
           "Add New Pen Name"
@@ -118,7 +110,6 @@ const Authors = () => {
 export default Authors
 
 const AuthorsBox = styled(Box)({
-  // border: '1px solid orange',
   padding: '20px',
   borderRadius: '15px',
   margin: '10px',

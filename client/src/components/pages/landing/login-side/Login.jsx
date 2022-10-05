@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, styled, Typography } from '@mui/material';
 import { taglineCss, titleCss, toggleBtnCss } from '../../../../styles/login/loginCss';
 import LoginForm from '../../../forms/LoginForm';
+import AuthError from './AuthError';
 
 const Login = () => {
   const [isNewUser, setIsNewUser] = useState(false);
@@ -10,6 +11,7 @@ const Login = () => {
     password: '',
     password_confirmation: ''
   });
+  const [errors, setErrors] = useState([]);
 
   const handleUserInput = (e) => {
     const inputName = e.target.name;
@@ -30,11 +32,13 @@ const Login = () => {
         <Tagline variant='h6'>Login Here.</Tagline>
       </>
     }
-      <LoginForm 
+      <LoginForm
+        onErrorMessage={ setErrors } 
         isSignup={ isNewUser }
         userInfo={ userInfo }
         onUserInput={ handleUserInput }
-      />
+        />
+      { errors.map((err) => <AuthError key={ err }clearMessage={ setErrors } >{ err }</AuthError>) } 
     { isNewUser ? 
       <Typography variant='subtitle2'>
         Already signed up? &nbsp;
@@ -49,7 +53,8 @@ const Login = () => {
           Sign Up
         </ToggleBtn>
       </Typography>
-    }            
+    }           
+
     </>
   )
 }

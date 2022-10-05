@@ -9,12 +9,18 @@ const IntroBox = () => {
 
   return (
     <IntroContainer maxWidth='lg' >
-      <IntroToggleBtn variant="outlined" onClick={ () => setShowInstructions(!showInstructions) } >
-        { showInstructions ? "Noun" : "Verb" }
+      <IntroToggleBtn 
+        variant="outlined" 
+        onClick={ () => setShowInstructions(!showInstructions) } 
+      >
+        { showInstructions ? "What is it?" : "Learn More" }
       </IntroToggleBtn>
-      
-      { showInstructions ? <Instructions /> : <Description /> }
-
+      { 
+        showInstructions ? 
+          <Instructions /> 
+        : 
+          <Description /> 
+      }
     </IntroContainer>
   )
 }
@@ -23,5 +29,4 @@ export default IntroBox
 
 // Styled components
 const IntroContainer = styled(Container)(introContainerCss)
-
 const IntroToggleBtn = styled(Button)(introToggleBtnCss)

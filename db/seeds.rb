@@ -9,6 +9,10 @@ Genre.create(name: "Suspense")
 Genre.create(name: "Action Adventure")
 Genre.create(name: "Fantasy")
 Genre.create(name: "Paranormal")
+Genre.create(name: "Mystery")
+Genre.create(name: "Horror")
+Genre.create(name: "Romance")
+Genre.create(name: "General/Other")
 
 
 puts "Seeding complete! :)"

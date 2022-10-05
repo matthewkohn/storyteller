@@ -7,7 +7,6 @@ import Paragraph from '../Paragraph'
 const ViewStory = () => {
   const [storyObj, setStoryObj] = useState({});
   const [paragraphs, setParagraphs] = useState([]);
-console.log(storyObj)
   const location = useLocation();
   const navigate = useNavigate();
   const storyUrl = `/stories/${location.state}`;

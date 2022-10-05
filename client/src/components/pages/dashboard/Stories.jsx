@@ -43,7 +43,6 @@ const Stories = () => {
       setUrl(`/stories`)
     }
   }, [chosenGenre, currentAuthor, isGenreChecked, isSortedByAll])
-console.log("MODE: ", mode)
 
   // useEffect that sets stories
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, FormControl, styled, TextField } from '@mui/material';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
@@ -6,11 +6,10 @@ import { UserContext } from '../../context/UserContext';
 import { handleAPI } from '../../helpers/fetchRequests';
 import { credentialCss, loginBoxCss, submitBtnCss } from '../../styles/login/loginCss';
 import LoginIcon from '@mui/icons-material/Login';
-import AuthError from '../pages/landing/login-side/AuthError';
 
-const LoginForm = ({ isSignup, onUserInput, userInfo }) => {
+const LoginForm = ({ isSignup, onErrorMessage, onUserInput, userInfo }) => {
   const { setUser } = useContext(UserContext);
-  const [errors, setErrors] = useState([]);
+
   const navigate = useNavigate();
 
   let apiEndpoint = isSignup ? '/signup' : '/login';
@@ -23,12 +22,12 @@ const LoginForm = ({ isSignup, onUserInput, userInfo }) => {
         res.json().then((newUser) => setUser(newUser))
         .then(() => navigate('/home'));
       } else {
-        res.json().then((err) => setErrors(err.errors));
+        res.json().then((err) => onErrorMessage(err.errors));
       }
     });
     if (isSignup) {
       await handleAPI('/authors', "POST", { name: userInfo.username }).then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => console.log(data[0]))
     }
   }
 
@@ -46,37 +45,38 @@ const LoginForm = ({ isSignup, onUserInput, userInfo }) => {
   }
 
   return (
-    <FormControl variant="standard" >
-      <LoginBox 
-        component="form" 
-        onSubmit={ (e) => handleLogin(e) } 
-        id="login-form"
-      >
-        { input("username", true, userInfo.username) }
-        { input("password", false, userInfo.password) }
-      { isSignup ?
-        <Credential 
+    <>
+      <FormControl variant="standard" >
+        <LoginBox 
+          component="form" 
+          onSubmit={ (e) => handleLogin(e) } 
+          id="login-form"
+          >
+          { input("username", true, userInfo.username) }
+          { input("password", false, userInfo.password) }
+        { isSignup ?
+          <Credential 
           required 
           label="confirm password"
           name="password_confirmation"
           type="password"
           value={ userInfo.password_confirmation }
           onChange={ (e) => onUserInput(e) }
-        />
-        : null
-      }
-        <SubmitBtn 
-          size="large" 
-          variant="outline" 
-          type="submit" 
-          form="login-form"
-          endIcon={ isSignup ? <AppRegistrationIcon /> : <LoginIcon /> }
-        >
-          { isSignup ? "Let's Begin" : "Log In" }
-        </SubmitBtn>
-      </LoginBox>
-      { errors.map((err) => <AuthError key={ err }>{ err }</AuthError>) }
-    </FormControl>
+          />
+          : null
+        }
+          <SubmitBtn 
+            size="large" 
+            variant="outline" 
+            type="submit" 
+            form="login-form"
+            endIcon={ isSignup ? <AppRegistrationIcon /> : <LoginIcon /> }
+            >
+            { isSignup ? "Let's Begin" : "Log In" }
+          </SubmitBtn>
+        </LoginBox>
+      </FormControl>
+    </>
   )
 }
 

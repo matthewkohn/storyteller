@@ -30,7 +30,8 @@ const backgroundContainerCss = {
 const landingContainerCss = {
   display: 'flex',
   justifyContent: 'center',
-  height: '100%'
+  height: '100%',
+  position: 'relative',
 }
 
 export { backgroundContainerCss, landingContainerCss }

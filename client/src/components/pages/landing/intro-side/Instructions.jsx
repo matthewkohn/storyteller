@@ -10,25 +10,17 @@ const Instructions = () => {
       <Header variant="body1">New to Storyteller? To get started...</Header>
       <ol>
         <li>
-          <Section variant="body1">Create a free account.</Section>
+          <Section variant="body1">Create a free account, or Log In.</Section>
+          
         </li>
         <li>
-          <Section variant="body1">Choose your first "Pen Name" to author stories.</Section>
+          <Section variant="body1">Explore <strong>Storyteller's</strong> stories.</Section>
         </li>
         <li>
-          <Section variant="body1">Choose your first story's genre.</Section>
+          <Section variant="body1">Create new stories! Choose your "Pen Name", then decide on a story title and it's genre. Then, start writing.</Section>
         </li>
         <li>
-          <Section variant="body1">Tell us a little about your favorite things (optional).</Section>
-        </li>
-        <li>
-          <Section variant="body1">Move on to your first story, and start writing.</Section>
-        </li>
-        <li>
-          <Section variant="body1">Submit your contribution, and wait for someone else to add to what you've written.</Section>
-        </li>
-        <li>
-          <Section variant="body1">Explore and write as many stories as you want, under any pen name, in any genre.</Section>
+          <Section variant="body1">Contribute to any story, under any pen name you choose.</Section>
         </li>
       </ol>
     </IntroCard>
