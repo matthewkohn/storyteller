@@ -1,30 +1,32 @@
 # Storyteller<a id="top"></a>
 Storyteller is a turn-based creative writing app using React, Rails, Postgresql, BCrypt, and is hosted on Heroku.
 
-The Rails API is configured to run locally on PORT:3000.
-The client is stored under ```'./client'``` and runs locally on PORT:4000. Make sure you have dependencies installed before forking and cloning.
 
-## __Table of Contents__
-* [System Dependencies](#dep)
-<!-- * [Media](#media)
-* [ActiveRecord Table Relationships](#rel)
-* [Routes](#routes) -->
+## Table of Contents
+---
+* [Requirements](#dep)
+* [Setup](#start)
+* [Configuration](#config)
+* [Media](#media)
+<!-- * [ActiveRecord Table Relationships](#rel) -->
+<!-- * [API Endpoints](#routes) -->
 * [License](#license)
 
 
+## Requirements<a id="dep"></a>
+---
 
-## System dependencies<a id="dep"></a>
-##### [Back to Top](#top)
-### API
-#### Ruby Gems
-ruby        v2.7.4
-rails       v7.0.3
-postgresql  v14.5
-puma        v5.0
-bcrypt      v3.1.7
-rack-cors
+[Back to Top](#top)
 
-### Client
+### __API__
+* ruby        v2.7.4
+* rails       v7.0.3
+* postgresql  v14.5
+* puma        v5.0
+* bcrypt      v3.1.7
+* rack-cors
+
+### __Client__
 Dependencies for the Client are located in ```"./client/package.json"```.
 #### React & React Router
 * react               v^18.2.0
@@ -34,18 +36,61 @@ Dependencies for the Client are located in ```"./client/package.json"```.
 #### Material UI & Styled Components
 * @emotion/react      v^11.10.0
 * @emotion/styled     v^11.10.0
+* @mui/icons-material v^5.8.4
 * @mui/material       v^5.10.1
 * styled-components   v^5.3.5
+#### DraftJS
+* draft-js            v^0.11.7
+* draft-js-export-html v^1.4.1
 
-## Configuration
 
-## Database creation
 
-## Database initialization
 
-## How to run the test suite
+## Setup<a id="start"></a>
+---
 
-## Deployment instructions
+1. Fork and clone this repo
+```
+git clone git@github.com:matthewkohn/storyteller.git your-storyteller-app-name
+cd your-storyteller-app-name
+git remote rm origin
+```
+2. Create a new repository on GitHub, connect it to your local repository, and push up your code.
+```
+git remote add origin git@github.com:your-username/your-storyteller-app-name.git
+push -u origin main
+```
+3. Install dependencies
+```
+bundle install
+npm install --prefix client
+```
+4. Create & Start the PostGresQl server with
+```
+rails db:create db:migrate db:seed
+sudo service postgresql start  
+```
+_(you may be prompted for your password to start )_
+
+5. Once PostGresQl server starts successfully, start the server:
+```
+rails s
+```
+and in a separate terminal run
+```
+npm start --prefix client
+```
+Your client should start in http://localhost:4000
+
+---
+
+## Configuration<a id="config"></a>
+[(back to top)](#top)
+
+The Rails API is configured to run locally on PORT:3000.
+The client is stored under ```'./client'``` and runs locally on PORT:4000. Make sure you have dependencies installed before forking and cloning.
+
+This app is also configured to allow ActionDispatch::Session::CookieStore cookies & session middleware, as well as use SameSite=Strict for all cookies to protect against CSRF.
 
 
 ## License <a id="license"></a>
