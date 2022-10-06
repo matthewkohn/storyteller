@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Checkbox, Container, FormControl, FormControlLabel, Radio, RadioGroup, styled, Typography  } from '@mui/material';
 import GenresDropdown from '../../forms/GenresDropdown';
+import { genreBoxCss, headerBoxCss, radioControlFormCss, radioLabelCss, styledRadioGroupCss } from '../../../styles/dashboard/dashboardCss';
 
 const StoriesHeader = ({ isDisabled, isAllChecked, onCheckboxClick, onRadioChange, radioValue }) => {
 
@@ -51,39 +52,8 @@ const StoriesHeader = ({ isDisabled, isAllChecked, onCheckboxClick, onRadioChang
 export default StoriesHeader
 
 
-const HeaderBox = styled(Box)(({ theme }) => `
-  display: flex;
-  justify-content: space-between;
-  background: ${theme.palette.secondary.light};
-  padding: 5px;
-  border-radius: 35px;
-  border: 2px solid ${theme.palette.secondary.dark};
-`
-)
-
-const RadioFormControl = styled(FormControl)({
-  display: 'inherit',
-  flexDirection: 'row',
-  alignItems: 'space-between',
-  width: '100%',
-})
-
-const StyledRadioGroup = styled(RadioGroup)({
-  display: 'inherit',
-  flexDirection: 'column',
-  width: '40%',
-})
-
-const RadioLabel = styled(Typography)({
-  display: 'inherit',
-  alignItems: 'center',
-  padding: '10px',
-  marginRight: '30px',
-  width: '20%',
-})
-
-const GenreBox = styled(Container)({
-  display: 'inherit',
-  alignItems: 'flex-start',
-  justifyContent: 'flex-end',
-})
+const HeaderBox = styled(Box)(headerBoxCss)
+const RadioFormControl = styled(FormControl)(radioControlFormCss)
+const StyledRadioGroup = styled(RadioGroup)(styledRadioGroupCss)
+const RadioLabel = styled(Typography)(radioLabelCss)
+const GenreBox = styled(Container)(genreBoxCss)

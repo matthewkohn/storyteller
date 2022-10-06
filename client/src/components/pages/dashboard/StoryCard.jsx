@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Card, styled, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
+import { storyCardCardContainerCss } from '../../../styles/dashboard/dashboardCss';
 
 const StoryCard = ({ story, mode }) => {
   const { id, title } = story;
@@ -26,19 +27,4 @@ const StoryCard = ({ story, mode }) => {
 
 export default StoryCard
 
-const CardContainer = styled(Card)(({ theme }) => `
-  margin: 5px 0;
-  padding: 2px;
-  height: 100px;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  border-radius: 5px;
-  border-top: 5px solid brown;
-  border-bottom: 5px solid brown;
-  :hover {
-    background: ${theme.palette.primary.dark};
-    color: ${theme.palette.primary.light};
-  }
-`)
+const CardContainer = styled(Card)(storyCardCardContainerCss)

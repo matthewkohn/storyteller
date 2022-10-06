@@ -34,4 +34,20 @@ const landingContainerCss = {
   position: 'relative',
 }
 
-export { backgroundContainerCss, landingContainerCss }
+const mainCss = {
+  display: 'inherit',
+}
+
+const footerCss = {
+  display: 'inherit',
+  justifyContent: 'flex-end',
+  fontStyle: 'italic',
+  position: 'absolute',
+  bottom: '10px',
+}
+
+const footerTagCss = {
+  opacity: '0.7',
+}
+
+export { backgroundContainerCss, footerCss, footerTagCss, landingContainerCss, mainCss }

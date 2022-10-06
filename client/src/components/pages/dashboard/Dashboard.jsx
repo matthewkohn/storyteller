@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, styled } from '@mui/material'
 import Authors from './Authors'
 import Stories from './Stories'
+import { dashboardBoxCcss, dashboardContainerCss } from '../../../styles/dashboard/dashboardCss'
 
 const Dashboard = () => {
 
@@ -17,12 +18,5 @@ const Dashboard = () => {
 
 export default Dashboard
 
-const DashboardContainer = styled(Box)({
-  paddingTop: '40px',
-})
-
-const DashboardBox = styled(Box)({
-  display: 'flex',
-  width: '100%',
-  height: '100%',
-})
+const DashboardContainer = styled(Box)(dashboardContainerCss)
+const DashboardBox = styled(Box)(dashboardBoxCcss)

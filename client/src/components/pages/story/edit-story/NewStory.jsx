@@ -20,21 +20,6 @@ const NewStory = () => {
     author_id: location.state.id,
     rich_text_str: htmlStr
   }
-  
-  /*
-  >>>>>  '/stories'
-{
-    "genre_id": 1,                  chosenGenre.id
-    "title": "postman test2"
-}
-
-  >>>>>  '/stories/:storyId/paragraphs'
-{
-    "author_id":4,                  location.state.id
-    "rich_text_str": "<h1>My name is a secret. Shhhh.</h1>"
-}
-
-  */
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -5,6 +5,7 @@ import { handleAPI, handleGET } from '../../../helpers/fetchRequests';
 import { AuthorContext } from '../../../context/AuthorContext';
 import AuthError from '../landing/login-side/AuthError';
 import NewAuthorForm from '../../forms/NewAuthorForm';
+import { addAuthorCardCss, authorBtnCss, authorBtnListCss, authorsBoxCss, authorSubtitleCss, authorTitleCss, newStoryBtnCss } from '../../../styles/dashboard/dashboardCss';
 
 const Authors = () => {
   const [currentAuthor, setCurrentAuthor] = useContext(AuthorContext)
@@ -109,56 +110,10 @@ const Authors = () => {
 
 export default Authors
 
-const AuthorsBox = styled(Box)({
-  padding: '20px',
-  borderRadius: '15px',
-  margin: '10px',
-  width: 'auto',
-  maxWidth: '240px',
-  height: '80vh',
-  display: 'inherit',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  textAlign: 'center',
-})
-
-const Title = styled(Typography)({
-  fontSize: '36px',
-  fontStyle: 'italic'
-})
-
-const SubTitle = styled(Typography)({
-  marginBottom: '20px',
-})
-
-const BtnList = styled(Container)(({ theme }) => `
-  height: 80%;
-  max-height: 100%;
-  width: 100%;
-  text-align: center;
-`)
-
-const AuthorBtn = styled(Button)(({ theme }) => `
-  margin: 5px;
-  max-width: 100%;
-  overflow: hidden;
-`)
-
-const AddAuthorCard = styled(Card)(({ theme }) => `
-  color: ${theme.palette.secondary.dark};
-  background: ${theme.palette.secondary.main};
-  font-size: 20px;
-  text-align: center;
-  padding: 10px;
-  margin-top: 15px;
-  height: 60px;
-  width: 100%;
-  &:hover {
-    background: ${theme.palette.secondary.dark};
-    color: ${theme.palette.secondary.light};
-  }
-`)
-
-const NewStoryBtn = styled(Button)(({ theme }) => `
-  color: ${theme.palette.secondary.dark};
-`)
+const AuthorsBox = styled(Box)(authorsBoxCss)
+const Title = styled(Typography)(authorTitleCss)
+const SubTitle = styled(Typography)(authorSubtitleCss)
+const BtnList = styled(Container)(authorBtnListCss)
+const AuthorBtn = styled(Button)(authorBtnCss)
+const AddAuthorCard = styled(Card)(addAuthorCardCss)
+const NewStoryBtn = styled(Button)(newStoryBtnCss)

@@ -21,14 +21,9 @@ const Preview = ({ authorName, isEditing, newJsxStr, paragraphs }) => {
 export default Preview
 
 const PreviewBox = styled(Box)({
-  // border: '1px solid purple',
-  // borderRadius: '15px',
   width: '100%',
   maxHeight: '75vh',
-  // margin: '0',
-  // padding: '10px',
   overflowY: 'scroll',
-
 })
 
 const NewParagraphCard = styled(Card)(({ theme }) => `
