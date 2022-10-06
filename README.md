@@ -1,6 +1,18 @@
 # Storyteller<a id="top"></a>
 Storyteller is a turn-based creative writing app using React, Rails, Postgresql, BCrypt, and is hosted on Heroku.
 
+## Final Project Requirements
+This app was made to fulfill project requirements for Flatiron School Software Engineering Phase 5 Final Project.
+These requirements that have been met or surpassed are:
+* Include a many to many relationship.
+* Implement a minimum of 4 models.
+* Implement a minimum of 5 client side routes using React router.
+* Implement password protection and authentication.
+* Include full CRUD on at least 1 model, following REST conventions.
+* Implement validations and error handling.
+* Implement something new not taught in the curriculum. * Implement useContext or Redux.
+
+
 
 ## Table of Contents
 ---
@@ -91,6 +103,17 @@ The Rails API is configured to run locally on PORT:3000.
 The client is stored under ```'./client'``` and runs locally on PORT:4000. Make sure you have dependencies installed before forking and cloning.
 
 This app is also configured to allow ActionDispatch::Session::CookieStore cookies & session middleware, as well as use SameSite=Strict for all cookies to protect against CSRF.
+
+
+## Media<a id="media"></a>
+[(back to top)](#top)
+### Youtube demonstration of how the app works [here](https://www.youtube.com/watch?v=2daGy-nWTF0)
+
+<img src="public/video1315748616 (4).gif" alt="Storyteller Gif">
+
+### DB Diagram describing model relationships:
+<img src="public/db-diagram-storyteller.png" alt="Storyteller Gif">
+
 
 
 ## License <a id="license"></a>
