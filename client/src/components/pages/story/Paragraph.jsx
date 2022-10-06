@@ -1,13 +1,12 @@
 import { Card, Container, IconButton, styled, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import JsxParser from 'react-jsx-parser'
+import JsxParser from 'react-jsx-parser';
 import AlertDialogSlide from './edit-story/AlertDialogSlide';
 
 const Paragraph = ({ isAuthor, onDelete, paragraphData, updateUserHtml }) => {
-  const richText = paragraphData.rich_text_str
+  const richText = paragraphData.rich_text_str;
   const createdAt = new Date(paragraphData.created_at).toDateString();
-
-  // console.log("chosenId? : ", chosenId)
+  const time = new Date(paragraphData.created_at).toLocaleTimeString();
 
   return (
     <ParaCard >
@@ -30,9 +29,9 @@ const Paragraph = ({ isAuthor, onDelete, paragraphData, updateUserHtml }) => {
       }
       <Caption 
         variant="caption"
-        sx={isAuthor ? {color: 'lightgreen', background: 'darkgreen'} : {color: 'red' }}        
+        sx={ isAuthor ? {color: 'lightgreen', background: 'darkgreen'} : {color: 'red' } }        
       >
-        written {createdAt} by {paragraphData.author}
+        written { createdAt } at { time } by { paragraphData.author }
       </Caption>
     </ParaCard>
     
@@ -44,8 +43,7 @@ export default Paragraph
 const ParaCard = styled(Card)({
   margin: '3px',
   textAlign: 'left',
-  padding: '5px',
-  // width: '100%',
+  padding: '15px',
 })
 
 const Caption = styled(Typography)(({ theme }) => `

@@ -76,7 +76,13 @@ const NewStoryBox = styled(Box)({
 })
 
 const SubmitBtn = styled(Button)(({ theme }) => `
-  
+  width: 60%;
+  height: 50px;
+  border-radius: 15px;
+  &:hover {
+    background: ${theme.palette.secondary.dark};
+    color: ${theme.palette.secondary.light};
+  }
 `)
 
 
