@@ -28,7 +28,6 @@ const Description = () => {
 
 export default Description
 
-// Styled components
 const IntroCard = styled(Card)(introCardCss)
 const Header = styled(Typography)(headerCss)
 const Section = styled(Typography)(sectionCss)

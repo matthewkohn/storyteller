@@ -27,6 +27,5 @@ const IntroBox = () => {
 
 export default IntroBox
 
-// Styled components
 const IntroContainer = styled(Container)(introContainerCss)
 const IntroToggleBtn = styled(Button)(introToggleBtnCss)

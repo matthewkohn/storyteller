@@ -29,9 +29,6 @@ const Instructions = () => {
 
 export default Instructions
 
-// Styled components
 const IntroCard = styled(Card)(introCardCss)
-
 const Header = styled(Typography)(headerCss)
-
 const Section = styled(Typography)(sectionCss)

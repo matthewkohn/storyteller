@@ -28,5 +28,4 @@ const AuthError = ({ children, clearMessage }) => {
 
 export default AuthError
 
-// Styled components
 const ErrorBox = styled(Box)(errorBoxCss);

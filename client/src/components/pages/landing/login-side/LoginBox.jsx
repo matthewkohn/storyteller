@@ -13,5 +13,4 @@ const LoginBox = () => {
 
 export default LoginBox
 
-// Styled components
 const SignInContainer = styled(Box)(signInContainerCss);

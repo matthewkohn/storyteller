@@ -24,7 +24,6 @@ const Landing = () => {
 
 export default Landing
 
-// Styled components
 const BackgroundContainer = styled(Container)(backgroundContainerCss);
 const LandingContainer = styled(Container)(landingContainerCss)
 const Main = styled(Container)(mainCss)

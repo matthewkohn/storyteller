@@ -61,7 +61,6 @@ const Login = () => {
 
 export default Login
 
-// Styled components
 const Title = styled(Typography)(titleCss);
 const Tagline = styled(Typography)(taglineCss);
 const ToggleBtn = styled(Button)(toggleBtnCss);

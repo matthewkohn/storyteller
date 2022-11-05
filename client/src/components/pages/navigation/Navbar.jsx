@@ -21,12 +21,9 @@ const Navbar = () => {
 
   return (
     <Banner>
-      {/* <img src='../../../assets/images/storyteller-logo-no-bg.png' alt='Storyteller Logo' /> */}
-      <HomeBtn
-        onClick={ () => navigate('/home')}
-      >
+      <Button onClick={ () => navigate('/home')} >
         <NavHeader variant='h3' component='div'>Storyteller</NavHeader>
-      </HomeBtn>
+      </Button>
       <NavBtn onClick={ () => handleLogout() } >
         <LogoutIcon />
       </NavBtn>
@@ -36,13 +33,6 @@ const Navbar = () => {
 
 export default Navbar
 
-// Styled components
 const Banner = styled(AppBar)(bannerCss)
-
 const NavHeader = styled(Typography)(navHeaderCss)
-
 const NavBtn = styled(IconButton)(navBtnCss)
-
-const HomeBtn = styled(Button)({
-
-})
