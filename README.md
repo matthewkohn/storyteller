@@ -12,8 +12,6 @@ These requirements that have been met or surpassed are:
 * Implement validations and error handling.
 * Implement something new not taught in the curriculum. * Implement useContext or Redux.
 
-
-
 ## Table of Contents
 ---
 * [Requirements](#dep)
