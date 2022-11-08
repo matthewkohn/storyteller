@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { UserContext } from '../../../context/UserContext';
-import { handleDELETE } from '../../../helpers/fetchRequests';
+import { UserContext } from '../../context/UserContext';
+import { handleDELETE } from '../../helpers/fetchRequests';
 import { AppBar, Button, IconButton, styled, Typography } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
-import { bannerCss, navBtnCss, navHeaderCss } from '../../../styles/main/navbarCss';
+import { bannerCss, navBtnCss, navHeaderCss } from '../../styles/main/navbarCss';
 
 
 const Navbar = () => {

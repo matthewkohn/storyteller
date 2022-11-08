@@ -1,7 +1,8 @@
 import { Card, Container, IconButton, styled, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import JsxParser from 'react-jsx-parser';
-import AlertDialogSlide from './edit-story/AlertDialogSlide';
+import AlertDialogSlide from './AlertDialogSlide';
+import { buttonGroupCss, captionCss, paraCardCss } from '../../../styles/story/storyCss';
 
 const Paragraph = ({ isAuthor, onDelete, paragraphData, updateUserHtml }) => {
   const richText = paragraphData.rich_text_str;
@@ -40,20 +41,6 @@ const Paragraph = ({ isAuthor, onDelete, paragraphData, updateUserHtml }) => {
 
 export default Paragraph
 
-const ParaCard = styled(Card)({
-  margin: '3px',
-  textAlign: 'left',
-  padding: '15px',
-})
-
-const Caption = styled(Typography)(({ theme }) => `
-  padding: 1px 5px;
-  border-radius: 5px;
-  display: flex;
-  justify-content: flex-end;
-`)
-
-const ButtonGroup = styled(Container)({
-  display: 'flex',
-  justifyContent: 'flex-end',
-})
+const ParaCard = styled(Card)(paraCardCss);
+const Caption = styled(Typography)(captionCss);
+const ButtonGroup = styled(Container)(buttonGroupCss);

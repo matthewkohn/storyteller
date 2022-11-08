@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Checkbox, Container, FormControl, FormControlLabel, Radio, RadioGroup, styled, Typography  } from '@mui/material';
 import GenresDropdown from '../../forms/GenresDropdown';
-import { genreBoxCss, headerBoxCss, radioControlFormCss, radioLabelCss, styledRadioGroupCss } from '../../../styles/dashboard/dashboardCss';
+import { genreBoxCss, headerBoxCss, radioControlFormCss, radioLabelCss, styledRadioGroupCss } from '../../../styles/main/dashboardCss';
 
 const StoriesHeader = ({ isDisabled, isAllChecked, onCheckboxClick, onRadioChange, radioValue }) => {
 

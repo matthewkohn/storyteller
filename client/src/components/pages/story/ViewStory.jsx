@@ -1,8 +1,9 @@
 import { Button, Container, styled, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { handleGET } from '../../../../helpers/fetchRequests';
-import Paragraph from '../Paragraph'
+import { handleGET } from '../../../helpers/fetchRequests';
+import { detailsCss, genreCss, paragraphBoxCss, titleViewCss, viewContainerCss, viewNavCss } from '../../../styles/story/storyCss';
+import Paragraph from './Paragraph'
 
 const ViewStory = () => {
   const [storyObj, setStoryObj] = useState({});
@@ -36,9 +37,9 @@ const ViewStory = () => {
         { paragraphsList }
       </ParagraphBox>
       <ViewNav>
-        <NavBtn onClick={ () => navigate('/home') }>
+        <Button onClick={ () => navigate('/home') }>
           Go Back to Dashboard
-        </NavBtn>
+        </Button>
       </ViewNav>
     </ViewContainer>
   )
@@ -47,39 +48,9 @@ const ViewStory = () => {
 export default ViewStory
 
 
-const ViewContainer = styled(Container)({
-  paddingTop: '80px',
-  maxHeight: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-})
-
-const Details = styled(Container)({
-  width: '50%',
-  textAlign: 'center',
-  padding: '0 0 15px',
-})
-
-const ParagraphBox = styled(Container)({
-  overflowY: 'scroll',
-  width: '50%',
-  height: '70vh',
-})
-
-const Title = styled(Typography)({
-  fontSize: '40px',
-})
-
-const Genre = styled(Typography)({
-  fontSize: '30px',
-})
-
-const ViewNav = styled(Container)({
-  position: 'fixed',
-  top: '100px',
-  // right: '50px',
-})
-
-const NavBtn = styled(Button)({
-
-})
+const ViewContainer = styled(Container)(viewContainerCss);
+const Details = styled(Container)(detailsCss);
+const ParagraphBox = styled(Container)(paragraphBoxCss);
+const Title = styled(Typography)(titleViewCss);
+const Genre = styled(Typography)(genreCss);
+const ViewNav = styled(Container)(viewNavCss);

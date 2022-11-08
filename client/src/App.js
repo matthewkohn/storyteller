@@ -3,13 +3,13 @@ import { Routes, Route } from 'react-router-dom';
 import { Container, styled } from '@mui/material';
 import { appContainerCss } from './styles/main/appCss';
 import { UserContext } from './context/UserContext';
-import Landing from './components/pages/landing/Landing';
-import Navbar from './components/pages/navigation/Navbar';
-import Dashboard from './components/pages/dashboard/Dashboard';
+import Landing from './components/pages/login/Landing';
+import Navbar from './components/navigation/Navbar';
+import Dashboard from './components/pages/home/Dashboard';
 import Story from './components/pages/story/Story';
-import ViewStory from './components/pages/story/view-story/ViewStory';
-import WriteStory from './components/pages/story/edit-story/WriteStory';
-import NewStory from './components/pages/story/edit-story/NewStory';
+import ViewStory from './components/pages/story/ViewStory';
+import WriteStory from './components/pages/story/WriteStory';
+import NewStory from './components/pages/story/NewStory';
 
 function App() {
   const { user } = useContext(UserContext);

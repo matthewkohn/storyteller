@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Container, styled, Typography } from '@mui/material';
-import { GenreContext } from '../../../../context/GenreContext';
-import { handleAPI } from '../../../../helpers/fetchRequests';
-import NewStoryForm from '../../../forms/NewStoryForm';
+import { GenreContext } from '../../../context/GenreContext';
+import { handleAPI } from '../../../helpers/fetchRequests';
+import NewStoryForm from '../../forms/NewStoryForm';
+import { newStoryContainerCss, newStoryIntroCss } from '../../../styles/story/storyCss';
 
 const NewStory = () => {
   const [title, setTitle] = useState("");
@@ -53,16 +54,5 @@ const NewStory = () => {
 
 export default NewStory
 
-const NewStoryContainer = styled(Container)({
-  paddingTop: '100px',
-  maxHeight: '100vh',
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-
-})
-
-const NewStoryIntro = styled(Typography)({
-  textAlign: 'center',
-  padding: '10px',
-})
+const NewStoryContainer = styled(Container)(newStoryContainerCss);
+const NewStoryIntro = styled(Typography)(newStoryIntroCss);

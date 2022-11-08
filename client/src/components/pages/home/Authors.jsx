@@ -3,9 +3,9 @@ import { Box, Button, Card, Container, styled, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 import { handleAPI, handleGET } from '../../../helpers/fetchRequests';
 import { AuthorContext } from '../../../context/AuthorContext';
-import AuthError from '../landing/login-side/AuthError';
+import AuthError from '../login/login-side/AuthError';
 import NewAuthorForm from '../../forms/NewAuthorForm';
-import { addAuthorCardCss, authorBtnCss, authorBtnListCss, authorsBoxCss, authorSubtitleCss, authorTitleCss, newStoryBtnCss } from '../../../styles/dashboard/dashboardCss';
+import { addAuthorCardCss, authorBtnCss, authorBtnListCss, authorsBoxCss, authorSubtitleCss, authorTitleCss, newStoryBtnCss } from '../../../styles/main/dashboardCss';
 
 const Authors = () => {
   const [currentAuthor, setCurrentAuthor] = useContext(AuthorContext)

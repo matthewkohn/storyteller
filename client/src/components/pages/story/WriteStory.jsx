@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Container, styled, Typography } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { handleGET, handleAPI, handleDELETE } from '../../../../helpers/fetchRequests';
-import { AuthorContext } from '../../../../context/AuthorContext';
+import { handleGET, handleAPI, handleDELETE } from '../../../helpers/fetchRequests';
+import { AuthorContext } from '../../../context/AuthorContext';
 import Preview from './Preview';
-import Paragraph from '../Paragraph';
-import TextEditor from '../../../forms/text-editor/TextEditor';
-import AuthError from '../../landing/login-side/AuthError';
+import Paragraph from './Paragraph';
+import TextEditor from '../../forms/text-editor/TextEditor';
+import AuthError from '../login/login-side/AuthError';
+import { cancelEditBtnCss, genreAuthorNamesCss, rightViewCss, storyStatsCss, submitBtnCss, viewContainerCss, writeStoryContainerCss } from '../../../styles/story/writeStoryCss';
 
 
 const WriteStory = () => {
@@ -157,56 +158,12 @@ const WriteStory = () => {
 
 export default WriteStory
 
-const WriteStoryContainer = styled(Container)({
-  paddingTop: '80px',
-  fontFamily: 'Kalam',
-  display: 'flex',
-  flexDirection: 'column',
-  maxWidth: '100vw',
-  webkitScrollbar: {
-	  width: '20'
-  },
-  webkitScrollbarTrack: {
-  // "&::-webkit-scrollbar-track": {
-	  backgroundColor: "orange"
-  },
-  webkitScrollbarThumb: {
-	  backgroundColor: "red",
-	  borderRadius: 2
-  }
-})
-
-const StoryStats = styled(Container)({
-  display: 'inherit',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-})
-
-const GenreAuthorNames = styled(Container)({
-  display: 'inherit',
-  justifyContent: 'space-evenly',
-})
-
-const ViewContainer = styled(Container)({
-  display: 'inherit',
-  height: '70vh',
-  // border: '1px solid black'
-})
+const WriteStoryContainer = styled(Container)(writeStoryContainerCss);
+const StoryStats = styled(Container)(storyStatsCss);
+const GenreAuthorNames = styled(Container)(genreAuthorNamesCss);
+const ViewContainer = styled(Container)(viewContainerCss);
 
 // turn into formControl
-const RightView = styled(Container)(({ theme }) => `
-  height: 300px;
-  background: ${theme.palette.secondary.light};
-`)
-
-const SubmitBtn = styled(Button)({
-  width: '100%',
-  height: '60px',
-  marginBottom: '7px',
-})
-
-const CancelEditBtn = styled(Button)({
-  width: '100%',
-  height: '60px',
-})
+const RightView = styled(Container)(rightViewCss);
+const SubmitBtn = styled(Button)(submitBtnCss);
+const CancelEditBtn = styled(Button)(cancelEditBtnCss);

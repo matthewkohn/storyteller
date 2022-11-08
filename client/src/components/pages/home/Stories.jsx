@@ -5,7 +5,7 @@ import { AuthorContext } from '../../../context/AuthorContext';
 import StoriesHeader from './StoriesHeader';
 import StoryCard from './StoryCard';
 import ViewEditControls from '../../forms/ViewEditControls';
-import { storiesBoxCss, storyCardContainerCss } from '../../../styles/dashboard/dashboardCss';
+import { storiesBoxCss, storyCardContainerCss } from '../../../styles/main/dashboardCss';
 
 const Stories = () => {
   const [isGenreChecked, setIsGenreChecked] = useState(false);

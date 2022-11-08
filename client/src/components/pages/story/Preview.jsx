@@ -1,6 +1,7 @@
 import { Box, Card, styled, Typography } from '@mui/material'
 import React from 'react'
 import JsxParser from 'react-jsx-parser'
+import { newParagraphCardCss, previewBoxCss, titleCss } from '../../../styles/story/storyCss'
 
 const Preview = ({ authorName, isEditing, newJsxStr, paragraphs }) => {
   return (
@@ -20,24 +21,6 @@ const Preview = ({ authorName, isEditing, newJsxStr, paragraphs }) => {
 
 export default Preview
 
-const PreviewBox = styled(Box)({
-  width: '100%',
-  maxHeight: '75vh',
-  overflowY: 'scroll',
-})
-
-const NewParagraphCard = styled(Card)(({ theme }) => `
-  background: ${theme.palette.primary.light};
-  color: ${theme.palette.secondary.dark};
-  padding: 10px;
-  text-align: left;
-  indent: 10px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-`)
-
-const Title = styled(Typography)(({ theme }) => `
-  color: ${theme.palette.primary.main};
-  background: ${theme.palette.primary.light};
-`)
+const PreviewBox = styled(Box)(previewBoxCss);
+const NewParagraphCard = styled(Card)(newParagraphCardCss);
+const Title = styled(Typography)(titleCss);

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText,  DialogTitle, IconButton, Slide, styled } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { contentTextCss } from '../../../styles/story/storyCss';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -27,7 +28,7 @@ export default function AlertDialogSlide({ id, onDelete }) {
       <IconButton variant="outlined" onClick={ handleClickOpen }>
         <DeleteForeverIcon />
       </IconButton>
-      <StyledDialog
+      <Dialog
         open={open}
         TransitionComponent={Transition}
         keepMounted
@@ -43,19 +44,13 @@ export default function AlertDialogSlide({ id, onDelete }) {
           </ContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDisagree}>Cancel</Button>
-          <Button onClick={handleAgree}>Yes!</Button>
+          <Button onClick={ handleDisagree }>Cancel</Button>
+          <Button onClick={ handleAgree }>Yes!</Button>
         </DialogActions>
-      </StyledDialog>
+      </Dialog>
     </div>
   );
 }
 
 
-const StyledDialog = styled(Dialog)({
-  // textAlign: 'center',
-})
-
-const ContentText = styled(DialogContentText)({
-  fontSize: '24px',
-})
+const ContentText = styled(DialogContentText)(contentTextCss);

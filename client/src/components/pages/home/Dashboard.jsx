@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, styled } from '@mui/material'
 import Authors from './Authors'
 import Stories from './Stories'
-import { dashboardBoxCcss, dashboardContainerCss } from '../../../styles/dashboard/dashboardCss'
+import { dashboardBoxCcss, dashboardContainerCss } from '../../../styles/main/dashboardCss'
 
 const Dashboard = () => {
 
