@@ -4,7 +4,6 @@ import { GenreContext } from '../../../context/GenreContext';
 import { AuthorContext } from '../../../context/AuthorContext';
 import StoriesHeader from './StoriesHeader';
 import StoryCard from './StoryCard';
-import ViewEditControls from '../../forms/ViewEditControls';
 import { storiesBoxCss, storyCardContainerCss } from '../../../styles/main/dashboardCss';
 
 const Stories = () => {
@@ -14,7 +13,7 @@ const Stories = () => {
   const [allStories, setAllStories] = useState([]);
   const [url, setUrl] = useState('/stories');
   const [hideStories, setHideStories] = useState(false);
-  const [mode, setMode] = useState('view');
+  const [expanded, setExpanded] = useState(null);
   const { chosenGenre } = useContext(GenreContext);
   const [currentAuthor] = useContext(AuthorContext);
   
@@ -58,11 +57,20 @@ const Stories = () => {
     })
   }, [url])
 
+  const handleExpand = (storyId) => {
+    if (expanded !== storyId) {
+      setExpanded(storyId);
+    } else {
+      setExpanded(null);
+    }
+  }
+
   const storyCardsList = allStories.map((story) => (
       <StoryCard 
+        expanded={ expanded }
+        handleExpand={ handleExpand }
         key={ story.id } 
         story={ story } 
-        mode={ mode } 
       />
   ))
 
@@ -75,10 +83,6 @@ const Stories = () => {
         onCheckboxClick={ handleCheckbox }
         onRadioChange={ handleChange }
         radioValue={ radioValue }
-      />
-      <ViewEditControls
-        currentAuthor={ currentAuthor }
-        chooseMode={ setMode }
       />
       <StoryCardContainer>
       { 

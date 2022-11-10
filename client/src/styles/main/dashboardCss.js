@@ -112,7 +112,7 @@ const genreBoxCss = {
   justifyContent: 'flex-end',
 }
 
-const storyCardCardContainerCss = ({ theme }) => `
+const storyCardAccordionCss = ({ theme }) => `
 margin: 5px 0;
 padding: 2px;
 height: 100px;
@@ -132,4 +132,4 @@ border-bottom: 5px solid brown;
 
 
 
-export { authorsBoxCss, authorTitleCss, authorSubtitleCss, authorBtnListCss, authorBtnCss, addAuthorCardCss, newStoryBtnCss, dashboardContainerCss, dashboardBoxCcss, storiesBoxCss, storyCardContainerCss, headerBoxCss, radioControlFormCss, styledRadioGroupCss, radioLabelCss, genreBoxCss, storyCardCardContainerCss }
+export { authorsBoxCss, authorTitleCss, authorSubtitleCss, authorBtnListCss, authorBtnCss, addAuthorCardCss, newStoryBtnCss, dashboardContainerCss, dashboardBoxCcss, storiesBoxCss, storyCardContainerCss, headerBoxCss, radioControlFormCss, styledRadioGroupCss, radioLabelCss, genreBoxCss, storyCardAccordionCss }
