@@ -1,12 +1,12 @@
 import React from 'react';
 import { Accordion, AccordionSummary, AccordionDetails, styled, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { storyCardAccordionCss } from '../../../styles/main/dashboardCss';
+import { detailsCss, storyCardAccordionCss } from '../../../styles/main/dashboardCss';
 
 const StoryCard = ({ handleExpand, expanded, story }) => {
   const { id, title } = story;
   const navigate = useNavigate();
-
+console.log(story)
   return (
     <CardContainer
       expanded={ expanded === id } 
@@ -15,7 +15,7 @@ const StoryCard = ({ handleExpand, expanded, story }) => {
       <AccordionSummary>
         <Typography variant="body1">{ title }</Typography>
       </AccordionSummary>
-      <AccordionDetails>
+      <Details>
         <Button
           variant="contained"
           onClick={ () => navigate(`/story/${id}`, { state: id }) }
@@ -28,7 +28,7 @@ const StoryCard = ({ handleExpand, expanded, story }) => {
         >
           Contribute
         </Button>
-      </AccordionDetails>
+      </Details>
     </CardContainer>
   )
 }
@@ -37,3 +37,4 @@ export default StoryCard
 
 const CardContainer = styled(Accordion)(storyCardAccordionCss)
 
+const Details = styled(AccordionDetails)(detailsCss)

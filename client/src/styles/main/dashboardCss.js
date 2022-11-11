@@ -129,7 +129,14 @@ border-bottom: 5px solid brown;
 }
 `
 
+const detailsCss = {
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'space-between',
+  margin: '0 10px',
+  padding: '5px',
+}
 
 
 
-export { authorsBoxCss, authorTitleCss, authorSubtitleCss, authorBtnListCss, authorBtnCss, addAuthorCardCss, newStoryBtnCss, dashboardContainerCss, dashboardBoxCcss, storiesBoxCss, storyCardContainerCss, headerBoxCss, radioControlFormCss, styledRadioGroupCss, radioLabelCss, genreBoxCss, storyCardAccordionCss }
+export { authorsBoxCss, authorTitleCss, authorSubtitleCss, authorBtnListCss, authorBtnCss, addAuthorCardCss, newStoryBtnCss, dashboardContainerCss, dashboardBoxCcss, storiesBoxCss, storyCardContainerCss, headerBoxCss, radioControlFormCss, styledRadioGroupCss, radioLabelCss, genreBoxCss, storyCardAccordionCss, detailsCss }
