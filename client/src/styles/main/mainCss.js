@@ -103,6 +103,12 @@ const detailsCss = {
   padding: '5px',
 }
 
+const noStoriesTextCss = {
+  display: 'flex',
+  justifyContent: 'center',
+  color: 'red',
+}
 
 
-export { authorsBoxCss, authorTitleCss, authorSubtitleCss, authorBtnListCss, authorBtnCss, addAuthorCardCss, newStoryBtnCss, storiesBoxCss, storiesHeaderCss, storyCardContainerCss, storyCardAccordionCss, detailsCss, storyTitleCss }
+
+export { authorsBoxCss, authorTitleCss, authorSubtitleCss, authorBtnListCss, authorBtnCss, addAuthorCardCss, newStoryBtnCss, storiesBoxCss, storiesHeaderCss, storyCardContainerCss, storyCardAccordionCss, detailsCss, storyTitleCss, noStoriesTextCss }

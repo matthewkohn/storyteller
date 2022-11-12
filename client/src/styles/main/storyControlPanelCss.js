@@ -1,15 +1,16 @@
 const controlBoxCss = ({ theme }) => `
   display: flex;
   align-items: center;
-  flex-direction: row;
+  // justify-contents: flex-end;
+  flex-direction: column;
   background: ${theme.palette.secondary.light};
   border: 2px solid ${theme.palette.secondary.dark};
   padding: 5px 0;
-  margin: 5px 0;
+  margin: 0 auto 5px;
   border-radius: 35px;
-  width: 60%;
-  height: 13.5vh;
-
+  width: 55%;
+  height: 14.5vh;
+  max-height: 110px;
 `
 
 const genreBoxCss = {

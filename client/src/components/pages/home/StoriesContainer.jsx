@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { GenreContext } from '../../../context/GenreContext';
 import StoryControlPanel from './StoryControlPanel';
 import StoryCard from './StoryCard';
-import { newStoryBtnCss, storiesBoxCss, storiesHeaderCss, storyCardContainerCss, storyTitleCss } from '../../../styles/main/mainCss';
+import { newStoryBtnCss, storiesBoxCss, storiesHeaderCss, storyCardContainerCss, storyTitleCss, noStoriesTextCss } from '../../../styles/main/mainCss';
 
 const StoriesContainer = () => {
   const [isGenreChecked, setIsGenreChecked] = useState(false);
   const [isSortedByAll, setIsSortedByAll] = useState(true);
   const [radioValue, setRadioValue] = useState('all');
   const [allStories, setAllStories] = useState([]);
+  const [noStories, setNoStories] = useState(false);
   const [url, setUrl] = useState('/stories');
   const [expanded, setExpanded] = useState(null);
   const { chosenGenre } = useContext(GenreContext);
@@ -32,24 +33,27 @@ const StoriesContainer = () => {
 
   // useEffect that tracks button clicks & sets urls
   useEffect(() => {
-    if (isSortedByAll && isGenreChecked && chosenGenre.id) {
-      setUrl(`/stories-by-genre/${chosenGenre.id}`)
+    if (!isSortedByAll) {
+      setUrl(`/stories-by-user`);
+    } else if (isSortedByAll && isGenreChecked && chosenGenre.id) {
+      setUrl(`/stories-by-genre/${chosenGenre.id}`);
     } else {
-      setUrl(`/stories`)
+      setUrl(`/stories`);
     }
   }, [chosenGenre, isGenreChecked, isSortedByAll])
 
   // useEffect that sets stories
   useEffect(() => {
     fetch(url).then((res) => {
-      if (res.ok) {
-        res.json().then((stories) => {
+      res.json().then((stories) => {
+        console.log("# of stories from useEffect: ", stories.length)
+        if (stories.length > 0) {
+          setNoStories(false);
           setAllStories(stories);
-          // setHideStories(false);
-        })
-      } else {
-        // setHideStories(true);
-      }
+        } else {
+          setNoStories(true);
+        }
+      })
     })
   }, [url])
 
@@ -91,7 +95,12 @@ const StoriesContainer = () => {
         </NewStoryBtn>
       </StoriesHeader>
       <StoryCardContainer>
-      { storyCardsList }
+      { noStories 
+        ? 
+          <NoStories variant="h2">No stories yet</NoStories>
+        :
+          storyCardsList 
+      }
       </StoryCardContainer>
     </StoriesBox>
   )
@@ -104,3 +113,4 @@ const StoriesHeader = styled(Container)(storiesHeaderCss);
 const Title = styled(Box)(storyTitleCss)
 const StoryCardContainer = styled(Container)(storyCardContainerCss)
 const NewStoryBtn = styled(Button)(newStoryBtnCss)
+const NoStories = styled(Typography)(noStoriesTextCss)

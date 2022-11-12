@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   get "/stories-by-author/:author_id", to: "stories#stories_by_author"
   get "/stories-by-genre/:genre_id", to: "stories#stories_by_genre"
+  get "/stories-by-user", to: "stories#stories_by_user"
 
 
 

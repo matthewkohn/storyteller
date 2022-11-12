@@ -31,6 +31,11 @@ class StoriesController < ApplicationController
     render json: stories, status: :ok
   end
 
+  def stories_by_user
+    stories = Story.joins(paragraphs: :author).where(authors: {user_id: @current_user.id}).uniq
+    render json: stories, status: :ok
+  end
+
   
   private
 
