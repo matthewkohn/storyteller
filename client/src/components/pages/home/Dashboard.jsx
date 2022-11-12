@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, styled } from '@mui/material'
-import Authors from './Authors'
+// import Authors from './Authors'
 import Stories from './Stories'
 import { dashboardBoxCcss, dashboardContainerCss } from '../../../styles/main/dashboardCss'
 
@@ -9,7 +9,7 @@ const Dashboard = () => {
   return (
     <DashboardContainer>
       <DashboardBox>
-        <Authors />
+        
         <Stories />
       </DashboardBox>
     </DashboardContainer>

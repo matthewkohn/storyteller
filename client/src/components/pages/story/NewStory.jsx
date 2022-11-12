@@ -5,6 +5,7 @@ import { GenreContext } from '../../../context/GenreContext';
 import { handleAPI } from '../../../helpers/fetchRequests';
 import NewStoryForm from '../../forms/NewStoryForm';
 import { newStoryContainerCss, newStoryIntroCss } from '../../../styles/story/storyCss';
+import Authors from '../home/Authors';
 
 const NewStory = () => {
   const [title, setTitle] = useState("");
@@ -40,7 +41,7 @@ const NewStory = () => {
   return (
     <NewStoryContainer>
       <NewStoryIntro variant="h4">This is a new story, authored by {location.state.name}.</NewStoryIntro>
-      
+      <Authors />
       <NewStoryForm 
         updateStory={ setHtmlStr }
         title={ title }

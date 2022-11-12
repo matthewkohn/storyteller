@@ -6,6 +6,8 @@ const dashboardBoxCcss = {
   display: 'flex',
   width: '100%',
   height: '100%',
+  justifyContent: 'center',
+  
 }
 
 const authorsBoxCss = {
