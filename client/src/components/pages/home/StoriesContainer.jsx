@@ -2,10 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, Container, styled, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { GenreContext } from '../../../context/GenreContext';
-import { AuthorContext } from '../../../context/AuthorContext';
 import StoryControlPanel from './StoryControlPanel';
 import StoryCard from './StoryCard';
-import { newStoryBtnCss, storiesBoxCss, storyCardContainerCss } from '../../../styles/main/mainCss';
+import { newStoryBtnCss, storiesBoxCss, storiesHeaderCss, storyCardContainerCss, storyTitleCss } from '../../../styles/main/mainCss';
 
 const StoriesContainer = () => {
   const [isGenreChecked, setIsGenreChecked] = useState(false);
@@ -13,10 +12,8 @@ const StoriesContainer = () => {
   const [radioValue, setRadioValue] = useState('all');
   const [allStories, setAllStories] = useState([]);
   const [url, setUrl] = useState('/stories');
-  const [hideStories, setHideStories] = useState(false);
   const [expanded, setExpanded] = useState(null);
   const { chosenGenre } = useContext(GenreContext);
-  const [currentAuthor] = useContext(AuthorContext);
   const navigate = useNavigate();
   
   const handleChange = (e) => {
@@ -35,15 +32,12 @@ const StoriesContainer = () => {
 
   // useEffect that tracks button clicks & sets urls
   useEffect(() => {
-    if (!isSortedByAll) {
-      setUrl(`/stories-by-author/${currentAuthor.id}`)
-    // "All" and "Genres" are checked, and a genre is selected:
-    } else if (isSortedByAll && isGenreChecked && chosenGenre.id) {
+    if (isSortedByAll && isGenreChecked && chosenGenre.id) {
       setUrl(`/stories-by-genre/${chosenGenre.id}`)
     } else {
       setUrl(`/stories`)
     }
-  }, [chosenGenre, currentAuthor, isGenreChecked, isSortedByAll])
+  }, [chosenGenre, isGenreChecked, isSortedByAll])
 
   // useEffect that sets stories
   useEffect(() => {
@@ -51,10 +45,10 @@ const StoriesContainer = () => {
       if (res.ok) {
         res.json().then((stories) => {
           setAllStories(stories);
-          setHideStories(false);
+          // setHideStories(false);
         })
       } else {
-        setHideStories(true);
+        // setHideStories(true);
       }
     })
   }, [url])
@@ -78,27 +72,26 @@ const StoriesContainer = () => {
 
   return (
     <StoriesBox>
-      <Typography variant="h4">Book Shelf</Typography>
-      <NewStoryBtn 
-        variant="contained"
-        onClick={ () => navigate('/story/new') } 
-      >
-        Create a New Story
-      </NewStoryBtn>
-      <StoryControlPanel
-        isDisabled={ !isGenreChecked || !isSortedByAll }
-        isAllChecked={ isSortedByAll }
-        onCheckboxClick={ handleCheckbox }
-        onRadioChange={ handleChange }
-        radioValue={ radioValue }
-      />
+      <StoriesHeader>
+        <Title>
+          <Typography variant="h4">Book Shelf</Typography>
+          <StoryControlPanel
+            isDisabled={ !isGenreChecked || !isSortedByAll }
+            isAllChecked={ isSortedByAll }
+            onCheckboxClick={ handleCheckbox }
+            onRadioChange={ handleChange }
+            radioValue={ radioValue }
+          />
+        </Title>
+        <NewStoryBtn 
+          variant="contained"
+          onClick={ () => navigate('/story/new') } 
+        >
+          Create a New Story
+        </NewStoryBtn>
+      </StoriesHeader>
       <StoryCardContainer>
-      { 
-        hideStories ? 
-          <Typography variant="h1">No stories... Yet...</Typography>
-        :
-          storyCardsList
-      }
+      { storyCardsList }
       </StoryCardContainer>
     </StoriesBox>
   )
@@ -106,6 +99,8 @@ const StoriesContainer = () => {
 
 export default StoriesContainer
 
-const StoriesBox = styled(Box)(storiesBoxCss)
+const StoriesBox = styled(Box)(storiesBoxCss);
+const StoriesHeader = styled(Container)(storiesHeaderCss);
+const Title = styled(Box)(storyTitleCss)
 const StoryCardContainer = styled(Container)(storyCardContainerCss)
 const NewStoryBtn = styled(Button)(newStoryBtnCss)

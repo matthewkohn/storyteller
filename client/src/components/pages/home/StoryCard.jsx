@@ -6,7 +6,7 @@ import { detailsCss, storyCardAccordionCss } from '../../../styles/main/mainCss'
 const StoryCard = ({ handleExpand, expanded, story }) => {
   const { id, title } = story;
   const navigate = useNavigate();
-console.log(story)
+// console.log(story)
   return (
     <CardContainer
       expanded={ expanded === id } 

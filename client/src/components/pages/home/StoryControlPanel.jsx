@@ -1,16 +1,15 @@
-import React from 'react'
-import { Box, Checkbox, Container, FormControl, FormControlLabel, Radio, RadioGroup, styled, Typography  } from '@mui/material';
+import React from 'react';
+import { Box, Checkbox, Container, FormControl, FormControlLabel, Radio, RadioGroup, styled } from '@mui/material';
 import GenresDropdown from '../../forms/GenresDropdown';
-import { headerBoxCss, genreBoxCss, radioControlFormCss, radioLabelCss } from '../../../styles/main/storyControlPanelCss';
+import { controlBoxCss, genreBoxCss } from '../../../styles/main/storyControlPanelCss';
 import { styledRadioGroupCss } from '../../../styles/main/storyControlPanelCss';
 
 const StoryControlPanel = ({ isDisabled, isAllChecked, onCheckboxClick, onRadioChange, radioValue }) => {
 
   return (
     <>
-      <HeaderBox elevation={3}>
-        <RadioFormControl>
-          <RadioLabel variant="h6">Sort By: </RadioLabel>
+      <ControlBox elevation={3}>
+        <FormControl>
           <StyledRadioGroup 
             row
             defafultvalue="all"
@@ -24,9 +23,9 @@ const StoryControlPanel = ({ isDisabled, isAllChecked, onCheckboxClick, onRadioC
               labelPlacement='start' 
             />
             <FormControlLabel 
-              value="author" 
+              value="self" 
               control={ <Radio /> } 
-              label="Pen Name" 
+              label="My Stories" 
               labelPlacement='start'
             />
           </StyledRadioGroup>
@@ -44,8 +43,8 @@ const StoryControlPanel = ({ isDisabled, isAllChecked, onCheckboxClick, onRadioC
               />
             <GenresDropdown isDisabled={ isDisabled } />
           </GenreBox>
-        </RadioFormControl>
-      </HeaderBox>
+        </FormControl>
+      </ControlBox>
     </>
   )
 }
@@ -53,8 +52,6 @@ const StoryControlPanel = ({ isDisabled, isAllChecked, onCheckboxClick, onRadioC
 export default StoryControlPanel
 
 
-const HeaderBox = styled(Box)(headerBoxCss)
-const RadioFormControl = styled(FormControl)(radioControlFormCss)
-const StyledRadioGroup = styled(RadioGroup)(styledRadioGroupCss)
-const RadioLabel = styled(Typography)(radioLabelCss)
-const GenreBox = styled(Container)(genreBoxCss)
+const ControlBox = styled(Box)(controlBoxCss);
+const StyledRadioGroup = styled(RadioGroup)(styledRadioGroupCss);
+const GenreBox = styled(Container)(genreBoxCss);

@@ -55,9 +55,22 @@ color: ${theme.palette.secondary.dark};
 const storiesBoxCss = {
   padding: '20px',
   borderRadius: '15px',
-  margin: '10px',
+  margin: '50px 10px 0',
   width: '75vw',
   height: '75vh',
+  // maxHeight: '100%',
+}
+
+const storiesHeaderCss = {
+  display: 'flex',
+  flexDirection: 'column',
+
+}
+
+const storyTitleCss = {
+  display: 'inherit',
+  width: '100%',
+  justifyContent: 'space-between',
 }
 
 const storyCardContainerCss = {
@@ -92,4 +105,4 @@ const detailsCss = {
 
 
 
-export { authorsBoxCss, authorTitleCss, authorSubtitleCss, authorBtnListCss, authorBtnCss, addAuthorCardCss, newStoryBtnCss, storiesBoxCss, storyCardContainerCss, storyCardAccordionCss, detailsCss }
+export { authorsBoxCss, authorTitleCss, authorSubtitleCss, authorBtnListCss, authorBtnCss, addAuthorCardCss, newStoryBtnCss, storiesBoxCss, storiesHeaderCss, storyCardContainerCss, storyCardAccordionCss, detailsCss, storyTitleCss }

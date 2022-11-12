@@ -1,38 +1,31 @@
-const headerBoxCss = ({ theme }) => `
-display: flex;
-justify-content: space-between;
-background: ${theme.palette.secondary.light};
-padding: 5px;
-border-radius: 35px;
-border: 2px solid ${theme.palette.secondary.dark};
+const controlBoxCss = ({ theme }) => `
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  background: ${theme.palette.secondary.light};
+  border: 2px solid ${theme.palette.secondary.dark};
+  padding: 5px 0;
+  margin: 5px 0;
+  border-radius: 35px;
+  width: 60%;
+  height: 13.5vh;
+
 `
 
 const genreBoxCss = {
   display: 'inherit',
-  alignItems: 'flex-start',
-  justifyContent: 'flex-end',
+  alignItems: 'flex-end',
+  justifyContent: 'center',
+  margin: 'auto',
 }
 
-const radioControlFormCss = {
-  display: 'inherit',
-  flexDirection: 'row',
-  alignItems: 'space-between',
-  width: '100%',
-}
-
-const radioLabelCss = {
-  display: 'inherit',
-  alignItems: 'center',
-  padding: '10px',
-  marginRight: '30px',
-  width: '20%',
-}
 
 const styledRadioGroupCss = {
   display: 'inherit',
-  flexDirection: 'column',
-  width: '40%',
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  width: '100%',
 }
 
 
-export { headerBoxCss, genreBoxCss, radioControlFormCss, radioLabelCss, styledRadioGroupCss }
+export { controlBoxCss, genreBoxCss, styledRadioGroupCss }
