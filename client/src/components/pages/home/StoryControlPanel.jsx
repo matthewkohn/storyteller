@@ -1,9 +1,10 @@
 import React from 'react'
 import { Box, Checkbox, Container, FormControl, FormControlLabel, Radio, RadioGroup, styled, Typography  } from '@mui/material';
 import GenresDropdown from '../../forms/GenresDropdown';
-import { genreBoxCss, headerBoxCss, radioControlFormCss, radioLabelCss, styledRadioGroupCss } from '../../../styles/main/dashboardCss';
+import { headerBoxCss, genreBoxCss, radioControlFormCss, radioLabelCss } from '../../../styles/main/storyControlPanelCss';
+import { styledRadioGroupCss } from '../../../styles/main/storyControlPanelCss';
 
-const StoriesHeader = ({ isDisabled, isAllChecked, onCheckboxClick, onRadioChange, radioValue }) => {
+const StoryControlPanel = ({ isDisabled, isAllChecked, onCheckboxClick, onRadioChange, radioValue }) => {
 
   return (
     <>
@@ -49,7 +50,7 @@ const StoriesHeader = ({ isDisabled, isAllChecked, onCheckboxClick, onRadioChang
   )
 }
 
-export default StoriesHeader
+export default StoryControlPanel
 
 
 const HeaderBox = styled(Box)(headerBoxCss)

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Accordion, AccordionSummary, AccordionDetails, styled, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { detailsCss, storyCardAccordionCss } from '../../../styles/main/dashboardCss';
+import { detailsCss, storyCardAccordionCss } from '../../../styles/main/mainCss';
 
 const StoryCard = ({ handleExpand, expanded, story }) => {
   const { id, title } = story;

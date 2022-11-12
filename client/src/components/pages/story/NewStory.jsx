@@ -1,17 +1,18 @@
 import React, { useContext, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Container, styled, Typography } from '@mui/material';
+// import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Container, styled } from '@mui/material';
 import { GenreContext } from '../../../context/GenreContext';
 import { handleAPI } from '../../../helpers/fetchRequests';
 import NewStoryForm from '../../forms/NewStoryForm';
-import { newStoryContainerCss, newStoryIntroCss } from '../../../styles/story/storyCss';
-import Authors from '../home/Authors';
+import { newStoryContainerCss } from '../../../styles/story/storyCss';
+import Authors from '../../forms/Authors';
 
 const NewStory = () => {
   const [title, setTitle] = useState("");
   const [htmlStr, setHtmlStr] = useState("");
   const { chosenGenre } = useContext(GenreContext);
-  const location = useLocation();
+  // const location = useLocation();
   const navigate = useNavigate();
 
   const storiesJson = {
@@ -19,7 +20,7 @@ const NewStory = () => {
     title: title
   }
   const paragraphJson = {
-    author_id: location.state.id,
+    // author_id: location.state.id,
     rich_text_str: htmlStr
   }
 
@@ -40,7 +41,7 @@ const NewStory = () => {
 
   return (
     <NewStoryContainer>
-      <NewStoryIntro variant="h4">This is a new story, authored by {location.state.name}.</NewStoryIntro>
+      {/* <NewStoryIntro variant="h4">This is a new story, authored by {location.state.name}.</NewStoryIntro> */}
       <Authors />
       <NewStoryForm 
         updateStory={ setHtmlStr }
@@ -56,4 +57,4 @@ const NewStory = () => {
 export default NewStory
 
 const NewStoryContainer = styled(Container)(newStoryContainerCss);
-const NewStoryIntro = styled(Typography)(newStoryIntroCss);
+// const NewStoryIntro = styled(Typography)(newStoryIntroCss);

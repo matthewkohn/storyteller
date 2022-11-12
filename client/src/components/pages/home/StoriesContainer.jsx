@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Box, Container, styled, Typography } from '@mui/material';
+import { Box, Button, Container, styled, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { GenreContext } from '../../../context/GenreContext';
 import { AuthorContext } from '../../../context/AuthorContext';
-import StoriesHeader from './StoriesHeader';
+import StoryControlPanel from './StoryControlPanel';
 import StoryCard from './StoryCard';
-import { storiesBoxCss, storyCardContainerCss } from '../../../styles/main/dashboardCss';
+import { newStoryBtnCss, storiesBoxCss, storyCardContainerCss } from '../../../styles/main/mainCss';
 
-const Stories = () => {
+const StoriesContainer = () => {
   const [isGenreChecked, setIsGenreChecked] = useState(false);
   const [isSortedByAll, setIsSortedByAll] = useState(true);
   const [radioValue, setRadioValue] = useState('all');
@@ -16,6 +17,7 @@ const Stories = () => {
   const [expanded, setExpanded] = useState(null);
   const { chosenGenre } = useContext(GenreContext);
   const [currentAuthor] = useContext(AuthorContext);
+  const navigate = useNavigate();
   
   const handleChange = (e) => {
     const value = e.target.value;
@@ -77,7 +79,13 @@ const Stories = () => {
   return (
     <StoriesBox>
       <Typography variant="h4">Book Shelf</Typography>
-      <StoriesHeader
+      <NewStoryBtn 
+        variant="contained"
+        onClick={ () => navigate('/story/new') } 
+      >
+        Create a New Story
+      </NewStoryBtn>
+      <StoryControlPanel
         isDisabled={ !isGenreChecked || !isSortedByAll }
         isAllChecked={ isSortedByAll }
         onCheckboxClick={ handleCheckbox }
@@ -96,7 +104,8 @@ const Stories = () => {
   )
 }
 
-export default Stories
+export default StoriesContainer
 
 const StoriesBox = styled(Box)(storiesBoxCss)
 const StoryCardContainer = styled(Container)(storyCardContainerCss)
+const NewStoryBtn = styled(Button)(newStoryBtnCss)

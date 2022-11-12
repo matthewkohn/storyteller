@@ -5,11 +5,11 @@ import { appContainerCss } from './styles/main/appCss';
 import { UserContext } from './context/UserContext';
 import Landing from './components/pages/login/Landing';
 import Navbar from './components/navigation/Navbar';
-import Dashboard from './components/pages/home/Dashboard';
 import Story from './components/pages/story/Story';
 import ViewStory from './components/pages/story/ViewStory';
 import WriteStory from './components/pages/story/WriteStory';
 import NewStory from './components/pages/story/NewStory';
+import StoriesContainer from './components/pages/home/StoriesContainer';
 
 function App() {
   const { user } = useContext(UserContext);
@@ -21,7 +21,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route index element={ <Landing /> } />
-        <Route path='home' element={ <Dashboard /> } />
+        <Route path='home' element={ <StoriesContainer /> } />
         <Route path='story' element={ <Story /> } >
           <Route path='new' element={ <NewStory /> } />
           <Route path=':storyId' element={ <ViewStory /> } />

@@ -1,15 +1,3 @@
-const dashboardContainerCss = {
-  paddingTop: '40px',
-}
-
-const dashboardBoxCcss = {
-  display: 'flex',
-  width: '100%',
-  height: '100%',
-  justifyContent: 'center',
-  
-}
-
 const authorsBoxCss = {
   padding: '20px',
   borderRadius: '15px',
@@ -77,43 +65,6 @@ const storyCardContainerCss = {
   overflowY: 'scroll',
 }
 
-const headerBoxCss = ({ theme }) => `
-display: flex;
-justify-content: space-between;
-background: ${theme.palette.secondary.light};
-padding: 5px;
-border-radius: 35px;
-border: 2px solid ${theme.palette.secondary.dark};
-`
-
-
-const radioControlFormCss = {
-  display: 'inherit',
-  flexDirection: 'row',
-  alignItems: 'space-between',
-  width: '100%',
-}
-
-const styledRadioGroupCss = {
-  display: 'inherit',
-  flexDirection: 'column',
-  width: '40%',
-}
-
-const radioLabelCss = {
-  display: 'inherit',
-  alignItems: 'center',
-  padding: '10px',
-  marginRight: '30px',
-  width: '20%',
-}
-
-const genreBoxCss = {
-  display: 'inherit',
-  alignItems: 'flex-start',
-  justifyContent: 'flex-end',
-}
-
 const storyCardAccordionCss = ({ theme }) => `
 margin: 5px 0;
 padding: 2px;
@@ -141,4 +92,4 @@ const detailsCss = {
 
 
 
-export { authorsBoxCss, authorTitleCss, authorSubtitleCss, authorBtnListCss, authorBtnCss, addAuthorCardCss, newStoryBtnCss, dashboardContainerCss, dashboardBoxCcss, storiesBoxCss, storyCardContainerCss, headerBoxCss, radioControlFormCss, styledRadioGroupCss, radioLabelCss, genreBoxCss, storyCardAccordionCss, detailsCss }
+export { authorsBoxCss, authorTitleCss, authorSubtitleCss, authorBtnListCss, authorBtnCss, addAuthorCardCss, newStoryBtnCss, storiesBoxCss, storyCardContainerCss, storyCardAccordionCss, detailsCss }
