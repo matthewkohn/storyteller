@@ -1,33 +1,41 @@
 import React from 'react';
-import { Accordion, AccordionSummary, AccordionDetails, styled, Typography, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { detailsCss, storyCardAccordionCss } from '../../../styles/main/mainCss';
+import { Accordion, AccordionSummary, AccordionDetails, styled, Typography, Container, ListItem } from '@mui/material';
+import { detailsCss, storyCardAccordionCss, accordionSummaryCss, summaryContainerCss } from '../../../styles/main/mainCss';
+import AccordionButtons from '../../forms/AccordionButtons';
 
 const StoryCard = ({ handleExpand, expanded, story }) => {
-  const { id, title } = story;
-  const navigate = useNavigate();
-// console.log(story)
+  const { id, title, genre_category, author_summary, updated_at } = story;
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', time: 'numeric' };
+  const updatedAt = new Date(updated_at).toLocaleDateString('en-US', options);
+
   return (
     <CardContainer
       expanded={ expanded === id } 
       onChange={ () => handleExpand(id) }
     >
-      <AccordionSummary>
-        <Typography variant="body1">{ title }</Typography>
-      </AccordionSummary>
+      <StyledAccordionSummary>
+        <SummaryContainer>
+          <Typography variant="body1">{ title }</Typography>
+          <Typography variant="body2">{ genre_category }</Typography>
+        </SummaryContainer>
+      </StyledAccordionSummary>
+      <hr/>
       <Details>
-        <Button
-          variant="contained"
-          onClick={ () => navigate(`/story/${id}`, { state: id }) }
-        >
-          Read
-        </Button>
-        <Button
-          variant="contained"
-          onClick={ () => navigate(`/story/${id}/edit`, { state: id })}
-        >
-          Contribute
-        </Button>
+        <Typography variant="body2">Authors:</Typography>
+        { author_summary.length > 0 
+          ?
+          author_summary.map((author) => (
+            <ListItem key={author}>{author}</ListItem>
+          ))
+          :
+          <Typography variant="body2">None yet</Typography>
+        }
+        <AccordionButtons
+          id={ id }
+        />
+        <Typography variant="body2">
+          Last updated on: { updatedAt }
+        </Typography>
       </Details>
     </CardContainer>
   )
@@ -35,6 +43,7 @@ const StoryCard = ({ handleExpand, expanded, story }) => {
 
 export default StoryCard
 
-const CardContainer = styled(Accordion)(storyCardAccordionCss)
-
-const Details = styled(AccordionDetails)(detailsCss)
+const CardContainer = styled(Accordion)(storyCardAccordionCss);
+const StyledAccordionSummary = styled(AccordionSummary)(accordionSummaryCss);
+const SummaryContainer = styled(Container)(summaryContainerCss);
+const Details = styled(AccordionDetails)(detailsCss);

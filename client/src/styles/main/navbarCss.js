@@ -3,7 +3,7 @@ color: ${theme.palette.primary.light};
 background-color: ${theme.palette.primary.dark};
 flex-direction: row;
 justify-content: space-between;
-height: 60px;
+max-height: 60px;
 `
 
 const navBtnCss = ({ theme }) => `

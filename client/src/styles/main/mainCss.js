@@ -48,6 +48,8 @@ width: 100%;
 }
 `
 
+
+
 const newStoryBtnCss = ({ theme }) => `
 color: ${theme.palette.secondary.dark};
 `
@@ -55,10 +57,8 @@ color: ${theme.palette.secondary.dark};
 const storiesBoxCss = {
   padding: '20px',
   borderRadius: '15px',
-  margin: '50px 10px 0',
-  width: '75vw',
-  height: '75vh',
-  // maxHeight: '100%',
+  margin: '50px auto 0',
+  height: '100%',
 }
 
 const storiesHeaderCss = {
@@ -81,8 +81,8 @@ const storyCardContainerCss = {
 const storyCardAccordionCss = ({ theme }) => `
 margin: 5px 0;
 padding: 2px;
-height: 100px;
 display: flex;
+flex-direction: column;
 text-align: center;
 justify-content: center;
 align-items: center;
@@ -98,9 +98,12 @@ border-bottom: 5px solid brown;
 const detailsCss = {
   width: '100%',
   display: 'flex',
+  flexDirection: 'column',
   justifyContent: 'space-between',
-  margin: '0 10px',
+  alignItems: 'center',
+  margin: '0 10px 10px',
   padding: '5px',
+  height: 'auto',
 }
 
 const noStoriesTextCss = {
@@ -109,6 +112,20 @@ const noStoriesTextCss = {
   color: 'red',
 }
 
+const accordionSummaryCss = {
+  display: 'flex',
+  width: '100%',
+}
+
+const summaryContainerCss = {
+  width: '100%',
+
+}
+
+const styledButtonGroupCss = {
+  margin: '15px 0',
+  // padding: '5px',
+}
 
 
-export { authorsBoxCss, authorTitleCss, authorSubtitleCss, authorBtnListCss, authorBtnCss, addAuthorCardCss, newStoryBtnCss, storiesBoxCss, storiesHeaderCss, storyCardContainerCss, storyCardAccordionCss, detailsCss, storyTitleCss, noStoriesTextCss }
+export { authorsBoxCss, authorTitleCss, authorSubtitleCss, authorBtnListCss, authorBtnCss, addAuthorCardCss, newStoryBtnCss, storiesBoxCss, storiesHeaderCss, storyCardContainerCss, storyCardAccordionCss, detailsCss, storyTitleCss, noStoriesTextCss, accordionSummaryCss, summaryContainerCss, styledButtonGroupCss }

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, Container, styled, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { GenreContext } from '../../../context/GenreContext';
+import { UserContext } from '../../../context/UserContext';
 import StoryControlPanel from './StoryControlPanel';
 import StoryCard from './StoryCard';
 import { newStoryBtnCss, storiesBoxCss, storiesHeaderCss, storyCardContainerCss, storyTitleCss, noStoriesTextCss } from '../../../styles/main/mainCss';
@@ -15,6 +16,7 @@ const StoriesContainer = () => {
   const [url, setUrl] = useState('/stories');
   const [expanded, setExpanded] = useState(null);
   const { chosenGenre } = useContext(GenreContext);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
   
   const handleChange = (e) => {
@@ -46,9 +48,9 @@ const StoriesContainer = () => {
   useEffect(() => {
     fetch(url).then((res) => {
       res.json().then((stories) => {
-        console.log("# of stories from useEffect: ", stories.length)
         if (stories.length > 0) {
           setNoStories(false);
+          console.log(stories)
           setAllStories(stories);
         } else {
           setNoStories(true);
@@ -78,7 +80,14 @@ const StoriesContainer = () => {
     <StoriesBox>
       <StoriesHeader>
         <Title>
-          <Typography variant="h4">Book Shelf</Typography>
+          <Box>
+            <Typography variant="h2">
+              The Book Shelf
+            </Typography>
+            <Typography variant="subtitle">
+              Hello, {user.username}! Choose a story to contribute to, or tell a brand new story.
+            </Typography>
+          </Box>
           <StoryControlPanel
             isDisabled={ !isGenreChecked || !isSortedByAll }
             isAllChecked={ isSortedByAll }
@@ -95,12 +104,12 @@ const StoriesContainer = () => {
         </NewStoryBtn>
       </StoriesHeader>
       <StoryCardContainer>
-      { noStories 
-        ? 
-          <NoStories variant="h2">No stories yet</NoStories>
-        :
-          storyCardsList 
-      }
+        { noStories 
+          ? 
+            <NoStories variant="h2">No stories yet</NoStories>
+          :
+            storyCardsList 
+        }
       </StoryCardContainer>
     </StoriesBox>
   )

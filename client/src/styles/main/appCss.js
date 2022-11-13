@@ -6,8 +6,8 @@ color: ${theme.palette.secondary.dark};
 width: 100%;
 min-width: 100vw;
 height: 100vh;
-margin: auto;
-// position: absolute;
+overflow: hidden;
+margin: 0 auto;
 `
 
 
