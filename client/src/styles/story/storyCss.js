@@ -74,6 +74,18 @@ const paragraphBoxCss = {
   height: '70vh',
 }
 
+const prettyBoxCss = ({ theme }) => `
+  font-family: 'Kalam', Arial, sans-serif;
+  font-size: 26px;
+  background: ${theme.palette.primary.dark};
+  border-radius: 10px;
+  padding: 5px 15px;
+  overflow-y: scroll;
+  max-width: 65vw;
+`
+  
+
+
 const titleViewCss = {
   fontSize: '40px',
 }
@@ -82,10 +94,17 @@ const genreCss = {
   fontSize: '30px',
 }
 
+const backNavCss = {
+  position: 'fixed',
+  top: '130px',
+  // right: '50px',
+}
+
 const viewNavCss = {
   position: 'fixed',
-  top: '100px',
-  // right: '50px',
+  
+  // top: '100px',
+  // left: '350px',
 }
 
 
@@ -104,7 +123,9 @@ export {
   viewContainerCss,
   detailsCss,
   paragraphBoxCss,
+  prettyBoxCss,
   titleViewCss,
   genreCss,
+  backNavCss,
   viewNavCss
 }
