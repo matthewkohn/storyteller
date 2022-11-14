@@ -6,6 +6,7 @@ import TextEditor from './text-editor/TextEditor';
 import { Container } from '@mui/system';
 import '../../../../node_modules/draft-js/dist/Draft.css'
 import '../../styles/story/richText.css'
+import { editorWrapperCss, newStoryBoxCss, submitBtnCss, titleGenreWrapperCss } from '../../styles/story/newStoryFormCss';
 
 const NewStoryForm = ({ 
   updateStory, 
@@ -68,31 +69,7 @@ const NewStoryForm = ({
 
 export default NewStoryForm
 
-const NewStoryBox = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-})
-
-const SubmitBtn = styled(Button)(({ theme }) => `
-  width: 60%;
-  height: 50px;
-  border-radius: 15px;
-  &:hover {
-    background: ${theme.palette.secondary.dark};
-    color: ${theme.palette.secondary.light};
-  }
-`)
-
-
-const EditorWrapper = styled(Paper)({
-  width: '60%',
-  marginBottom: '10px',
-})
-
-const TitleGenreWrapper = styled(Container)({
-  display: 'inherit',
-  justifyContent: 'space-evenly',
-  marginBottom: '10px',
-})
+const NewStoryBox = styled(Box)(newStoryBoxCss);
+const SubmitBtn = styled(Button)(submitBtnCss);
+const EditorWrapper = styled(Paper)(editorWrapperCss);
+const TitleGenreWrapper = styled(Container)(titleGenreWrapperCss);

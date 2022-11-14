@@ -1,18 +1,18 @@
 import React, { useContext, useState } from 'react';
-// import { useLocation, useNavigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { Container, styled } from '@mui/material';
+import { Box, Container, styled, Typography } from '@mui/material';
 import { GenreContext } from '../../../context/GenreContext';
+// import { AuthorContext } from '../../../context/AuthorContext'
 import { handleAPI } from '../../../helpers/fetchRequests';
 import NewStoryForm from '../../forms/NewStoryForm';
-import { newStoryContainerCss } from '../../../styles/story/storyCss';
+import { newStoryContainerCss, newStoryBoxCss, newStoryTitleCss } from '../../../styles/story/storyCss';
 import Authors from '../../forms/Authors';
 
 const NewStory = () => {
   const [title, setTitle] = useState("");
   const [htmlStr, setHtmlStr] = useState("");
   const { chosenGenre } = useContext(GenreContext);
-  // const location = useLocation();
+  // const { currentAuthor } = useContext(AuthorContext);
   const navigate = useNavigate();
 
   const storiesJson = {
@@ -20,9 +20,10 @@ const NewStory = () => {
     title: title
   }
   const paragraphJson = {
-    // author_id: location.state.id,
+    // author_id: currentAuthor.id,
     rich_text_str: htmlStr
   }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,15 +42,17 @@ const NewStory = () => {
 
   return (
     <NewStoryContainer>
-      {/* <NewStoryIntro variant="h4">This is a new story, authored by {location.state.name}.</NewStoryIntro> */}
-      <Authors />
-      <NewStoryForm 
-        updateStory={ setHtmlStr }
-        title={ title }
-        updateTitle={ setTitle }
-        genre={ chosenGenre.name }
-        onPublish={ handleSubmit }
-      />
+      <NewStoryTitle variant="h2">New Story</NewStoryTitle>
+      <NewStoryBox>
+        <Authors />
+        <NewStoryForm 
+          updateStory={ setHtmlStr }
+          title={ title }
+          updateTitle={ setTitle }
+          genre={ chosenGenre.name }
+          onPublish={ handleSubmit }
+        />
+      </NewStoryBox>
     </NewStoryContainer>
   )
 }
@@ -57,4 +60,5 @@ const NewStory = () => {
 export default NewStory
 
 const NewStoryContainer = styled(Container)(newStoryContainerCss);
-// const NewStoryIntro = styled(Typography)(newStoryIntroCss);
+const NewStoryBox = styled(Box)(newStoryBoxCss)
+const NewStoryTitle = styled(Typography)(newStoryTitleCss);

@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, Card, Container, styled, Typography } from '@mui/material'
-// import { useNavigate } from 'react-router-dom';
 import { handleAPI, handleGET } from '../../helpers/fetchRequests';
 import { AuthorContext } from '../../context/AuthorContext';
 import AuthError from '../pages/login/login-side/AuthError';
 import NewAuthorForm from './NewAuthorForm';
-import { addAuthorCardCss, authorBtnCss, authorBtnListCss, authorsBoxCss, authorSubtitleCss, authorTitleCss } from '../../styles/main/mainCss';
+import { addAuthorCardCss, authorBtnCss, authorBtnListCss, authorsBoxCss, authorSubtitleCss, authorTitleCss } from '../../styles/story/authorsCss';
 
 const Authors = () => {
   const [currentAuthor, setCurrentAuthor] = useContext(AuthorContext)
@@ -13,7 +12,6 @@ const Authors = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [newAuthor, setNewAuthor] = useState("");
   const [errors, setErrors] = useState([]);
-  // const navigate = useNavigate();
 
   useEffect(() => {
     handleGET('/authors')
@@ -85,13 +83,6 @@ const Authors = () => {
         { authorsList }
       </BtnList>
       { errors.map((err) => <AuthError key={ err } clearMessage={ setErrors }>{ err }</AuthError>) }
-
-      {/* <NewStoryBtn 
-        variant="contained"
-        onClick={ () => navigate('/story/new', { state: currentAuthor }) } 
-      > */}
-        {/* Create a New Story as {currentAuthor.name} 
-      </NewStoryBtn> */}
       <AddAuthorCard variant="contained" onClick={() => handleToggleForm() }>
         {
           isAdding ?
@@ -116,4 +107,3 @@ const SubTitle = styled(Typography)(authorSubtitleCss)
 const BtnList = styled(Container)(authorBtnListCss)
 const AuthorBtn = styled(Button)(authorBtnCss)
 const AddAuthorCard = styled(Card)(addAuthorCardCss)
-// const NewStoryBtn = styled(Button)(newStoryBtnCss)
