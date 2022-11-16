@@ -4,12 +4,28 @@ import { handleGET } from "../../helpers/fetchRequests";
 import { GenreContext } from '../../context/GenreContext';
 
 const GenresDropdown = ({ isDisabled }) => {
-  const { chosenGenre, genresList, handleGenreSelection, setAllGenres } = useContext(GenreContext);
+  const { allGenres, setAllGenres, chosenGenre, setChosenGenre } = useContext(GenreContext);
 
   useEffect(() => {
     handleGET('/genres').then((data) => setAllGenres(data));
     // eslint-disable-next-line
   }, [])
+
+  const handleGenreSelection = (e) => {
+    const choice = allGenres.find((g) => g.name === e.target.value)
+    setChosenGenre(choice)
+  }
+
+  const genresList = Array.from(allGenres).map((gen) => (
+    <MenuItem 
+      key={ gen.id } 
+      name={ gen.name }
+      value={ gen.name }
+      divider
+    >
+      { gen.name }
+    </MenuItem>
+  ))
 
   return (
     <>

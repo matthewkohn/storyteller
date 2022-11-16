@@ -1,12 +1,10 @@
 const newStoryBoxCss = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
+  // display: 'flex',
+  // alignItems: 'flex-start',
 }
 
 const submitBtnCss = ({ theme }) => `
-width: 70%;
+width: 100%;
 height: 50px;
 border-radius: 15px;
 &:hover {
@@ -16,13 +14,20 @@ border-radius: 15px;
 `
 
 const editorWrapperCss = {
-  marginBottom: '10px',
+  marginBottom: '30px',
+  width: '120%',
 }
 
-const titleGenreWrapperCss = {
+const requiredInputWrapperCss = {
   display: 'inherit',
-  justifyContent: 'space-evenly',
+  flexDirection: 'column',
   marginBottom: '10px',
+
 }
 
-export { newStoryBoxCss, submitBtnCss, editorWrapperCss, titleGenreWrapperCss }
+const styledFormControlLabelCss = {
+  padding: '20px',
+  margin: 'auto'
+}
+
+export { newStoryBoxCss, submitBtnCss, editorWrapperCss, requiredInputWrapperCss, styledFormControlLabelCss }

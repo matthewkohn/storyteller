@@ -1,60 +1,47 @@
 import React from 'react';
-import { Box, Button, FormControl, FormControlLabel, Paper, styled, TextField } from '@mui/material';
+import { Box, Button, Container,FormControl,styled } from '@mui/material';
 import PublishIcon from '@mui/icons-material/Publish';
-import GenresDropdown from './GenresDropdown';
+// import GenresDropdown from './GenresDropdown';
+// import AuthorsDropdown from './AuthorsDropdown';
 import TextEditor from './text-editor/TextEditor';
-import { Container } from '@mui/system';
 import '../../../../node_modules/draft-js/dist/Draft.css'
 import '../../styles/story/richText.css'
-import { editorWrapperCss, newStoryBoxCss, submitBtnCss, titleGenreWrapperCss } from '../../styles/story/newStoryFormCss';
+import { editorWrapperCss, newStoryBoxCss, submitBtnCss, requiredInputWrapperCss } from '../../styles/story/newStoryFormCss';
 
-const NewStoryForm = ({ 
-  updateStory, 
-  title, 
-  updateTitle, 
-  genre,
-  onPublish }) => {
+const NewStoryForm = ({ onSubmit, storyInput, updateStory }) => {
 
   return (
-    <FormControl >
+
       <NewStoryBox
         component="form"
-        onSubmit={ (e) => onPublish(e) }
+        onSubmit={ (e) => onSubmit(e) }
         id="new-story-form"
       >
-        <TitleGenreWrapper>
-
-          <FormControlLabel
-            label="Story Title"
-            labelPlacement='start'
-            control={ 
-              <TextField 
-                required
-                value={ title } 
-                onChange={ (e) => updateTitle(e.target.value) } 
-              /> 
-            }
-          />
-          <FormControlLabel
-            value={ genre }
-            label="Genre"
-            labelPlacement='start'
-            control={ 
-              <GenresDropdown 
-                isDisabled={false} 
-              /> 
-            }
-          />
-        </TitleGenreWrapper>
-
+        <FormControl>
+        <RequiredInputWrapper>
+          <>
+            {/* <TextField 
+              required
+              value={ storyInput.title } 
+              onChange={ (e) => updateStory({ ...storyInput, title: e.target.value }) } 
+            /> */}
+          </> 
+          <>
+            {/* <GenresDropdown 
+              isDisabled={false} 
+            />  */}
+          </>
+          <>
+            {/* <AuthorsDropdown/>  */}
+          </>
+        </RequiredInputWrapper>
         <EditorWrapper >
           <TextEditor 
             handleHtml={ updateStory }
             editValue='' 
           />
         </EditorWrapper>
-     
-        <SubmitBtn 
+        <SubmitBtn
           variant="contained"
           type="submit"
           form="new-story-form"
@@ -62,14 +49,17 @@ const NewStoryForm = ({
         >
           Submit
         </SubmitBtn>
-      </NewStoryBox>
-    </FormControl>
+        </FormControl>
+        </NewStoryBox>
+
   )
+
 }
 
 export default NewStoryForm
 
 const NewStoryBox = styled(Box)(newStoryBoxCss);
+const RequiredInputWrapper = styled(Container)(requiredInputWrapperCss);
+const EditorWrapper = styled(Container)(editorWrapperCss);
 const SubmitBtn = styled(Button)(submitBtnCss);
-const EditorWrapper = styled(Paper)(editorWrapperCss);
-const TitleGenreWrapper = styled(Container)(titleGenreWrapperCss);
+// const StyledFormControlLabel = styled(FormControlLabel)(styledFormControlLabelCss)

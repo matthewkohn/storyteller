@@ -1,58 +1,48 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Container, styled, Typography } from '@mui/material';
+import { Container, styled, Typography } from '@mui/material';
+import { AuthorContext } from '../../../context/AuthorContext';
 import { GenreContext } from '../../../context/GenreContext';
-// import { AuthorContext } from '../../../context/AuthorContext'
 import { handleAPI } from '../../../helpers/fetchRequests';
 import NewStoryForm from '../../forms/NewStoryForm';
-import { newStoryContainerCss, newStoryBoxCss, newStoryTitleCss } from '../../../styles/story/storyCss';
-import Authors from '../../forms/Authors';
+import { newStoryContainerCss, newStoryTitleCss } from '../../../styles/story/storyCss';
 
 const NewStory = () => {
-  const [title, setTitle] = useState("");
-  const [htmlStr, setHtmlStr] = useState("");
   const { chosenGenre } = useContext(GenreContext);
-  // const { currentAuthor } = useContext(AuthorContext);
+  const { currentAuthor } = useContext(AuthorContext);
+  const [formData, setFormData] = useState({
+    genre_id: chosenGenre,
+    title: "",
+    author_id: 1,
+    rich_text_str: ""
+  })
   const navigate = useNavigate();
-
-  const storiesJson = {
-    genre_id: chosenGenre.id,
-    title: title
-  }
-  const paragraphJson = {
-    // author_id: currentAuthor.id,
-    rich_text_str: htmlStr
-  }
+  const newStoryUrl = `/stories/new-story`
+  console.log("Current author: ", currentAuthor)
 
 
-  const handleSubmit = async (e) => {
+const handleSubmit = (e) => {
     e.preventDefault();
-    const newStory = await handleAPI('/stories', "POST", storiesJson).then((res) => res.json());
-    const newParagraphURL = `/stories/${newStory.id}/paragraphs`;
-    await handleAPI(newParagraphURL, "POST", paragraphJson)
+    handleAPI(newStoryUrl, "POST", formData)
     .then((res) => {
       if (res.ok) {
-        res.json().then(console.log).then(navigate('/home'))
+        res.json().then((story) => console.log("New Story response: ", story))
+        .then(() => navigate('/home'))
       } else {
-        res.json().then(console.log)
+        console.log("Bad fetch request. The new story was not saved. Please contact server admin and try again.")
       }
-    });
+    })
   }
 
 
   return (
     <NewStoryContainer>
       <NewStoryTitle variant="h2">New Story</NewStoryTitle>
-      <NewStoryBox>
-        <Authors />
-        <NewStoryForm 
-          updateStory={ setHtmlStr }
-          title={ title }
-          updateTitle={ setTitle }
-          genre={ chosenGenre.name }
-          onPublish={ handleSubmit }
-        />
-      </NewStoryBox>
+      <NewStoryForm 
+        updateStory={ setFormData }
+        storyInput={ formData }
+        onSubmit={ handleSubmit }
+      />
     </NewStoryContainer>
   )
 }
@@ -60,5 +50,4 @@ const NewStory = () => {
 export default NewStory
 
 const NewStoryContainer = styled(Container)(newStoryContainerCss);
-const NewStoryBox = styled(Box)(newStoryBoxCss)
 const NewStoryTitle = styled(Typography)(newStoryTitleCss);

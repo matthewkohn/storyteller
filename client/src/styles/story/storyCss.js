@@ -10,11 +10,6 @@ const newStoryContainerCss = {
   flexDirection: 'column',
 }
 
-const newStoryBoxCss = {
-  display: 'inherit',
-  flexDirection: 'row',
-}
-
 const newStoryTitleCss = {
   textAlign: 'center',
   margin: '0 0 40px',
@@ -123,7 +118,6 @@ const viewNavCss = {
 export { 
   contentTextCss, 
   newStoryContainerCss, 
-  newStoryBoxCss,
   newStoryTitleCss,
   newStoryIntroCss, 
   paraCardCss,  
