@@ -71,7 +71,7 @@ const AuthorsDropdown = () => {
         { authorsList }
         <MenuItem>
           <TextField
-            label="New Pen Name"
+            label="Create a New Pen Name"
             value={ newAuthor }
             onChange={ (e) => setNewAuthor(e.target.value) }
           />

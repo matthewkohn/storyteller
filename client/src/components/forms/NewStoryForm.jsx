@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { Box, Button, Container, FormControl, styled, TextField } from '@mui/material';
+import { Box, Button, Container, FormControl, FormControlLabel, styled, TextField } from '@mui/material';
 import PublishIcon from '@mui/icons-material/Publish';
 import '../../../../node_modules/draft-js/dist/Draft.css'
 import '../../styles/story/richText.css'
-import { editorWrapperCss, newStoryBoxCss, submitBtnCss, requiredInputWrapperCss } from '../../styles/story/newStoryFormCss';
+import { editorWrapperCss, newStoryBoxCss, submitBtnCss, requiredInputWrapperCss, newStoryFormHeaderCss } from '../../styles/story/newStoryFormCss';
 import { useNavigate } from 'react-router-dom';
 import { AuthorContext } from '../../context/AuthorContext';
 import { GenreContext } from '../../context/GenreContext';
@@ -52,20 +52,34 @@ const handleSubmit = (e) => {
         id="new-story-form"
       >
         <RequiredInputWrapper>
-          <FormControl>
-            <TextField 
-              required
-              value={ title } 
-              onChange={ (e) => setTitle(e.target.value) } 
-            />
-          </FormControl> 
+          <Header>
+            <FormControl>
+              <FormControlLabel
+                label="Title:"
+                labelPlacement='start'
+                control={
+                  <TextField 
+                    required
+                    value={ title } 
+                    onChange={ (e) => setTitle(e.target.value) } 
+                  />
+                }
+              />
+            </FormControl> 
+            <FormControl>
+              <FormControlLabel
+                label="by"
+                labelPlacement='start'
+                control={
+                  <AuthorsDropdown/> 
+                }
+              />
+            </FormControl>
+          </Header>
           <FormControl>
             <GenresDropdown 
               isDisabled={false} 
             /> 
-          </FormControl>
-          <FormControl>
-            <AuthorsDropdown/> 
           </FormControl>
         </RequiredInputWrapper>
         <EditorWrapper >
@@ -90,6 +104,7 @@ export default NewStoryForm
 
 const NewStoryBox = styled(Box)(newStoryBoxCss);
 const RequiredInputWrapper = styled(Container)(requiredInputWrapperCss);
+const Header = styled(Container)(newStoryFormHeaderCss);
 const EditorWrapper = styled(Container)(editorWrapperCss);
 const SubmitBtn = styled(Button)(submitBtnCss);
 // const StyledFormControlLabel = styled(FormControlLabel)(styledFormControlLabelCss)

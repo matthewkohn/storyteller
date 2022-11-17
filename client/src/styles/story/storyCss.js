@@ -12,7 +12,7 @@ const newStoryContainerCss = {
 
 const newStoryTitleCss = {
   textAlign: 'center',
-  margin: '0 0 40px',
+  margin: '0 0 10px',
 }
 
 const newStoryIntroCss = {

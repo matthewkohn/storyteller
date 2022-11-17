@@ -14,15 +14,18 @@ border-radius: 15px;
 `
 
 const editorWrapperCss = {
-  marginBottom: '30px',
-  width: '120%',
+  width: '65%',
+  maxWidth: '500px',
+  marginBottom: '10px',
 }
 
 const requiredInputWrapperCss = {
-  display: 'inherit',
+  display: 'flex',
   flexDirection: 'column',
   marginBottom: '10px',
-
+  alignItems: 'center',
+  // justifyContent: 'center',
+  // alignItems: 'center',
 }
 
 const styledFormControlLabelCss = {
@@ -30,4 +33,11 @@ const styledFormControlLabelCss = {
   margin: 'auto'
 }
 
-export { newStoryBoxCss, submitBtnCss, editorWrapperCss, requiredInputWrapperCss, styledFormControlLabelCss }
+const newStoryFormHeaderCss = {
+  display: 'inherit',
+  width: '100%',
+  justifyContent: 'center',
+  paddingBottom: '5px',
+}
+
+export { newStoryBoxCss, submitBtnCss, editorWrapperCss, requiredInputWrapperCss, styledFormControlLabelCss, newStoryFormHeaderCss }
