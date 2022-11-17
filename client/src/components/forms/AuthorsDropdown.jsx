@@ -40,6 +40,7 @@ const AuthorsDropdown = () => {
   ))
 
   const handlePublish = (e) => {
+    console.log("CLICK!")
   //   e.preventDefault()
   //   setAuthors({ ...authors, newAuthor });
   //   if (newAuthor !== "") {

@@ -1,32 +1,34 @@
-
-import { Box, Button, Container,FormControl,styled } from '@mui/material';
-import PublishIcon from '@mui/icons-material/Publish';
 import React, { useContext, useState } from 'react';
+import { Box, Button, Container, FormControl, styled, TextField } from '@mui/material';
+import PublishIcon from '@mui/icons-material/Publish';
+import '../../../../node_modules/draft-js/dist/Draft.css'
+import '../../styles/story/richText.css'
+import { editorWrapperCss, newStoryBoxCss, submitBtnCss, requiredInputWrapperCss } from '../../styles/story/newStoryFormCss';
 import { useNavigate } from 'react-router-dom';
 import { AuthorContext } from '../../context/AuthorContext';
 import { GenreContext } from '../../context/GenreContext';
 import { handleAPI } from '../../helpers/fetchRequests';
-
-// import GenresDropdown from './GenresDropdown';
-// import AuthorsDropdown from './AuthorsDropdown';
+import GenresDropdown from './GenresDropdown';
+import AuthorsDropdown from './AuthorsDropdown';
 import TextEditor from './text-editor/TextEditor';
-import '../../../../node_modules/draft-js/dist/Draft.css'
-import '../../styles/story/richText.css'
-import { editorWrapperCss, newStoryBoxCss, submitBtnCss, requiredInputWrapperCss } from '../../styles/story/newStoryFormCss';
 
 const NewStoryForm = () => {
 
   const { chosenGenre } = useContext(GenreContext);
-  const { currentAuthor } = useContext(AuthorContext);
-  const [formData, setFormData] = useState({
-    genre_id: chosenGenre,
-    title: "",
-    author_id: 1,
-    rich_text_str: ""
-  })
+  const [currentAuthor] = useContext(AuthorContext);
+  const [title, setTitle] = useState("");
+  const [richText, setRichText] = useState("");
+  const formData = {
+    genre_id: chosenGenre.id,
+    title: title,
+    author_id: currentAuthor.id,
+    rich_text_str: richText
+  }
+  console.log(chosenGenre)
+
   const navigate = useNavigate();
   const newStoryUrl = `/stories/new-story`
-  console.log("Current author: ", currentAuthor)
+  console.log("FormData from NewStoryForm: ", formData)
 
 
 const handleSubmit = (e) => {
@@ -49,27 +51,26 @@ const handleSubmit = (e) => {
         onSubmit={ (e) => handleSubmit(e) }
         id="new-story-form"
       >
-        <FormControl>
         <RequiredInputWrapper>
-          <>
-            {/* <TextField 
+          <FormControl>
+            <TextField 
               required
-              value={ storyInput.title } 
-              onChange={ (e) => updateStory({ ...storyInput, title: e.target.value }) } 
-            /> */}
-          </> 
-          <>
-            {/* <GenresDropdown 
+              value={ title } 
+              onChange={ (e) => setTitle(e.target.value) } 
+            />
+          </FormControl> 
+          <FormControl>
+            <GenresDropdown 
               isDisabled={false} 
-            />  */}
-          </>
-          <>
-            {/* <AuthorsDropdown/>  */}
-          </>
+            /> 
+          </FormControl>
+          <FormControl>
+            <AuthorsDropdown/> 
+          </FormControl>
         </RequiredInputWrapper>
         <EditorWrapper >
           <TextEditor 
-            handleHtml={ setFormData }
+            handleHtml={ setRichText }
             editValue='' 
           />
         </EditorWrapper>
@@ -81,11 +82,8 @@ const handleSubmit = (e) => {
         >
           Submit
         </SubmitBtn>
-        </FormControl>
-        </NewStoryBox>
-
+      </NewStoryBox>
   )
-
 }
 
 export default NewStoryForm
