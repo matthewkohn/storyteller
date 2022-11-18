@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { IconButton, MenuItem, Select, TextField } from '@mui/material'
-import { handleGET } from '../../helpers/fetchRequests';
+import { MenuItem, Select } from '@mui/material'
+import { handleAPI, handleGET } from '../../helpers/fetchRequests';
 import { AuthorContext } from '../../context/AuthorContext';
 // import AuthError from '../pages/login/login-side/AuthError';
-import PublishIcon from '@mui/icons-material/Publish';
+// import PublishIcon from '@mui/icons-material/Publish';
+import CreateAuthorModal from './CreateAuthorModal';
 // import { authorsBoxCss } from '../../styles/story/authorsCss';
 
 const AuthorsDropdown = () => {
@@ -11,9 +12,12 @@ const AuthorsDropdown = () => {
   const [authors, setAuthors] = useState([]);
   // const [errors, setErrors] = useState([]);
   const [newAuthor, setNewAuthor] = useState("");
-  // const authorURL = '/authors';
+  // const [open, setOpen] = useState(false)
+  const authorURL = '/authors';
 
-  console.log(currentAuthor);
+  console.log("Current author: ", currentAuthor);
+  console.log("New author from AuthorsDropdown: ", newAuthor)
+  console.log("Authors: ", authors)
 
   useEffect(() => {
     handleGET('/authors')
@@ -39,26 +43,35 @@ const AuthorsDropdown = () => {
       </MenuItem>
   ))
 
-  const handlePublish = (e) => {
+  const handleCreate = (e) => {
     console.log("CLICK!")
-  //   e.preventDefault()
-  //   setAuthors({ ...authors, newAuthor });
-  //   if (newAuthor !== "") {
-  //     handleAPI(authorURL, "POST", newAuthor)
-  //     .then((res) => {
-  //       if (res.ok) {
-  //         res.json().then((author) => setCurrentAuthor(author));
-  //       } else {
-  //         console.log("Problem connecting, new author failed. Please try again.")
-  //       }
-  //     })
-  //   }
+    e.preventDefault()
+    if (newAuthor !== "") {
+      handleAPI(authorURL, "POST", { name: newAuthor })
+      .then((res) => {
+        if (res.ok) {
+          res.json().then((a) => {
+            setAuthors([ ...authors, a]);
+            setCurrentAuthor(a);
+            setNewAuthor("");
+          });
+        } else {
+          console.log("Problem connecting, new author failed. Please try again.")
+        }
+      })
+    }
+  }
+
+  const handleNewAuthorInput = (e) => {
+    setNewAuthor(e.target.value)
   }
 
   const handleAuthorSelection = (e) => {
     const choice = authors.find((a) => a.name === e.target.value);
     setCurrentAuthor(choice);
   }
+
+  // const handleClose = () => setOpen(false);
 
   return (
     <>
@@ -67,18 +80,25 @@ const AuthorsDropdown = () => {
         autoWidth
         value={ currentAuthor.name }
         onChange={ (e) => handleAuthorSelection(e) }
+        // open={open}
+        // onClose={ handleClose }
       >
         { authorsList }
-        <MenuItem>
-          <TextField
+        {/* <MenuItem> */}
+          <CreateAuthorModal 
+            onCreate={ handleCreate }
+            onInputChange={ handleNewAuthorInput }
+            newAuthor={ newAuthor }
+          />
+          {/* <TextField
             label="Create a New Pen Name"
             value={ newAuthor }
             onChange={ (e) => setNewAuthor(e.target.value) }
           />
-          <IconButton  onClick={(e) => handlePublish(e) }>
+          <IconButton  onClick={(e) => handleCreate(e) }>
             <PublishIcon />
-          </IconButton>
-        </MenuItem>
+          </IconButton> */}
+        {/* </MenuItem> */}
       {/* { errors.map((err) => <AuthError key={ err } clearMessage={ setErrors }>{ err }</AuthError>) */}
       </Select>
     </>
