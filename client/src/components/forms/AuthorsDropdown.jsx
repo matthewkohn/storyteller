@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { MenuItem, Select } from '@mui/material'
-import { handleAPI, handleGET } from '../../helpers/fetchRequests';
+import { handleGET } from '../../helpers/fetchRequests';
 import { AuthorContext } from '../../context/AuthorContext';
 // import AuthError from '../pages/login/login-side/AuthError';
 // import PublishIcon from '@mui/icons-material/Publish';
@@ -11,12 +11,12 @@ const AuthorsDropdown = () => {
   const [currentAuthor, setCurrentAuthor] = useContext(AuthorContext)
   const [authors, setAuthors] = useState([]);
   // const [errors, setErrors] = useState([]);
-  const [newAuthor, setNewAuthor] = useState("");
-  // const [open, setOpen] = useState(false)
-  const authorURL = '/authors';
+  // const [newAuthor, setNewAuthor] = useState("");
+  const [isScroll, setIsScroll] = useState(false);
+  // const authorURL = '/authors';
 
   console.log("Current author: ", currentAuthor);
-  console.log("New author from AuthorsDropdown: ", newAuthor)
+  // console.log("New author from AuthorsDropdown: ", newAuthor)
   console.log("Authors: ", authors)
 
   useEffect(() => {
@@ -27,6 +27,11 @@ const AuthorsDropdown = () => {
         name: data[0].name, 
         id: data[0].id 
       })
+      if (data.length > 6) {
+        setIsScroll(true);
+      } else {
+        setIsScroll(false);
+      }
     })
     // eslint-disable-next-line
   }, [])
@@ -43,28 +48,28 @@ const AuthorsDropdown = () => {
       </MenuItem>
   ))
 
-  const handleCreate = (e) => {
-    console.log("CLICK!")
-    e.preventDefault()
-    if (newAuthor !== "") {
-      handleAPI(authorURL, "POST", { name: newAuthor })
-      .then((res) => {
-        if (res.ok) {
-          res.json().then((a) => {
-            setAuthors([ ...authors, a]);
-            setCurrentAuthor(a);
-            setNewAuthor("");
-          });
-        } else {
-          console.log("Problem connecting, new author failed. Please try again.")
-        }
-      })
-    }
-  }
+  // const handleCreate = (e) => {
+  //   console.log("CLICK!")
+  //   e.preventDefault()
+  //   if (newAuthor !== "") {
+  //     handleAPI(authorURL, "POST", { name: newAuthor })
+  //     .then((res) => {
+  //       if (res.ok) {
+  //         res.json().then((a) => {
+  //           setAuthors([ ...authors, a]);
+  //           setCurrentAuthor(a);
+  //           setNewAuthor("");
+  //         });
+  //       } else {
+  //         console.log("Problem connecting, new author failed. Please try again.")
+  //       }
+  //     })
+  //   }
+  // }
 
-  const handleNewAuthorInput = (e) => {
-    setNewAuthor(e.target.value)
-  }
+  // const handleNewAuthorInput = (e) => {
+  //   setNewAuthor(e.target.value)
+  // }
 
   const handleAuthorSelection = (e) => {
     const choice = authors.find((a) => a.name === e.target.value);
@@ -78,6 +83,7 @@ const AuthorsDropdown = () => {
       <Select
         required
         autoWidth
+        dropdownMenuProps={ isScroll ? dropdownMenuProps : null }
         value={ currentAuthor.name }
         onChange={ (e) => handleAuthorSelection(e) }
         // open={open}
@@ -86,9 +92,9 @@ const AuthorsDropdown = () => {
         { authorsList }
         {/* <MenuItem> */}
           <CreateAuthorModal 
-            onCreate={ handleCreate }
-            onInputChange={ handleNewAuthorInput }
-            newAuthor={ newAuthor }
+            authors={ authors }
+            updateAuthors={ setAuthors }
+            onNewAuthor={ setCurrentAuthor }
           />
           {/* <TextField
             label="Create a New Pen Name"
@@ -108,4 +114,9 @@ const AuthorsDropdown = () => {
 export default AuthorsDropdown
 
 // const AuthorsBox = styled(Box)(authorsBoxCss)
-
+const dropdownMenuProps = {
+  dropdownStyle: {
+    height: '400px',
+    overflowY: 'scroll'
+  }
+}

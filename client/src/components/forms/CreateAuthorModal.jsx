@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Backdrop, Box, Modal, Fade, FormControl, Button, TextField } from '@mui/material';
+import { handleAPI } from '../../helpers/fetchRequests';
 // import PublishIcon from '@mui/icons-material/Publish';
 
 
@@ -16,16 +17,42 @@ const style = {
   p: 4,
 };
 
-export default function CreateAuthorModal({ onCreate, onInputChange, newAuthor }) {
+export default function CreateAuthorModal({ authors, onNewAuthor, updateAuthors }) {
   const [open, setOpen] = useState(false);
-  // const [newAuthor, setNewAuthor] = useState("");
+  const [newAuthor, setNewAuthor] = useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const authorURL = '/authors';
+  
+  console.log("New author from CreateAuthorModal: ", newAuthor)
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   onCreate(e);
+  //   setOpen(false);
+  // }
+  
+  const handleCreate = (e) => {
+    console.log("CLICK!")
     e.preventDefault()
-    onCreate(e);
-    setOpen(false);
+    if (newAuthor !== "") {
+      handleAPI(authorURL, "POST", { name: newAuthor })
+      .then((res) => {
+        if (res.ok) {
+          res.json().then((a) => {
+            updateAuthors([ ...authors, a]);
+            onNewAuthor(a);
+            setNewAuthor("");
+          });
+        } else {
+          console.log("Problem connecting, new author failed. Please try again.")
+        }
+      })
+    }
+  }
+
+  const handleNewAuthorInput = (e) => {
+    setNewAuthor(e.target.value)
   }
 
   return (
@@ -52,11 +79,11 @@ export default function CreateAuthorModal({ onCreate, onInputChange, newAuthor }
                 autoFocus
                 label="Create a New Pen Name"
                 inputValue={ newAuthor }
-                onChange={ (e) => onInputChange(e) }
+                onChange={ (e) => handleNewAuthorInput(e) }
               />
               <Button 
                 variant="contained"
-                onClick={(e) => handleSubmit(e) }
+                onClick={(e) => handleCreate(e) }
               >
                 Create
               </Button>  
