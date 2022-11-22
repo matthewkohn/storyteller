@@ -8,6 +8,7 @@ import Paragraph from './Paragraph';
 import TextEditor from '../../forms/text-editor/TextEditor';
 import AuthError from '../login/login-side/AuthError';
 import { cancelEditBtnCss, genreAuthorNamesCss, rightViewCss, storyStatsCss, submitBtnCss, viewContainerCss, writeStoryContainerCss } from '../../../styles/story/writeStoryCss';
+import AuthorsDropdown from '../../forms/AuthorsDropdown';
 
 
 const WriteStory = () => {
@@ -110,6 +111,7 @@ const WriteStory = () => {
         <GenreAuthorNames>
           <Typography variant="h6">Genre: {storyObj.genre}</Typography>
           <Typography variant="h6">Your current Pen Name: {currentAuthor.name}</Typography>
+          <AuthorsDropdown />
         </GenreAuthorNames>
         <Button onClick={() => navigate('/home')} >Back to Dashboard</Button>
       </StoryStats>
