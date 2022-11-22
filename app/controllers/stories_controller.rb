@@ -15,7 +15,12 @@ class StoriesController < ApplicationController
   def create
     story = @current_genre.stories.build(story_params)
     if story.save
-      render json: story, status: :created
+      first_paragraph = story.paragraphs.build(paragraph_params)
+      if first_paragraph.save
+        render json: story, status: :created
+      else
+        render json: { error: "New story was created, but the first paragraph encountered a problem."}
+      end
     else
       render json: { error: "There was a problem creating this story" }
     end
@@ -40,7 +45,11 @@ class StoriesController < ApplicationController
   private
 
   def story_params
-    params.permit(:id, :genre_id, :author_id, :title)
+    params.permit(:id, :genre_id, :title)
+  end
+
+  def paragraph_params
+    params.permit(:id, :author_id, :story_id, :rich_text_str)
   end
 
   def set_current_genre

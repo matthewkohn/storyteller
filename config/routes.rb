@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get "/stories-by-genre/:genre_id", to: "stories#stories_by_genre"
   get "/stories-by-user", to: "stories#stories_by_user"
 
+  # post "/create-new-story", to: "stories#create_new_story"
 
 
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }

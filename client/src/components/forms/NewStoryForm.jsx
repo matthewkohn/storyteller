@@ -27,7 +27,7 @@ const NewStoryForm = () => {
   console.log(chosenGenre)
 
   const navigate = useNavigate();
-  const newStoryUrl = `/stories/new-story`
+  const newStoryUrl = `/stories`
   console.log("FormData from NewStoryForm: ", formData)
 
 
