@@ -1,9 +1,8 @@
-import { Box, Card, styled, Typography } from '@mui/material'
 import React from 'react'
-import JsxParser from 'react-jsx-parser'
-import { newParagraphCardCss, previewBoxCss, titleCss } from '../../../styles/story/storyCss'
+import { Box, Card, styled, Typography } from '@mui/material'
+import { newParagraphCardCss, previewBoxCss, titleCss } from '../../../styles/story/previewCss'
 
-const Preview = ({ authorName, isEditing, newJsxStr, paragraphs }) => {
+const Preview = ({ authorName, isEditing,  paragraphs }) => {
   return (
     <PreviewBox>
       { !isEditing ? paragraphs : <></> }
@@ -13,7 +12,6 @@ const Preview = ({ authorName, isEditing, newJsxStr, paragraphs }) => {
         <Title variant="h6">
           { !isEditing ? `New Entry by: ${authorName}` : "Update This Part of your Story:" }
         </Title>
-        <JsxParser jsx={ newJsxStr } />
       </NewParagraphCard>
     </PreviewBox>
   )

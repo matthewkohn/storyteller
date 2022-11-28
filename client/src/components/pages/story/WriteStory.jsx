@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Container, styled, Typography } from '@mui/material';
+import { Box, Button, Container, FormControl, styled, Typography } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { handleGET, handleAPI, handleDELETE } from '../../../helpers/fetchRequests';
 import { AuthorContext } from '../../../context/AuthorContext';
 import Preview from './Preview';
 import Paragraph from './Paragraph';
 import TextEditor from '../../forms/text-editor/TextEditor';
-import AuthError from '../login/login-side/AuthError';
-import { cancelEditBtnCss, genreAuthorNamesCss, rightViewCss, storyStatsCss, submitBtnCss, viewContainerCss, writeStoryContainerCss } from '../../../styles/story/writeStoryCss';
+// import AuthError from '../login/login-side/AuthError';
+import { cancelEditBtnCss, writeStoryContainerCss, writeStoryBodyCss, previewContainerCss, editContainerCss, submitBtnCss, penNamesCss, richTextBoxCss, editGenreCss } from '../../../styles/story/writeStoryCss';
 import AuthorsDropdown from '../../forms/AuthorsDropdown';
+import JsxParser from 'react-jsx-parser';
 
 
 const WriteStory = () => {
@@ -17,7 +18,7 @@ const WriteStory = () => {
   const [paragraphs, setParagraphs] = useState([]);
   const [paragraphId, setParagraphId] = useState(null);
   const [editValue, setEditValue] = useState('');
-  const [errors, setErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
   const [currentAuthor] = useContext(AuthorContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -78,7 +79,8 @@ const WriteStory = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (userHtmlStr === '<p><br/></p>') {
-      setErrors(["Please type your contribution in the Text Editor."]);
+      // setErrors(["Please type your contribution in the Text Editor."]);
+      console.log("BLANK")
     } else {
       const newParagraphURL = baseUrl + `/paragraphs`;
       handleAPI(newParagraphURL, "POST", paragraphJson)
@@ -106,28 +108,32 @@ const WriteStory = () => {
 
   return (
     <WriteStoryContainer>
-      <StoryStats>
-        <Typography variant="h4">Story Title: {storyObj.title}</Typography>
-        <GenreAuthorNames>
-          <Typography variant="h6">Genre: {storyObj.genre}</Typography>
-          <Typography variant="h6">Your current Pen Name: {currentAuthor.name}</Typography>
-          <AuthorsDropdown />
-        </GenreAuthorNames>
-        <Button onClick={() => navigate('/home')} >Back to Dashboard</Button>
-      </StoryStats>
-      <ViewContainer>
-        <Preview 
-          paragraphs={ paragraphsList } 
-          newJsxStr={ userHtmlStr } 
-          isEditing={ editValue ? true : false }
-          authorName={ currentAuthor.name }
-        />
-        <RightView>
-          <TextEditor 
-            handleHtml={ setUserHtmlStr }
-            editValue={ editValue }
+      <Typography variant="h4">Story Title: {storyObj.title}</Typography>
+      <Button onClick={() => navigate('/home')} >Back to Dashboard</Button>
+      <Body>
+        <PreviewContainer>
+          <Preview 
+            paragraphs={ paragraphsList } 
+            isEditing={ editValue ? true : false }
+            authorName={ currentAuthor.name }
           />
-        {
+          <RichTextBox>
+            <JsxParser jsx={ userHtmlStr } />
+          </RichTextBox>
+        </PreviewContainer>
+        <EditContainer component="form" id="contribute">
+          <FormControl>
+            <PenNames>
+              <Typography variant="h6">Your current Pen Name:</Typography>
+              <AuthorsDropdown />
+            </PenNames>
+            <Genre variant="h6">Genre: {storyObj.genre}</Genre>
+
+            <TextEditor 
+              handleHtml={ setUserHtmlStr }
+              editValue={ editValue }
+            />
+            {
           editValue ?
           <>
             <SubmitBtn 
@@ -151,9 +157,13 @@ const WriteStory = () => {
               Submit
             </SubmitBtn>
         }
-        { errors.map((err) => <AuthError key={ err } clearMessage={ setErrors }>{ err }</AuthError>) }
-        </RightView>
-      </ViewContainer>
+
+          </FormControl>
+        </EditContainer>
+
+      </Body>
+        {/* { errors.map((err) => <AuthError key={ err } clearMessage={ setErrors }>{ err }</AuthError>) } */}
+
     </WriteStoryContainer>
   )
 }
@@ -161,11 +171,16 @@ const WriteStory = () => {
 export default WriteStory
 
 const WriteStoryContainer = styled(Container)(writeStoryContainerCss);
-const StoryStats = styled(Container)(storyStatsCss);
-const GenreAuthorNames = styled(Container)(genreAuthorNamesCss);
-const ViewContainer = styled(Container)(viewContainerCss);
-
-// turn into formControl
-const RightView = styled(Container)(rightViewCss);
+const Body = styled(Container)(writeStoryBodyCss);
+const PreviewContainer = styled(Container)(previewContainerCss);
+const EditContainer = styled(Container)(editContainerCss);
+const RichTextBox = styled(Box)(richTextBoxCss);
+const PenNames = styled(Container)(penNamesCss);
+const Genre = styled(Typography)(editGenreCss);
 const SubmitBtn = styled(Button)(submitBtnCss);
 const CancelEditBtn = styled(Button)(cancelEditBtnCss);
+
+// const Categories = styled(Container)(categoriesCss);
+// const ViewContainer = styled(Container)(viewContainerCss);
+// turn into formControl
+// const RightView = styled(Container)(rightViewCss);

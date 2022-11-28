@@ -1,8 +1,7 @@
 const writeStoryContainerCss = {
-  paddingTop: '80px',
+  paddingTop: '70px',
   fontFamily: 'Kalam',
-  display: 'flex',
-  flexDirection: 'column',
+  textAlign: 'center',
   maxWidth: '100vw',
   webkitScrollbar: {
 	  width: '20'
@@ -17,28 +16,45 @@ const writeStoryContainerCss = {
   }
 }
 
-const storyStatsCss = {
+const writeStoryBodyCss = {
+  display: 'flex',
+  height: '100%',
+}
+
+const previewContainerCss = {
+
+}
+
+const editContainerCss = {
+  // display: 'flex',
+  // flexDirection: 'column',
+  // alignItems: 'center',
+  // justifyContent: 'space-between',
+  // justifyItems: 'space-between',
+  height: '100%',
+  margin: 'auto',
+  // alignItems: 'space-between',
+}
+
+const richTextBoxCss = {
+  border: '1px solid black',
+  borderRadius: '15px',
+  height: '30vh',
+  margin: '5px 0'
+}
+
+
+
+const penNamesCss = {
   display: 'inherit',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
+  justifyContent: 'space-between',
   alignItems: 'center',
+  
 }
 
-const genreAuthorNamesCss = {
-  display: 'inherit',
-  justifyContent: 'space-evenly',
+const editGenreCss = {
+  padding: '0 24px'
 }
-
-const viewContainerCss = {
-  display: 'inherit',
-  height: '70vh',
-  // border: '1px solid black'
-}
-
-const rightViewCss = ({ theme }) => `
-height: 300px;
-background: ${theme.palette.secondary.light};
-`
 
 const submitBtnCss = {
   width: '100%',
@@ -46,17 +62,39 @@ const submitBtnCss = {
   marginBottom: '7px',
 }
 
+
+
+
+// const categoriesCss = {
+//   display: 'flex',
+//   justifyContent: 'space-evenly',
+//   width: '100%',
+// }
+
+// const viewContainerCss = {
+//   display: 'inherit',
+//   height: '70vh',
+//   // border: '1px solid black'
+// }
+
+// const rightViewCss = ({ theme }) => `
+// height: 300px;
+// background: ${theme.palette.secondary.light};
+// `
+
 const cancelEditBtnCss = {
   width: '100%',
   height: '60px',
 }
 
 export { 
+  cancelEditBtnCss,
   writeStoryContainerCss,
-  storyStatsCss,
-  genreAuthorNamesCss,
-  viewContainerCss,
-  rightViewCss,
+  writeStoryBodyCss,
+  previewContainerCss,
+  editContainerCss,
   submitBtnCss,
-  cancelEditBtnCss
+  penNamesCss,
+  richTextBoxCss,
+  editGenreCss,
 }

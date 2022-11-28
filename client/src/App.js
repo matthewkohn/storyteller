@@ -35,5 +35,4 @@ function App() {
 
 export default App;
 
-// Styled components
 const AppContainer = styled(Container)(appContainerCss);

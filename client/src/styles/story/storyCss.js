@@ -38,28 +38,6 @@ const buttonGroupCss = {
   justifyContent: 'flex-end',
 }
 
-const previewBoxCss = {
-  width: '100%',
-  maxHeight: '75vh',
-  overflowY: 'scroll',
-}
-
-const newParagraphCardCss = ({ theme }) => `
-background: ${theme.palette.primary.light};
-color: ${theme.palette.secondary.dark};
-padding: 10px;
-text-align: left;
-indent: 10px;
-display: flex;
-flex-direction: column;
-flex-wrap: wrap;
-`
-
-const titleCss = ({ theme }) => `
-color: ${theme.palette.primary.main};
-background: ${theme.palette.primary.light};
-`
-
 const viewContainerCss = {
   paddingTop: '80px',
   maxHeight: '100%',
@@ -88,7 +66,6 @@ const prettyBoxCss = ({ theme }) => `
   overflow-y: scroll;
   max-width: 65vw;
 `
-  
 
 
 const titleViewCss = {
@@ -123,9 +100,6 @@ export {
   paraCardCss,  
   captionCss,
   buttonGroupCss,
-  previewBoxCss,
-  newParagraphCardCss,
-  titleCss,
   viewContainerCss,
   detailsCss,
   paragraphBoxCss,
