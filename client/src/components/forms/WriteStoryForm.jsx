@@ -16,7 +16,7 @@ const WriteStoryForm = ({
 
   const { chosenGenre } = useContext(GenreContext);
   console.log("chosenGenre from WriteStoryForm: ", chosenGenre)
-  
+
   return (
     <>
       <EditContainer component="form" id="contribute">
@@ -25,8 +25,7 @@ const WriteStoryForm = ({
               <Typography variant="h6">Your current Pen Name:</Typography>
               <AuthorsDropdown />
             </PenNames>
-            {/* <Genre variant="h6">Genre: {chosenGenre}</Genre> */}
-            <Genre>Genre</Genre>
+            <Genre variant="h6">Genre: { chosenGenre }</Genre>
 
             <TextEditor 
               handleHtml={ updateInput }

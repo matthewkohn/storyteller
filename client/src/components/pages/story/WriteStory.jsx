@@ -9,6 +9,7 @@ import Paragraph from './Paragraph';
 import { writeStoryContainerCss, writeStoryBodyCss, previewContainerCss, richTextBoxCss, previewBoxCss } from '../../../styles/story/writeStoryCss';
 import JsxParser from 'react-jsx-parser';
 import WriteStoryForm from '../../forms/WriteStoryForm';
+import { GenreContext } from '../../../context/GenreContext';
 
 
 const WriteStory = () => {
@@ -19,6 +20,7 @@ const WriteStory = () => {
   const [editValue, setEditValue] = useState('');
   // const [errors, setErrors] = useState([]);
   const [currentAuthor] = useContext(AuthorContext);
+  const { setChosenGenre } = useContext(GenreContext);
   const navigate = useNavigate();
   const location = useLocation();
   const baseUrl = `/stories/${location.state}`;
@@ -34,9 +36,10 @@ const WriteStory = () => {
   useEffect(() => {
     handleGET(baseUrl).then((story) => {
       setTitle(story.title);
+      setChosenGenre(story.genre);
       setParagraphs(story.paragraphs);
     })
-  }, [baseUrl]);
+  }, [baseUrl, setChosenGenre]);
   
   const handleCancel = () => {
     setEditValue('');
