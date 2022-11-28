@@ -62,25 +62,11 @@ const submitBtnCss = {
   marginBottom: '7px',
 }
 
-
-
-
-// const categoriesCss = {
-//   display: 'flex',
-//   justifyContent: 'space-evenly',
-//   width: '100%',
-// }
-
-// const viewContainerCss = {
-//   display: 'inherit',
-//   height: '70vh',
-//   // border: '1px solid black'
-// }
-
-// const rightViewCss = ({ theme }) => `
-// height: 300px;
-// background: ${theme.palette.secondary.light};
-// `
+const previewBoxCss = {
+  width: '100%',
+  maxHeight: '45vh',
+  overflowY: 'scroll',
+}
 
 const cancelEditBtnCss = {
   width: '100%',
@@ -97,4 +83,5 @@ export {
   penNamesCss,
   richTextBoxCss,
   editGenreCss,
+  previewBoxCss,
 }
