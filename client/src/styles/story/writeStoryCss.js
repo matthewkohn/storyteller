@@ -46,7 +46,7 @@ const richTextBoxCss = {
 
 
 const editContainerCss = {
-  // height: '100%',
+  height: '100%',
   margin: 'auto',
 }
 
@@ -64,14 +64,14 @@ const authorLabelCss = {
 
 const submitBtnCss = {
   width: '100%',
-  // height: '60px',
+  height: '40px',
   marginBottom: '7px',
 }
 
 
 const cancelEditBtnCss = {
   width: '100%',
-  height: '60px',
+  height: '40px',
 }
 
 export { 

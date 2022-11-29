@@ -1,30 +1,8 @@
-const credentialCss = ({ theme }) => `
-background: ${theme.palette.primary.light};
-border-radius: 5px;
-margin: 0 auto 15px;
-font-family: 'Kalam';
-// ${theme.typography.fontFamily}: 'Kalam';
-`
-
-const errorBoxCss = ({ theme }) => `
-color: red;
-background: lightblue;
-margin: 2px auto;
-padding: 0 25px;
-border-radius: 10px;
-font-family: 'Kalam';
-`
-
-const loginBoxCss = {
-  display: 'flex',
-  flexDirection: 'column'
-}
-
+// LoginBox
 const signInContainerCss = ({ theme }) => `
 display: flex;
 flex-direction: column;
-justify-content: space-between;
-min-height: 60vh;
+justify-content: center;
 width: 450px;
 padding: 20px;
 margin: 10vh auto;
@@ -33,6 +11,48 @@ border-radius: 20px;
 background: ${theme.palette.primary.dark};
 color: ${theme.palette.primary.light};
 `
+
+// Login
+const titleCss = {
+  margin: '20px auto',
+  fontWeight: 700,
+  letterSpacing: '2px',
+}
+
+const toggleBtnCss = ({ theme }) => `
+:hover {
+  background: ${theme.palette.secondary.light};
+  color: ${theme.palette.secondary.dark};
+}
+`
+
+// RenderWelcome
+const taglineCss = {
+  margin: '20px 0 30px'
+}
+
+const welcomeBoxCss = {
+  minHeight: '100px',
+  display: 'inherit',
+  flexDirection: 'column',
+  justifyContent: 'center',
+}
+
+// LoginForm
+const loginBoxCss = {
+  display: 'flex',
+  flexDirection: 'column',
+  maxHeight: '500px',
+}
+
+const credentialCss = ({ theme }) => `
+background: ${theme.palette.primary.light};
+border-radius: 5px;
+margin: 0 auto 15px;
+font-family: 'Kalam';
+// ${theme.typography.fontFamily}: 'Kalam';
+`
+
 
 const submitBtnCss = ({ theme }) => `
 margin: 23px auto;
@@ -46,31 +66,14 @@ color: ${theme.palette.primary.light};
 }
 `
 
-const taglineCss = {
-  margin: '20px 0 30px'
-}
-
-const titleCss = {
-  margin: '20px auto',
-  fontWeight: 700,
-  letterSpacing: '2px',
-
-}
-
-const toggleBtnCss = ({ theme }) => `
-:hover {
-  background: ${theme.palette.secondary.light};
-  color: ${theme.palette.secondary.dark};
-}
-`
 
 export { 
-  credentialCss, 
-  errorBoxCss, 
+  credentialCss,  
   loginBoxCss, 
   signInContainerCss, 
   submitBtnCss, 
   taglineCss, 
+  welcomeBoxCss,
   titleCss, 
-  toggleBtnCss 
+  toggleBtnCss
 }

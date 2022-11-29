@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/system';
-import { errorBoxCss } from '../../../../styles/login/loginCss';
+import { errorBoxCss } from '../../styles/main/authErrorCss';
 
 const AuthError = ({ children, clearMessage }) => {
   const [isVisible, setIsVisible] = useState(false)
@@ -10,7 +10,7 @@ const AuthError = ({ children, clearMessage }) => {
     setIsVisible(true)
     const timer = setTimeout(() => {
       setIsVisible(false);
-      clearMessage([]);
+      clearMessage(null);
     }, 3000);
     return () => clearTimeout(timer);
     // eslint-disable-next-line

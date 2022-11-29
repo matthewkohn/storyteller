@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, styled, Typography } from '@mui/material';
+import { Box, Container, styled, Typography } from '@mui/material';
 import { backgroundContainerCss, footerCss, footerTagCss, landingContainerCss, mainCss } from '../../../styles/login/landingCss';
 import IntroBox from './intro-side/IntroBox';
 import LoginBox from './login-side/LoginBox';
@@ -25,7 +25,7 @@ const Landing = () => {
 export default Landing
 
 const BackgroundContainer = styled(Container)(backgroundContainerCss);
-const LandingContainer = styled(Container)(landingContainerCss)
-const Main = styled(Container)(mainCss)
-const Footer = styled(Container)(footerCss)
-const FooterTag = styled(Typography)(footerTagCss)
+const LandingContainer = styled(Container)(landingContainerCss);
+const Main = styled(Box)(mainCss);
+const Footer = styled(Container)(footerCss);
+const FooterTag = styled(Typography)(footerTagCss);

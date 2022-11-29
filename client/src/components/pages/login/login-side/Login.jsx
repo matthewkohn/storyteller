@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { Button, styled, Typography } from '@mui/material';
-import { taglineCss, titleCss, toggleBtnCss } from '../../../../styles/login/loginCss';
+import { titleCss, toggleBtnCss } from '../../../../styles/login/loginCss';
+import RenderWelcome from './RenderWelcome';
 import LoginForm from '../../../forms/LoginForm';
-import AuthError from './AuthError';
 
 const Login = () => {
   const [isNewUser, setIsNewUser] = useState(false);
+  const [errors, setErrors] = useState(null);
   const [userInfo, setUserInfo] = useState({
     username: '',
     password: '',
     password_confirmation: ''
   });
-  const [errors, setErrors] = useState([]);
 
   const handleUserInput = (e) => {
     const inputName = e.target.name;
@@ -21,24 +21,21 @@ const Login = () => {
     })
   }
 
+
   return (
     <>
       <Title variant='h3'>Storyteller</Title>
-    { isNewUser ?
-      <Tagline variant='h5'>Create a Free Account</Tagline>
-      :
-      <>
-        <Tagline variant='h5'>Tell Your Stories.</Tagline>
-        <Tagline variant='h6'>Login Here.</Tagline>
-      </>
-    }
+      <RenderWelcome
+        errors={ errors }
+        isNewUser={ isNewUser }
+        onError={ setErrors }
+      />
       <LoginForm
         onErrorMessage={ setErrors } 
         isSignup={ isNewUser }
         userInfo={ userInfo }
         onUserInput={ handleUserInput }
-        />
-      { errors.map((err) => <AuthError key={ err }clearMessage={ setErrors } >{ err }</AuthError>) } 
+      />
     { isNewUser ? 
       <Typography variant='subtitle2'>
         Already signed up? &nbsp;
@@ -54,7 +51,6 @@ const Login = () => {
         </ToggleBtn>
       </Typography>
     }           
-
     </>
   )
 }
@@ -62,5 +58,5 @@ const Login = () => {
 export default Login
 
 const Title = styled(Typography)(titleCss);
-const Tagline = styled(Typography)(taglineCss);
+
 const ToggleBtn = styled(Button)(toggleBtnCss);

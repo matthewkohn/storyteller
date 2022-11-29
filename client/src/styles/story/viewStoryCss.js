@@ -1,6 +1,6 @@
 const viewContainerCss = {
   paddingTop: '80px',
-  maxHeight: '100%',
+  maxHeight: '90%',
   display: 'flex',
   flexDirection: 'column',
 }
