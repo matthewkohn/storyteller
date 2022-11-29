@@ -3,43 +3,39 @@ import { Box, Button, Container, styled, Typography } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { handleGET, handleAPI, handleDELETE } from '../../../helpers/fetchRequests';
 import { AuthorContext } from '../../../context/AuthorContext';
-// import Preview from './Preview';
-import Paragraph from './Paragraph';
-// import AuthError from '../login/login-side/AuthError';
 import { writeStoryContainerCss, writeStoryBodyCss, previewContainerCss, richTextBoxCss, previewBoxCss } from '../../../styles/story/writeStoryCss';
 import JsxParser from 'react-jsx-parser';
+import Paragraph from './Paragraph';
 import WriteStoryForm from '../../forms/WriteStoryForm';
-import { GenreContext } from '../../../context/GenreContext';
+// import AuthError from '../login/login-side/AuthError';
 
 
 const WriteStory = () => {
   const [userHtmlStr, setUserHtmlStr] = useState('');
-  const [title, setTitle] = useState("");
+  const [editValue, setEditValue] = useState('');
   const [paragraphs, setParagraphs] = useState([]);
   const [paragraphId, setParagraphId] = useState(null);
-  const [editValue, setEditValue] = useState('');
   // const [errors, setErrors] = useState([]);
+
   const [currentAuthor] = useContext(AuthorContext);
-  const { setChosenGenre } = useContext(GenreContext);
+
   const navigate = useNavigate();
   const location = useLocation();
-  const baseUrl = `/stories/${location.state}`;
+  const { id, title, genre } = location.state;
+  const baseUrl = `/stories/${id}`;
+
   const paragraphUrl = `/paragraphs/${paragraphId}`;
   const paragraphJson = {
     author_id: currentAuthor.id,
     rich_text_str: userHtmlStr
   };
 
-  console.log("Edit value from WriteStory: ", editValue)
-  console.log("userHtmlStr from WriteStory: ", userHtmlStr)
 
   useEffect(() => {
     handleGET(baseUrl).then((story) => {
-      setTitle(story.title);
-      setChosenGenre(story.genre);
       setParagraphs(story.paragraphs);
     })
-  }, [baseUrl, setChosenGenre]);
+  }, [baseUrl]);
   
   const handleCancel = () => {
     setEditValue('');
@@ -103,7 +99,6 @@ const WriteStory = () => {
   const paragraphsList = paragraphs.map((para) => (
     <Paragraph 
       key={ para.id } 
-      // chosenId={ paragraphId }
       isAuthor={ currentAuthor.name === para.author ? true : false }
       onDelete={ handleDelete }
       paragraphData={ para } 
@@ -124,6 +119,7 @@ const WriteStory = () => {
           </LivePreview>
         </PreviewContainer>
         <WriteStoryForm
+          genre={ genre }
           updateInput={ setUserHtmlStr }
           editValue={ editValue }
           onUpdate={ handleUpdate }

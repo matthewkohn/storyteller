@@ -6,16 +6,15 @@ import { detailsCss, genreCss, paragraphBoxCss, prettyBoxCss, titleViewCss, view
 import Paragraph from './Paragraph'
 
 const ViewStory = () => {
-  const [storyObj, setStoryObj] = useState({});
   const [paragraphs, setParagraphs] = useState([]);
   const [view, setView] = useState('pretty');
-  const location = useLocation();
   const navigate = useNavigate();
-  const storyUrl = `/stories/${location.state}`;
+  const location = useLocation();
+  const { id, title, genre } = location.state;
+  const storyUrl = `/stories/${id}`;
 
   useEffect(() => {
     handleGET(storyUrl).then((story) => {
-      setStoryObj(story);
       setParagraphs(story.paragraphs);
     })
   }, [storyUrl])
@@ -32,8 +31,8 @@ const ViewStory = () => {
   return (
     <ViewContainer>
       <Details>
-        <Title variant="h2">Story Title: { storyObj.title }</Title>
-        <Genre variant="h3">Genre: { storyObj.genre }</Genre>
+        <Title variant="h2">Story Title: { title }</Title>
+        <Genre variant="h3">Genre: { genre }</Genre>
       </Details>
       { view === 'block'
         ?

@@ -33,7 +33,7 @@ const StoriesContainer = () => {
     setIsGenreChecked(e.target.checked)
   }
 
-  // useEffect that tracks button clicks & sets urls
+  // tracks button clicks & sets urls
   useEffect(() => {
     if (!isSortedByAll) {
       setUrl(`/stories-by-user`);
@@ -44,13 +44,13 @@ const StoriesContainer = () => {
     }
   }, [chosenGenre, isGenreChecked, isSortedByAll])
 
-  // useEffect that sets stories
+  // sets stories
   useEffect(() => {
     fetch(url).then((res) => {
       res.json().then((stories) => {
         if (stories.length > 0) {
           setNoStories(false);
-          console.log(stories)
+          // console.log(stories)
           setAllStories(stories);
         } else {
           setNoStories(true);
@@ -119,7 +119,7 @@ export default StoriesContainer
 
 const StoriesBox = styled(Box)(storiesBoxCss);
 const StoriesHeader = styled(Container)(storiesHeaderCss);
-const Title = styled(Box)(storyTitleCss)
-const StoryCardContainer = styled(Container)(storyCardContainerCss)
-const NewStoryBtn = styled(Button)(newStoryBtnCss)
-const NoStories = styled(Typography)(noStoriesTextCss)
+const Title = styled(Box)(storyTitleCss);
+const StoryCardContainer = styled(Container)(storyCardContainerCss);
+const NewStoryBtn = styled(Button)(newStoryBtnCss);
+const NoStories = styled(Typography)(noStoriesTextCss);

@@ -11,8 +11,8 @@ const AuthorsDropdown = () => {
   const [authors, setAuthors] = useState([]);
   // const [errors, setErrors] = useState([]);
 
-  console.log("Current author: ", currentAuthor);
-  console.log("Authors: ", authors)
+  // console.log("Current author: ", currentAuthor);
+  // console.log("Authors: ", authors)
 
   useEffect(() => {
     handleGET('/authors')

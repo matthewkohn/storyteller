@@ -3,10 +3,10 @@ import { Button, Container, FormControl, styled, Typography } from '@mui/materia
 import { cancelEditBtnCss, editContainerCss, editGenreCss, penNamesCss, submitBtnCss } from '../../styles/story/writeStoryCss';
 import AuthorsDropdown from './AuthorsDropdown';
 import TextEditor from './text-editor/TextEditor';
-import { useContext } from 'react';
-import { GenreContext } from '../../context/GenreContext';
+
 
 const WriteStoryForm = ({ 
+  genre,
   updateInput,
   editValue,
   onUpdate,
@@ -14,25 +14,22 @@ const WriteStoryForm = ({
   onSubmit
 }) => {
 
-  const { chosenGenre } = useContext(GenreContext);
-  console.log("chosenGenre from WriteStoryForm: ", chosenGenre)
 
   return (
     <>
       <EditContainer component="form" id="contribute">
-          <FormControl>
-            <PenNames>
-              <Typography variant="h6">Your current Pen Name:</Typography>
-              <AuthorsDropdown />
-            </PenNames>
-            <Genre variant="h6">Genre: { chosenGenre }</Genre>
+        <FormControl>
+          <PenNames>
+            <Typography variant="h6">Your current Pen Name:</Typography>
+            <AuthorsDropdown />
+          </PenNames>
+          <Genre variant="h6">Genre: { genre }</Genre>
 
-            <TextEditor 
-              handleHtml={ updateInput }
-              editValue={ editValue }
-            />
-            {
-          editValue ?
+          <TextEditor 
+            handleHtml={ updateInput }
+            editValue={ editValue }
+          />
+          { editValue ?
           <>
             <SubmitBtn 
               variant="contained"
@@ -54,11 +51,9 @@ const WriteStoryForm = ({
             >
               Submit
             </SubmitBtn>
-        }
-
-          </FormControl>
-        </EditContainer>
-    
+          }
+        </FormControl>
+      </EditContainer>
     </>
   )
 }
