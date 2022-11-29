@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Container, FormControl, styled, Typography } from '@mui/material';
-import { cancelEditBtnCss, editContainerCss, editGenreCss, penNamesCss, submitBtnCss } from '../../styles/story/writeStoryCss';
+import { cancelEditBtnCss, editContainerCss, penNamesCss, submitBtnCss, authorLabelCss } from '../../styles/story/writeStoryCss';
 import AuthorsDropdown from './AuthorsDropdown';
 import TextEditor from './text-editor/TextEditor';
 
@@ -20,10 +20,9 @@ const WriteStoryForm = ({
       <EditContainer component="form" id="contribute">
         <FormControl>
           <PenNames>
-            <Typography variant="h6">Your current Pen Name:</Typography>
+            <AuthorLabel variant="h6">Continued by:</AuthorLabel>
             <AuthorsDropdown />
           </PenNames>
-          <Genre variant="h6">Genre: { genre }</Genre>
 
           <TextEditor 
             handleHtml={ updateInput }
@@ -62,6 +61,6 @@ export default WriteStoryForm
 
 const EditContainer = styled(Container)(editContainerCss);
 const PenNames = styled(Container)(penNamesCss);
-const Genre = styled(Typography)(editGenreCss);
+const AuthorLabel = styled(Typography)(authorLabelCss);
 const SubmitBtn = styled(Button)(submitBtnCss);
 const CancelEditBtn = styled(Button)(cancelEditBtnCss);

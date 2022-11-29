@@ -21,7 +21,7 @@ const WriteStory = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const { id, title, genre } = location.state;
+  const { id, title } = location.state;
   const baseUrl = `/stories/${id}`;
 
   const paragraphUrl = `/paragraphs/${paragraphId}`;
@@ -115,11 +115,11 @@ const WriteStory = () => {
           <Typography variant="h3">The story so far</Typography>
           <Preview>{ paragraphsList }</Preview>
           <LivePreview>
+            <Typography variant="caption">Preview:</Typography>
             <JsxParser jsx={ userHtmlStr } />
           </LivePreview>
         </PreviewContainer>
         <WriteStoryForm
-          genre={ genre }
           updateInput={ setUserHtmlStr }
           editValue={ editValue }
           onUpdate={ handleUpdate }

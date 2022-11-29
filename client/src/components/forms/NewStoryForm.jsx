@@ -24,11 +24,11 @@ const NewStoryForm = () => {
     author_id: currentAuthor.id,
     rich_text_str: richText
   }
-  console.log(chosenGenre)
+  // console.log(chosenGenre)
 
   const navigate = useNavigate();
   const newStoryUrl = `/stories`
-  console.log("FormData from NewStoryForm: ", formData)
+  // console.log("FormData from NewStoryForm: ", formData)
 
 
 const handleSubmit = (e) => {

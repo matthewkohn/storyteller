@@ -2,7 +2,7 @@ import { Button, Container, styled, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { handleGET } from '../../../helpers/fetchRequests';
-import { detailsCss, genreCss, paragraphBoxCss, prettyBoxCss, titleViewCss, viewContainerCss, backNavCss, viewNavCss } from '../../../styles/story/storyCss';
+import { detailsCss, genreCss, paragraphBoxCss, prettyBoxCss, titleViewCss, viewContainerCss, backNavCss, viewNavCss } from '../../../styles/story/viewStoryCss';
 import Paragraph from './Paragraph'
 
 const ViewStory = () => {
