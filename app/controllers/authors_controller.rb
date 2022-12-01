@@ -12,7 +12,7 @@ class AuthorsController < ApplicationController
   private
 
   def author_params
-    params.permit(:name, :anonymous)
+    params.permit(:name)
   end
 
 

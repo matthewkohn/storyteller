@@ -8,7 +8,6 @@ class ParagraphsController < ApplicationController
 
   def create
     contribution = @current_story.paragraphs.build(paragraph_params)
-    # byebug
     if contribution.save
       render json: contribution, status: :created
     else

@@ -2,6 +2,6 @@ class Author < ApplicationRecord
   belongs_to :user
   has_many :paragraphs
   has_many :stories, through: :paragraphs
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true, length: 3..20
   
 end
