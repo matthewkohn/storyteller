@@ -1,5 +1,3 @@
-
-
 const appContainerCss = ({ theme }) => `
 background: ${theme.palette.primary.light};
 color: ${theme.palette.secondary.dark};
