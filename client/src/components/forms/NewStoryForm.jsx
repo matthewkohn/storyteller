@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Box, Button, Container, FormControl, FormControlLabel, styled, TextField } from '@mui/material';
 import PublishIcon from '@mui/icons-material/Publish';
-import '../../../../node_modules/draft-js/dist/Draft.css'
+// import '../../../../node_modules/draft-js/dist/Draft.css'
 import '../../styles/story/richText.css'
 import { editorWrapperCss, newStoryBoxCss, submitBtnCss, requiredInputWrapperCss, newStoryFormHeaderCss } from '../../styles/story/newStoryFormCss';
 import { useNavigate } from 'react-router-dom';
