@@ -48,6 +48,7 @@ const richTextBoxCss = {
 const editContainerCss = {
   height: '100%',
   margin: 'auto',
+  textAlign: 'left',
 }
 
 const penNamesCss = {

@@ -14,7 +14,7 @@ color: ${theme.palette.primary.light};
 
 // Login
 const titleCss = {
-  margin: '20px auto',
+  margin: '5px auto',
   fontWeight: 700,
   letterSpacing: '2px',
 }
