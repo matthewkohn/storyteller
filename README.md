@@ -110,7 +110,7 @@ This app is also configured to allow ActionDispatch::Session::CookieStore cookie
 
 ## Media<a id="media"></a>
 [(back to top)](#top)
-### Youtube demonstration of how the app works [here](https://www.youtube.com/watch?v=2daGy-nWTF0)
+### Youtube demonstration of how the app works [here](https://youtu.be/5FGV2X0oCjo)
 
 <img src="public/video1315748616 (4).gif" alt="Storyteller Gif">
 
