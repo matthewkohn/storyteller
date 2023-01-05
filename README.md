@@ -1,19 +1,5 @@
 # Storyteller<a id="top"></a>
-Storyteller is a turn-based creative writing app using React, Rails, Postgresql, BCrypt, and is hosted on Heroku.
-
-## Final Project Requirements
-This app was made to fulfill project requirements for Flatiron School Software Engineering Phase 5 Final Project.
-These requirements that have been met or surpassed are:
-* Include a many to many relationship.
-* Implement a minimum of 4 models.
-* Implement a minimum of 5 client side routes using React router.
-* Implement password protection and authentication.
-* Include full CRUD on at least 1 model, following REST conventions.
-* Implement validations and error handling.
-* Implement something new not taught in the curriculum. * Implement useContext or Redux.
-
-
-
+Storyteller is a turn-based creative writing app using React, Material UI, DraftJS, Ruby on Rails, PostgreSQL, and BCrypt.
 
 ## Table of Contents
 ---
