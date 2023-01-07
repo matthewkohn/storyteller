@@ -12,76 +12,42 @@ Storyteller is a turn-based creative writing app using React, Material UI, Draft
 
 
 ## Requirements<a id="dep"></a>
----
-
-[Back to Top](#top)
 
 ### API
-Technologies:
 * ruby        v2.7.4
 * rails       v7.0.3
 * postgresql  v14.5
 
-Gems:
-* puma        v5.0
-* bcrypt      v3.1.7
-* rack-cors
-
-### __Client__
+### Client
 Dependencies for the Client are located in ```"./client/package.json"```.
-#### React & React Router
 * react               v^18.2.0
-* react-dom           v^18.2.0
-* react-router-dom    v^6.3.0
-* react-scripts       v5.0.1
-#### Material UI & Styled Components
-* @emotion/react      v^11.10.0
-* @emotion/styled     v^11.10.0
-* @mui/icons-material v^5.8.4
-* @mui/material       v^5.10.1
-* styled-components   v^5.3.5
-#### DraftJS
-* draft-js            v^0.11.7
-* draft-js-export-html v^1.4.1
 
 
-
-
-## Setup<a id="start"></a>
 ---
+## Setup<a id="start"></a>
+[Back to Top](#top)
+
 Once you have the correct versions of Ruby, Rails, React, and PostGresQl set up,
-1. Fork and clone this repo
-```
-git clone git@github.com:matthewkohn/storyteller.git your-storyteller-app-name
-cd your-storyteller-app-name
-git remote rm origin
-```
-2. Create a new repository on GitHub, connect it to your local repository, and push up your code.
-```
-git remote add origin git@github.com:your-username/your-storyteller-app-name.git
-push -u origin main
-```
-3. Install dependencies
+
+1. Install dependencies
 ```
 bundle install
 npm install --prefix client
 ```
-4. Create & Start the PostGresQl server with
+2. Create & seed database, then start the PostgreSQL server with
 ```
 rails db:create db:migrate db:seed
 sudo service postgresql start  
 ```
-_(you may be prompted for your password to start )_
 
-5. Once PostGresQl server starts successfully, start the server:
+3. Once PostgreSQL server starts successfully, start the server:
 ```
 rails s
 ```
-and in a separate terminal run
+and in a separate terminal start the frontend with:
 ```
 npm start --prefix client
 ```
-Your client should start in http://localhost:4000
 
 ---
 
@@ -96,12 +62,10 @@ This app is also configured to allow ActionDispatch::Session::CookieStore cookie
 
 ## Media<a id="media"></a>
 [(back to top)](#top)
-### Youtube demonstration of how the app works [here](https://youtu.be/5FGV2X0oCjo)
 
-<img src="public/video1315748616 (4).gif" alt="Storyteller Gif">
+YouTube demonstration of Storyteller [here](https://youtu.be/5FGV2X0oCjo)
 
-### DB Diagram describing model relationships:
-<img src="public/db-diagram-storyteller.png" alt="Storyteller Gif">
+![Storyteller app](/client/src/assets/images/storyteller1.png)
 
 
 ## API Documentation<a id="api-doc"></a>
