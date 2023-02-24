@@ -1,31 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/system';
-import { errorBoxCss } from '../../styles/main/authErrorCss';
+import { errorBoxCss } from '../../../styles/loginCss';
 
-const AuthError = ({ children, clearMessage }) => {
-  const [isVisible, setIsVisible] = useState(false)
+const AuthError = ({ children, timeoutErrorMessage }) => {
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true)
+    setIsVisible(true);
     const timer = setTimeout(() => {
       setIsVisible(false);
-      clearMessage(null);
+      timeoutErrorMessage(null);
     }, 3000);
     return () => clearTimeout(timer);
     // eslint-disable-next-line
   }, [])
 
-  if (!isVisible) return null
+  if (!isVisible) return null;
 
   return (
     <ErrorBox>
-      {children}
+      { children }
     </ErrorBox>
-    
   )
-}
+};
 
-export default AuthError
+export default AuthError;
 
 const ErrorBox = styled(Box)(errorBoxCss);

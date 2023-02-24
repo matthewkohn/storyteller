@@ -7,7 +7,6 @@ import { writeStoryContainerCss, writeStoryBodyCss, previewContainerCss, richTex
 import JsxParser from 'react-jsx-parser';
 import Paragraph from './Paragraph';
 import WriteStoryForm from '../../forms/WriteStoryForm';
-// import AuthError from '../login/login-side/AuthError';
 
 
 const WriteStory = () => {

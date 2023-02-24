@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './styles/main/index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { storytellerTheme } from './styles/main/theme';
+import './styles/index.css';
+import { storytellerTheme } from './styles/theme';
 import { UserProvider } from './context/UserContext';
 import { GenreProvider } from './context/GenreContext';
 import { AuthorProvider } from './context/AuthorContext';
