@@ -1,7 +1,7 @@
 import React from 'react';
 import { Accordion, AccordionSummary, AccordionDetails, styled, Typography, Container, ListItem } from '@mui/material';
-import { detailsCss, storyCardAccordionCss, accordionSummaryCss, summaryContainerCss } from '../../../styles/main/mainCss';
-import AccordionButtons from '../../navigation/AccordionButtons';
+import { detailsCss, storyCardAccordionCss, accordionSummaryCss, summaryContainerCss } from '../../../styles/home/mainCss';
+import AccordionButtons from './AccordionButtons';
 
 const StoryCard = ({ handleExpand, expanded, story }) => {
   const { id, title, genre_category, author_summary, updated_at } = story;
@@ -11,10 +11,11 @@ const StoryCard = ({ handleExpand, expanded, story }) => {
     id: id,
     title: title,
     genre: genre_category
-  }
-
-  // console.log("Message from StoryCard: ", message)
-  // console.log(story)
+  };
+  
+  const authorList = author_summary.map((author) => (
+    <ListItem key={author}>{author}</ListItem>
+  ));
 
   return (
     <CardContainer
@@ -30,26 +31,15 @@ const StoryCard = ({ handleExpand, expanded, story }) => {
       <hr/>
       <Details>
         <Typography variant="body2">Authors:</Typography>
-        { author_summary.length > 0 
-          ?
-          author_summary.map((author) => (
-            <ListItem key={author}>{author}</ListItem>
-          ))
-          :
-          <Typography variant="body2">None yet</Typography>
-        }
-        <AccordionButtons
-          message={ message }
-        />
-        <Typography variant="body2">
-          Last updated on: { updatedAt }
-        </Typography>
+        { author_summary.length > 0  ? authorList : <Typography variant="body2">None yet</Typography> }
+        <AccordionButtons message={ message } />
+        <Typography variant="body2">Last updated on: { updatedAt }</Typography>
       </Details>
     </CardContainer>
   )
 }
 
-export default StoryCard
+export default StoryCard;
 
 const CardContainer = styled(Accordion)(storyCardAccordionCss);
 const StyledAccordionSummary = styled(AccordionSummary)(accordionSummaryCss);

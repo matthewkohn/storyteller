@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Checkbox, Container, FormControl, FormControlLabel, Radio, RadioGroup, styled } from '@mui/material';
 import GenresDropdown from '../../forms/GenresDropdown';
-import { controlBoxCss, genreBoxCss } from '../../../styles/main/storyControlPanelCss';
-import { styledRadioGroupCss } from '../../../styles/main/storyControlPanelCss';
+import { controlBoxCss, genreBoxCss } from '../../../styles/home/storyControlPanelCss';
+import { styledRadioGroupCss } from '../../../styles/home/storyControlPanelCss';
 
 const StoryControlPanel = ({ isDisabled, isAllChecked, onCheckboxClick, onRadioChange, radioValue }) => {
 
