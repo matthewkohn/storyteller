@@ -4,9 +4,9 @@ import { handleDELETE } from '../../../helpers/fetchRequests';
 import { AppBar, Button, IconButton, styled, Typography } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
-import { bannerCss, logoutBtn, mainTitleCss } from '../../../styles/home/navbarCss';
+import { bannerCss, logoutBtnCss, mainTitleCss } from '../../../styles/mainHeaderCss';
 
-const Navbar = () => {
+const MainHeader = () => {
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -28,8 +28,8 @@ const Navbar = () => {
   )
 }
 
-export default Navbar;
+export default MainHeader;
 
 const Banner = styled(AppBar)(bannerCss);
 const MainTitle = styled(Typography)(mainTitleCss);
-const LogoutBtn = styled(IconButton)(logoutBtn);
+const LogoutBtn = styled(IconButton)(logoutBtnCss);

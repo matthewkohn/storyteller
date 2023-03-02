@@ -1,6 +1,6 @@
 import React from 'react';
 import { Accordion, AccordionSummary, AccordionDetails, styled, Typography, Container, ListItem } from '@mui/material';
-import { detailsCss, storyCardAccordionCss, accordionSummaryCss, summaryContainerCss } from '../../../styles/home/mainCss';
+import { detailsCss, storyCardAccordionCss, accordionSummaryCss, summaryContainerCss } from '../../../styles/homePageCss';
 import AccordionButtons from './AccordionButtons';
 
 const StoryCard = ({ handleExpand, expanded, story }) => {

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Container, styled } from '@mui/material';
-import { appContainerCss } from './styles/home/appCss';
+import { appContainerCss } from './styles/appCss';
 import { UserContext } from './context/UserContext';
 import Landing from './components/pages/login-page/Landing';
-import Navbar from './components/pages/home-page/Navbar';
+import MainHeader from './components/pages/home-page/MainHeader';
 import Story from './components/pages/story/Story';
 import ViewStory from './components/pages/story/ViewStory';
 import WriteStory from './components/pages/story/WriteStory';
@@ -17,8 +17,8 @@ function App() {
   if (!user) return <Landing />
   
   return (
-    <AppContainer>
-      <Navbar />
+    <AppContainer maxWidth='false' disableGutters>
+      <MainHeader />
       <Routes>
         <Route index element={ <Landing /> } />
         <Route path='home' element={ <HomePage /> } />

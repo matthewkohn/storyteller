@@ -1,6 +1,6 @@
 import { Container, styled, Typography } from '@mui/material';
 import React from 'react';
-import { landingFooterCss } from '../../../styles/loginCss';
+import { landingFooterCss } from '../../../styles/loginPageCss';
 
 const photoCreditUrl = "https://unsplash.com/@impatrickt?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText";
 const unsplashUrl = "https://unsplash.com/s/photos/academic?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText";

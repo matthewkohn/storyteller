@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, ButtonGroup, styled } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { styledButtonGroupCss } from '../../../styles/home/mainCss';
+import { styledButtonGroupCss } from '../../../styles/homePageCss';
 
 const AccordionButtons = ({ message }) => {
   const navigate = useNavigate();

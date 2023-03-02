@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, styled, Typography } from '@mui/material';
-import { backgroundContainerCss, foregroundContainerCss,landingTitleCss, landingSubtitleCss } from '../../../styles/loginCss';
+import { backgroundContainerCss, foregroundContainerCss,landingTitleCss, landingSubtitleCss } from '../../../styles/loginPageCss';
 import Login from './Login';
 import LandingFooter from './LandingFooter';
 

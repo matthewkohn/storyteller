@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Box, styled } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { signInContainerCss } from '../../../styles/loginCss';
+import { signInContainerCss } from '../../../styles/loginPageCss';
 import { handleAPI } from '../../../helpers/fetchRequests';
 import LoginTitle from './LoginTitle';
 import LoginForm from './LoginForm';

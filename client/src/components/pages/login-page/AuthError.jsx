@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/system';
-import { errorBoxCss } from '../../../styles/loginCss';
+import { errorBoxCss } from '../../../styles/loginPageCss';
 
 const AuthError = ({ children, timeoutErrorMessage }) => {
   const [isVisible, setIsVisible] = useState(false);

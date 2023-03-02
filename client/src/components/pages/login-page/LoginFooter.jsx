@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, styled, Typography } from '@mui/material';
-import { toggleBtnCss } from '../../../styles/loginCss';
+import { toggleBtnCss } from '../../../styles/loginPageCss';
 
 const LoginFooter = ({ isNewUser, onToggle }) => {
   return (

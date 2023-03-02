@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, FormControl, styled, TextField } from '@mui/material';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import LoginIcon from '@mui/icons-material/Login';
-import { loginTextField, loginBoxCss, submitBoxCss, submitBtnCss } from '../../../styles/loginCss';
+import { loginTextField, loginBoxCss, submitBoxCss, submitBtnCss } from '../../../styles/loginPageCss';
 import AuthError from './AuthError';
 
 const LoginForm = ({ errors, isNewUser, onError, onLogin, onUserInput, userInput }) => {

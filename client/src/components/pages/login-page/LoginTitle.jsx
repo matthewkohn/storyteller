@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled, Typography } from '@mui/material';
-import { taglineCss } from '../../../styles/loginCss';
+import { taglineCss } from '../../../styles/loginPageCss';
 
 const LoginTitle = ({ isNewUser }) => {
   return (
