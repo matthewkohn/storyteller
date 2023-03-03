@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { GenreContext } from '../../../context/GenreContext';
 import StoryControlPanel from './StoryControlPanel';
 import StoryCard from './StoryCard';
-import { dashboardCss, newStoryBtnCss, storyCardContainerCss, noStoriesTextCss, controlSectionCss, storiesSectionCss } from '../../../styles/homePageCss';
+import { dashboardCss, newStoryBtnCss, storyCardContainerCss, noStoriesTextCss, controlSectionCss, storiesSectionCss, welcomeTextCss, instructionsTextCss } from '../../../styles/homePageCss';
 import { UserContext } from '../../../context/UserContext';
 
 const HomePage = () => {
@@ -80,8 +80,8 @@ const HomePage = () => {
   return (
     <Dashboard>
       <ControlSection>
-        <Typography>Welcome to Storyteller, {user.username}!</Typography>
-        <Typography variant="subtitle" >Choose a story from the Bookshelf, and pick up where the previous author left off. Or, being writing a new one to share with other authors.</Typography>
+        <WelcomeText>Welcome to Storyteller, {user.username}!</WelcomeText>
+        <InstructionsText>Choose a story from the Bookshelf, and pick up where the previous author left off. Or, being writing a new one to share with other authors.</InstructionsText>
         <NewStoryBtn 
           variant="contained"
           onClick={ () => navigate('/story/new') } 
@@ -113,6 +113,8 @@ export default HomePage
 
 const Dashboard = styled(Container)(dashboardCss);
 const ControlSection = styled(Box)(controlSectionCss);
+const WelcomeText = styled(Typography)(welcomeTextCss);
+const InstructionsText = styled(Typography)(instructionsTextCss);
 const StoriesSection = styled(Box)(storiesSectionCss);
 const StoryCardContainer = styled(Container)(storyCardContainerCss);
 const NewStoryBtn = styled(Button)(newStoryBtnCss);
