@@ -1,49 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, Container, styled, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { GenreContext } from '../../../context/GenreContext';
 import StoryControlPanel from './StoryControlPanel';
-import StoryCard from './StoryCard';
-import { dashboardCss, newStoryBtnCss, storyCardContainerCss, noStoriesTextCss, controlSectionCss, storiesSectionCss, welcomeTextCss, instructionsTextCss } from '../../../styles/homePageCss';
+import { dashboardCss, newStoryBtnCss, controlSectionCss, storiesSectionCss, welcomeTextCss, instructionsTextCss } from '../../../styles/homePageCss';
 import { UserContext } from '../../../context/UserContext';
+import Bookshelf from './Bookshelf';
 
 const HomePage = () => {
-  const [isGenreChecked, setIsGenreChecked] = useState(false);
-  const [isSortedByAll, setIsSortedByAll] = useState(true);
-  const [radioValue, setRadioValue] = useState('all');
+  const [bookshelfStories, setBookshelfStories] = useState([]);
   const [allStories, setAllStories] = useState([]);
   const [noStories, setNoStories] = useState(false);
   const [url, setUrl] = useState('/stories');
-  const [expanded, setExpanded] = useState(null);
-  const { chosenGenre } = useContext(GenreContext);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
-  
 
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setRadioValue(value);
-    if (value !== 'all') {
-      setIsSortedByAll(false) 
-    } else if (value === 'all') {
-      setIsSortedByAll(true);
-    }
-  }
-
-  const handleCheckbox = (e) => {
-    setIsGenreChecked(e.target.checked)
-  }
-
-  // tracks button clicks & sets urls
-  useEffect(() => {
-    if (!isSortedByAll) {
-      setUrl(`/stories-by-user`);
-    } else if (isSortedByAll && isGenreChecked && chosenGenre.id) {
-      setUrl(`/stories-by-genre/${chosenGenre.id}`);
-    } else {
-      setUrl(`/stories`);
-    }
-  }, [chosenGenre, isGenreChecked, isSortedByAll])
+// HomePage should handle stories
+// Bookshelf should display stories
+// Control panel should update stories
+// useEffect(() => {
+  //   category === 'My Stories') ? onUpdateUrl(`/stories-by-user`) : onUpdateUrl(`/stories`)
+  // , [category, onUpdateUrl])
 
   // sets stories
   useEffect(() => {
@@ -51,31 +27,27 @@ const HomePage = () => {
       res.json().then((stories) => {
         if (stories.length > 0) {
           setNoStories(false);
-          // console.log(stories)
           setAllStories(stories);
+          setBookshelfStories(stories);
         } else {
           setNoStories(true);
         }
       })
     })
-  }, [url])
+  }, [url]);
 
-  const handleExpand = (storyId) => {
-    if (expanded !== storyId) {
-      setExpanded(storyId);
+  const handleUpdateStories = (stories) => {
+    if (stories !== []) {
+      setNoStories(false);
+      setBookshelfStories(stories);
     } else {
-      setExpanded(null);
+      setNoStories(true);
     }
-  }
+  };
 
-  const storyCardsList = allStories.map((story) => (
-      <StoryCard 
-        expanded={ expanded }
-        handleExpand={ handleExpand }
-        key={ story.id } 
-        story={ story } 
-      />
-  ))
+  const handleUpdateUrl = (newUrl) => {
+    setUrl(newUrl)
+  };
 
   return (
     <Dashboard>
@@ -89,21 +61,17 @@ const HomePage = () => {
           Create a New Story Here
         </NewStoryBtn>
         <StoryControlPanel
-          isDisabled={ !isGenreChecked || !isSortedByAll }
-          isAllChecked={ isSortedByAll }
-          onCheckboxClick={ handleCheckbox }
-          onRadioChange={ handleChange }
-          radioValue={ radioValue }
+          allStories={ allStories }
+          bookshelfStories={ bookshelfStories }
+          onUpdateStories={ handleUpdateStories }
+          onUpdateUrl={ handleUpdateUrl }
         />
-
-
       </ControlSection>
       <StoriesSection>
-        <Typography variant="h3">BOOKSHELF</Typography>
-        <Typography variant="body1">All Stories, All Genres</Typography>
-        <StoryCardContainer>
-          { noStories ? <NoStories variant="h2">No stories yet</NoStories> : storyCardsList }
-        </StoryCardContainer>
+        <Bookshelf
+          bookshelfStories={ bookshelfStories }
+          noStories={ noStories }
+        />
       </StoriesSection>
     </Dashboard>
   )
@@ -116,6 +84,4 @@ const ControlSection = styled(Box)(controlSectionCss);
 const WelcomeText = styled(Typography)(welcomeTextCss);
 const InstructionsText = styled(Typography)(instructionsTextCss);
 const StoriesSection = styled(Box)(storiesSectionCss);
-const StoryCardContainer = styled(Container)(storyCardContainerCss);
 const NewStoryBtn = styled(Button)(newStoryBtnCss);
-const NoStories = styled(Typography)(noStoriesTextCss);

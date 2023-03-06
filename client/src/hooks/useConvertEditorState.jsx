@@ -1,5 +1,3 @@
-// Credit for this hook attributed to https://stackoverflow.com/questions/59832152/draft-js-editor-does-not-update-its-content-when-its-value-changed-by-parent-co
-
 import { useState, useEffect } from "react";
 import { ContentState, EditorState, convertFromHTML } from "draft-js";
 

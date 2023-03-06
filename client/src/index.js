@@ -5,7 +5,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './styles/index.css';
 import { storytellerTheme } from './styles/theme';
 import { UserProvider } from './context/UserContext';
-import { GenreProvider } from './context/GenreContext';
+// import { GenreProvider } from './context/GenreContext';
 import { AuthorProvider } from './context/AuthorContext';
 import App from './App';
 
@@ -15,13 +15,13 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ThemeProvider theme={ theme }>
     <UserProvider>
-      <GenreProvider>
+      {/* <GenreProvider> */}
         <AuthorProvider>
           <BrowserRouter>
             <App />
           </BrowserRouter>
         </AuthorProvider>
-      </GenreProvider>
+      {/* </GenreProvider> */}
     </UserProvider>
   </ThemeProvider>
 );
