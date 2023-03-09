@@ -14,14 +14,6 @@ const HomePage = () => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
-// HomePage should handle stories
-// Bookshelf should display stories
-// Control panel should update stories
-// useEffect(() => {
-  //   category === 'My Stories') ? onUpdateUrl(`/stories-by-user`) : onUpdateUrl(`/stories`)
-  // , [category, onUpdateUrl])
-
-  // sets stories
   useEffect(() => {
     fetch(url).then((res) => {
       res.json().then((stories) => {
@@ -37,16 +29,16 @@ const HomePage = () => {
   }, [url]);
 
   const handleUpdateStories = (stories) => {
-    if (stories !== []) {
+    if (stories.length === 0) {
+      setNoStories(true);
+    } else {
       setNoStories(false);
       setBookshelfStories(stories);
-    } else {
-      setNoStories(true);
     }
   };
 
   const handleUpdateUrl = (newUrl) => {
-    setUrl(newUrl)
+    setUrl(newUrl);
   };
 
   return (
@@ -57,12 +49,13 @@ const HomePage = () => {
         <NewStoryBtn 
           variant="contained"
           onClick={ () => navigate('/story/new') } 
-          >
+        >
           Create a New Story Here
         </NewStoryBtn>
         <StoryControlPanel
           allStories={ allStories }
           bookshelfStories={ bookshelfStories }
+          noStories={ noStories }
           onUpdateStories={ handleUpdateStories }
           onUpdateUrl={ handleUpdateUrl }
         />

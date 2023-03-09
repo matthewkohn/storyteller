@@ -27,9 +27,13 @@ const Bookshelf = ({ bookshelfStories, noStories }) => {
     <>
         <Typography variant="h3">BOOKSHELF</Typography>
         <Typography variant="body1">All Stories, All Genres</Typography>
-        <StoryCardContainer>
-          { noStories ? <NoStories variant="h2">No stories yet</NoStories> : storyCardsList }
-        </StoryCardContainer>
+        { noStories ? 
+          <NoStories variant="h2">No stories yet</NoStories> 
+          : 
+          <StoryCardContainer>
+            { storyCardsList }
+          </StoryCardContainer>
+        } 
     </>
   )
 }

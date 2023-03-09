@@ -1,18 +1,29 @@
-import { Button } from '@mui/material'
-import React from 'react'
+import React from 'react';
+import { Button } from '@mui/material';
 
-const AlphaSortBtn = ({ onClickAlphaSort }) => {
+const sortType = 'alpha-sort';
 
+const AlphaSortBtn = ({ disabled, isSorted, onClickAlphaSort }) => {
 
-  const handleClick = () => {
-    // trigger function to sort current bookshelfStories A-Z
+  const styleToggle = (theme) => 
+    isSorted ? 
+  {
+    background: `${theme.palette.primary.dark}`, 
+    color: `${theme.palette.primary.light}`,
+    fontSize: '1.1rem'
+  } 
+  : 
+  {
+    background: `${theme.palette.primary.light}`
   }
 
   return (
     <>
       <Button 
         variant="contained"
-        onClick={ handleClick }
+        disabled={ disabled }
+        onClick={ (e) => onClickAlphaSort(e, sortType) }
+        sx={ styleToggle }
       >
         Sort A-Z
       </Button>
@@ -21,3 +32,4 @@ const AlphaSortBtn = ({ onClickAlphaSort }) => {
 }
 
 export default AlphaSortBtn
+

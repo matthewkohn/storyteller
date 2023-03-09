@@ -113,6 +113,7 @@ const noStoriesTextCss = {
   display: 'flex',
   justifyContent: 'center',
   color: 'red',
+  height: '70vh',
 };
 
 const accordionSummaryCss = {

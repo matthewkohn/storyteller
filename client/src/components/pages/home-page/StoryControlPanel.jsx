@@ -9,35 +9,61 @@ import { handleGET } from '../../../helpers/fetchRequests';
 
 const urls = {
   allStories: `/stories`,
-  myStories: `/stories-by-user`
+  myStories: `/stories-by-user`,
+  genres: '/genres'
 }
 
 const StoryControlPanel = ({ 
   allStories,
   bookshelfStories,
+  noStories,
   onUpdateStories,
   onUpdateUrl
 }) => {
   const [genres, setGenres] = useState([]);
-  const [selectedGenre, setSelectedGenre] = useState({}); 
+  const [selectedGenre, setSelectedGenre] = useState({});
+  const [isAlphabetized, setIsAlphabetized] = useState(false);
+  const [previousStories, setPreviousStories] = useState(allStories);
   
   const getGenres = () => {
-    handleGET('/genres').then((data) => {
+    handleGET(urls.genres).then((data) => {
       data.unshift({id: 0, name: 'All Genres'});
       setGenres(data);
       setSelectedGenre(data[0]);
     });
   };
 
+  const alphabetize = (stories) => {
+    return [...stories].sort((a, b) => {
+      let titleA = a.title.toUpperCase();
+      let titleB = b.title.toUpperCase();
+      if (titleA < titleB) {
+        return -1;
+      }
+      if (titleA > titleB) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+
   useEffect(() => {
     getGenres();
   }, []);
 
-  const updateBookshelf = (e, type, value) => {
+  const filterByGenre = (value) => {
+    const filteredStories = allStories.filter((story) => story.genre_category === value.name);
+    onUpdateStories(filteredStories);
+    setSelectedGenre(value);
+    setIsAlphabetized(false);
+  }
 
+  const updateBookshelf = (e, type, value) => {
     console.log(e.target.value, value)
+
     switch(type) {
       case 'category':
+        setIsAlphabetized(false);
         if (value !== 'All Stories') {
           onUpdateUrl(urls.myStories);
           setSelectedGenre(genres[0]);
@@ -47,17 +73,27 @@ const StoryControlPanel = ({
         }
         break;
       case 'genre':
+        setIsAlphabetized(false);
         if (value.name === "All Genres") {
           onUpdateStories(allStories);
           setSelectedGenre(genres[0]);
         } else {
-          const filteredStories = allStories.filter((story) => story.genre_category === value.name);
-          onUpdateStories(filteredStories);
-          setSelectedGenre(value);
+          filterByGenre(value)
         }
         break;
       case 'alpha-sort':
-  
+        if (noStories) {
+          break;
+        }
+        if (isAlphabetized) {
+          onUpdateStories(previousStories);
+          setIsAlphabetized(!isAlphabetized);
+        } else {
+          const sortedStories = alphabetize(bookshelfStories);
+          setPreviousStories(bookshelfStories);
+          onUpdateStories(sortedStories);
+          setIsAlphabetized(!isAlphabetized);
+        }
         break;
       case 'title-search':
     
@@ -68,14 +104,18 @@ const StoryControlPanel = ({
     }
   };
 
-
+console.log("Bookshelf: ", bookshelfStories)
+console.log("Previous: ", previousStories)
+console.log("All: ", allStories)
+console.log("Genre: ", selectedGenre)
   
   const handleReset = () => {
+    // doesn't reset category
     onUpdateStories(allStories);
     onUpdateUrl(urls.allStories);
     setSelectedGenre(genres[0]);
+    setIsAlphabetized(false);
   };
-  
 
   return (
     <>
@@ -89,6 +129,8 @@ const StoryControlPanel = ({
           onSelectGenre={ updateBookshelf } 
         />
         <AlphaSortBtn 
+          disabled={ noStories }
+          isSorted={ isAlphabetized }
           onClickAlphaSort={ updateBookshelf } 
         />
         <Searchbar 
