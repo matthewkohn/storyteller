@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Box, Button, ClickAwayListener, Grow, Paper, Popper, MenuItem, MenuList, styled, Typography } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { styledCategoryBox, styledTypography } from '../../../styles/home/storyControlPanelCss';
 
 const sortType = 'category';
-const options = ['sort by:', 'All Stories', 'My Stories'];
 
-const Category = ({ onSelectCategory }) => {
+const Category = ({ categories, currentCategory, onSelectCategory }) => {
   const [open, setOpen] = useState(false);
-  const anchorRef = React.useRef(null);
+  const anchorRef = useRef(null);
   const [selectedIndex, setSelectedIndex] = useState(1);
 
   const handleMenuItemClick = (e, index) => {
-    onSelectCategory(e, sortType, options[index]);
+    onSelectCategory(e, sortType, categories[index]);
     setSelectedIndex(index);
     setOpen(false);
   };
@@ -35,7 +34,7 @@ const Category = ({ onSelectCategory }) => {
         aria-label="category-selection"
       >
         <StyledTypography variant="h6">
-          { options[selectedIndex] }
+          { currentCategory }
         </StyledTypography>
         <Button
           size="small"
@@ -68,7 +67,7 @@ const Category = ({ onSelectCategory }) => {
             <Paper>
               <ClickAwayListener onClickAway={ handleClose }>
                 <MenuList id="split-button-menu" autoFocusItem>
-                  { options.map((option, index) => (
+                  { categories.map((option, index) => (
                     <MenuItem
                       key={ option }
                       disabled={ index === 0 }

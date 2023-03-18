@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Button, ClickAwayListener, Grow, Paper, Popper, MenuItem, MenuList, styled, Box, Typography } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { styledCategoryBox, styledMenuList, styledTypography } from '../../styles/home/storyControlPanelCss';
+import { styledCategoryBox, styledMenuList, styledTypography } from '../../../styles/home/storyControlPanelCss';
 
 const sortType = 'genre';
 
