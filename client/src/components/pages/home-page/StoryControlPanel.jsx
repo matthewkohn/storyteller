@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Box, Button, styled } from '@mui/material';
+import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import { controlBoxCss } from '../../../styles/home/storyControlPanelCss';
 import Category from './Category';
 import Genres from './Genres';
@@ -112,8 +113,8 @@ const StoryControlPanel = ({
         isSorted={ current.isAlphabetized }
         onClickAlphaSort={ updateBookshelf } 
       />
-      <Button variant="outlined" onClick={ handleReset } >
-        Reset
+      <Button variant="outlined" size="xs" onClick={ handleReset } >
+        <RotateLeftIcon />
       </Button>
     </ControlBox>
   )

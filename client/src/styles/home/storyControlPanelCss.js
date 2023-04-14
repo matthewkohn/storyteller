@@ -1,13 +1,12 @@
 const controlBoxCss = ({ theme }) => `
   background: ${theme.palette.secondary.light};
-  border: 2px solid ${theme.palette.secondary.dark};
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
-  padding: 25px 0;
-  border-radius: 35px;
-  height: 60%;
+  padding: 0 18px;
+  margin: 0 0 20px;
+  width: 100%;
 `;
 
 const genreBoxCss = {

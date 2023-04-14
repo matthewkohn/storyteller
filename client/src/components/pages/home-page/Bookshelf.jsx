@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { Typography, styled, Container } from '@mui/material';
 import { noStoriesTextCss, storyCardContainerCss } from '../../../styles/homePageCss';
 import StoryCard from './StoryCard';
+import StoryControlPanel from './StoryControlPanel';
 
-const Bookshelf = ({ bookshelfStories, noStories }) => {
+const Bookshelf = ({ allStories, handleUpdateStories, handleUpdateUrl, bookshelfStories, noStories }) => {
   const [expanded, setExpanded] = useState(null);
   // const [isScrollbar, setIsScrollbar] = useState(false);
 // console.log("is scrollbar visible?? ", isScrollbar)
@@ -37,7 +38,13 @@ const Bookshelf = ({ bookshelfStories, noStories }) => {
   return (
     <>
         <Typography variant="h3">BOOKSHELF</Typography>
-        <Typography variant="body1">All Stories, All Genres</Typography>
+        <StoryControlPanel
+          allStories={ allStories }
+          bookshelfStories={ bookshelfStories }
+          noStories={ noStories }
+          onUpdateStories={ handleUpdateStories }
+          onUpdateUrl={ handleUpdateUrl }
+        />
         { noStories ? 
           <NoStories variant="h2">No stories yet</NoStories> 
           : 

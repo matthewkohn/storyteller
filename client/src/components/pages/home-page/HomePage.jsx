@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, Container, styled, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import StoryControlPanel from './StoryControlPanel';
+// import StoryControlPanel from './StoryControlPanel';
 import { dashboardCss, newStoryBtnCss, controlSectionCss, storiesSectionCss, welcomeTextCss, instructionsTextCss } from '../../../styles/homePageCss';
 import { UserContext } from '../../../context/UserContext';
 import Bookshelf from './Bookshelf';
@@ -52,16 +52,19 @@ const HomePage = () => {
         >
           Create a New Story Here
         </NewStoryBtn>
-        <StoryControlPanel
+        {/* <StoryControlPanel
           allStories={ allStories }
           bookshelfStories={ bookshelfStories }
           noStories={ noStories }
           onUpdateStories={ handleUpdateStories }
           onUpdateUrl={ handleUpdateUrl }
-        />
+        /> */}
       </ControlSection>
       <StoriesSection>
         <Bookshelf
+          allStories={ allStories }
+          onUpdateStories={ handleUpdateStories }
+          onUpdateUrl={ handleUpdateUrl }
           bookshelfStories={ bookshelfStories }
           noStories={ noStories }
         />
