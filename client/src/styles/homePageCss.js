@@ -78,7 +78,7 @@ const newStoryBtnCss = ({ theme }) => `
 
 const storyCardContainerCss = {
   height: '70vh',
-  overflowY: 'scroll',
+  overflowY: 'auto',
 };
 
 const storyCardAccordionCss = ({ theme }) => `

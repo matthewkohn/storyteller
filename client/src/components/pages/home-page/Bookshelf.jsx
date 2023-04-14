@@ -5,6 +5,17 @@ import StoryCard from './StoryCard';
 
 const Bookshelf = ({ bookshelfStories, noStories }) => {
   const [expanded, setExpanded] = useState(null);
+  // const [isScrollbar, setIsScrollbar] = useState(false);
+// console.log("is scrollbar visible?? ", isScrollbar)
+  // useEffect(() => {
+  //   console.log("documentBodyClientHeight: ", document.body.clientHeight)
+  //   console.log("windowInnerHeight: ", window.innerHeight)
+  //   if (document.body.clientHeight > window.innerHeight) {
+  //     setIsScrollbar(false);
+  //   } else {
+  //     setIsScrollbar(true);
+  //   }
+  // }, [])
 
   const handleExpand = (storyId) => {
     if (expanded !== storyId) {
@@ -30,7 +41,9 @@ const Bookshelf = ({ bookshelfStories, noStories }) => {
         { noStories ? 
           <NoStories variant="h2">No stories yet</NoStories> 
           : 
-          <StoryCardContainer>
+          <StoryCardContainer 
+            // sx={{ overflowY: ` ${ isScrollbar ? 'scroll' : 'hidden'}`}}
+          >
             { storyCardsList }
           </StoryCardContainer>
         } 
