@@ -4,7 +4,7 @@ import { Container, styled } from '@mui/material';
 import { appContainerCss } from './styles/appCss';
 import { UserContext } from './context/UserContext';
 import Landing from './components/pages/login-page/Landing';
-import MainHeader from './components/pages/home-page/MainHeader';
+// import MainHeader from './components/pages/home-page/MainHeader';
 import Story from './components/pages/story/Story';
 import ViewStory from './components/pages/story/ViewStory';
 import WriteStory from './components/pages/story/WriteStory';
@@ -18,7 +18,7 @@ function App() {
   
   return (
     <AppContainer maxWidth='false' disableGutters>
-      <MainHeader />
+      {/* <MainHeader /> */}
       <Routes>
         <Route index element={ <Landing /> } />
         <Route path='home' element={ <HomePage /> } />

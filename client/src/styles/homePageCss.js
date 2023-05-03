@@ -2,29 +2,43 @@ const dashboardCss = {
   display: 'flex',
   justifyContent: 'space-around',
   alignItems: 'center',
-  width: '100%',
+  flexDirection: 'column',
+  width: '90%',
+  height: '100%',
   '@media (max-width: 640px)': {
-    flexDirection: 'column',
   },
 };
 
-const controlSectionCss = {
-  width: '40%',
-  height: '90vh',
-  display: 'inherit',
-  flexDirection: 'column',
+const logoutBtn = {
+  position: 'absolute',
+  right: 20,
+  top: 20,
+};
+
+// const controlSectionCss = {
+//   // width: '40%',
+//   // height: '90vh',
+//   display: 'inherit',
+//   flexDirection: 'row',
+//   justifyContent: 'space-between',
+//   '@media (max-width: 640px)': {
+//     width: '90%',
+//     padding: '10px 0 0'
+//   },
+//   '@media (max-width: 400px)': {
+//     width: '98%',
+//   }
+// };
+
+const welcomeSectionCss = {
+  display: 'flex',
+  width: '100%',
   justifyContent: 'space-between',
-  '@media (max-width: 640px)': {
-    width: '90%',
-    padding: '10px 0 0'
-  },
-  '@media (max-width: 400px)': {
-    width: '98%',
-  }
+  margin: '20px auto',
 };
 
 const welcomeTextCss = {
-  fontSize: '1.7rem',
+  fontSize: '1.5rem',
   '@media (max-width: 640px)': {
     textAlign: 'center',
     fontSize: '1.4rem',
@@ -32,7 +46,7 @@ const welcomeTextCss = {
 }
 
 const instructionsTextCss = {
-  fontSize: '1.1rem',
+  fontSize: '1.2rem',
   lineHeight: '18px',
   margin: '10px 0 15px',
   '@media (max-width: 640px)': {
@@ -40,35 +54,35 @@ const instructionsTextCss = {
   },
 }
 
-const storiesSectionCss = ({ theme }) => `
-  background: ${theme.palette.primary.main};
-  border: 3px solid ${theme.palette.primary.dark};
-  border-radius: 3px;
-  text-align: center;
-  width: 50%;
-  min-width: 330px;
-  height: 90vh;
-  margin: 15px 0;
-  display: inherit;
-  flex-direction: column;
-  justify-content: space-around;
-  @media (max-width: 640px) {
-    width: 90%;
-  };
-  @media (max-width: 400px) {
-    width: 98%;
-    min-width: auto;
-  }
-`;
+// const storiesSectionCss = ({ theme }) => `
+//   background: ${theme.palette.primary.main};
+//   border: 3px solid ${theme.palette.primary.dark};
+//   border-radius: 3px;
+//   text-align: center;
+//   width: 50%;
+//   min-width: 330px;
+//   height: 90vh;
+//   margin: 15px 0;
+//   display: inherit;
+//   flex-direction: column;
+//   justify-content: space-around;
+//   @media (max-width: 640px) {
+//     width: 90%;
+//   };
+//   @media (max-width: 400px) {
+//     width: 98%;
+//     min-width: auto;
+//   }
+// `;
 
 const newStoryBtnCss = ({ theme }) => `
   color: ${theme.palette.secondary.dark};
-  width: 100%;
-  height: 50px;
+  // width: 100%;
+  // height: 50px;
   margin: 0 0 10px;
+  font-size: 1.2rem;
   :hover {
     color: ${theme.palette.secondary.light};
-    font-size: 1.2rem;
     @media only screen and (max-width: 790px) and (min-width: 640px) {
       font-size: 1.1rem;
       line-height: 20px;
@@ -132,10 +146,12 @@ const styledButtonGroupCss = {
 
 export { 
   dashboardCss,
-  controlSectionCss,
+  logoutBtn,
+  // controlSectionCss,
+  welcomeSectionCss,
   welcomeTextCss,
   instructionsTextCss,
-  storiesSectionCss,
+  // storiesSectionCss,
   newStoryBtnCss, 
   storyCardContainerCss, 
   storyCardAccordionCss, 

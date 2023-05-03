@@ -1,74 +1,36 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Box, Button, Container, styled, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-// import StoryControlPanel from './StoryControlPanel';
-import { dashboardCss, newStoryBtnCss, controlSectionCss, storiesSectionCss, welcomeTextCss, instructionsTextCss } from '../../../styles/homePageCss';
+import React, { useContext } from 'react';
 import { UserContext } from '../../../context/UserContext';
+import { Container, IconButton, Tooltip, Zoom, styled } from '@mui/material';
+import { dashboardCss, logoutBtn } from '../../../styles/homePageCss';
 import Bookshelf from './Bookshelf';
+import Welcome from './Welcome';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { handleDELETE } from '../../../helpers/fetchRequests';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
-  const [bookshelfStories, setBookshelfStories] = useState([]);
-  const [allStories, setAllStories] = useState([]);
-  const [noStories, setNoStories] = useState(false);
-  const [url, setUrl] = useState('/stories');
-  const { user } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch(url).then((res) => {
-      res.json().then((stories) => {
-        if (stories.length > 0) {
-          setNoStories(false);
-          setAllStories(stories);
-          setBookshelfStories(stories);
-        } else {
-          setNoStories(true);
-        }
-      })
-    })
-  }, [url]);
-
-  const handleUpdateStories = (stories) => {
-    if (stories.length === 0) {
-      setNoStories(true);
-    } else {
-      setNoStories(false);
-      setBookshelfStories(stories);
-    }
-  };
-
-  const handleUpdateUrl = (newUrl) => {
-    setUrl(newUrl);
+  const handleLogout = () => {
+    handleDELETE('/logout')
+    .then(() => setUser(null))
+    .then(navigate('/'));
   };
 
   return (
     <Dashboard>
-      <ControlSection>
-        <WelcomeText>Welcome to Storyteller, {user.username}!</WelcomeText>
-        <InstructionsText>Choose a story from the Bookshelf, and pick up where the previous author left off. Or, being writing a new one to share with other authors.</InstructionsText>
-        <NewStoryBtn 
-          variant="contained"
-          onClick={ () => navigate('/story/new') } 
-        >
-          Create a New Story Here
-        </NewStoryBtn>
-        {/* <StoryControlPanel
-          allStories={ allStories }
-          bookshelfStories={ bookshelfStories }
-          noStories={ noStories }
-          onUpdateStories={ handleUpdateStories }
-          onUpdateUrl={ handleUpdateUrl }
-        /> */}
-      </ControlSection>
-      <StoriesSection>
-        <Bookshelf
-          allStories={ allStories }
-          onUpdateStories={ handleUpdateStories }
-          onUpdateUrl={ handleUpdateUrl }
-          bookshelfStories={ bookshelfStories }
-          noStories={ noStories }
-        />
-      </StoriesSection>
+      <Welcome />
+      <Bookshelf />
+      <Tooltip
+        title={`LOGOUT`}
+        placement="bottom"
+        TransitionComponent={Zoom}
+      >
+        <LogoutBtn onClick={ () => handleLogout() } >
+          <LogoutIcon />
+        </LogoutBtn>
+      </Tooltip>
     </Dashboard>
   )
 }
@@ -76,8 +38,4 @@ const HomePage = () => {
 export default HomePage
 
 const Dashboard = styled(Container)(dashboardCss);
-const ControlSection = styled(Box)(controlSectionCss);
-const WelcomeText = styled(Typography)(welcomeTextCss);
-const InstructionsText = styled(Typography)(instructionsTextCss);
-const StoriesSection = styled(Box)(storiesSectionCss);
-const NewStoryBtn = styled(Button)(newStoryBtnCss);
+const LogoutBtn = styled(IconButton)(logoutBtn);

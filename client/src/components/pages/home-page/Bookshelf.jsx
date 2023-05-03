@@ -1,11 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Typography, styled, Container } from '@mui/material';
 import { noStoriesTextCss, storyCardContainerCss } from '../../../styles/homePageCss';
 import StoryCard from './StoryCard';
 import StoryControlPanel from './StoryControlPanel';
 
-const Bookshelf = ({ allStories, handleUpdateStories, handleUpdateUrl, bookshelfStories, noStories }) => {
+const Bookshelf = () => {
   const [expanded, setExpanded] = useState(null);
+  const [bookshelfStories, setBookshelfStories] = useState([]);
+  const [allStories, setAllStories] = useState([]);
+  const [noStories, setNoStories] = useState(false);
+  const [url, setUrl] = useState('/stories');
+
   // const [isScrollbar, setIsScrollbar] = useState(false);
 // console.log("is scrollbar visible?? ", isScrollbar)
   // useEffect(() => {
@@ -17,6 +22,34 @@ const Bookshelf = ({ allStories, handleUpdateStories, handleUpdateUrl, bookshelf
   //     setIsScrollbar(true);
   //   }
   // }, [])
+
+  
+  useEffect(() => {
+    fetch(url).then((res) => {
+      res.json().then((stories) => {
+        if (stories.length > 0) {
+          setNoStories(false);
+          setAllStories(stories);
+          setBookshelfStories(stories);
+        } else {
+          setNoStories(true);
+        }
+      })
+    })
+  }, [url]);
+
+  const handleUpdateStories = (stories) => {
+    if (stories.length === 0) {
+      setNoStories(true);
+    } else {
+      setNoStories(false);
+      setBookshelfStories(stories);
+    }
+  };
+
+  const handleUpdateUrl = (newUrl) => {
+    setUrl(newUrl);
+  };
 
   const handleExpand = (storyId) => {
     if (expanded !== storyId) {
@@ -37,7 +70,7 @@ const Bookshelf = ({ allStories, handleUpdateStories, handleUpdateUrl, bookshelf
 
   return (
     <>
-        <Typography variant="h3">BOOKSHELF</Typography>
+        {/* <Typography variant="h3">BOOKSHELF</Typography> */}
         <StoryControlPanel
           allStories={ allStories }
           bookshelfStories={ bookshelfStories }
